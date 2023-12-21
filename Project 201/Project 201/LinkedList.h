@@ -1,0 +1,138 @@
+#pragma once
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
+#include "Node.h"
+#include<iostream>
+using namespace std;
+
+template<typename t>
+class LinkedList
+{
+private:
+    Node<t>* head;
+
+public:
+
+    LinkedList() { head = nullptr; }
+    LinkedList(Node<t>* a)
+    {
+        head = a;
+    }
+    ~LinkedList()
+    {
+        DeleteAll();
+    }
+    Node<t>* gethead() {
+        return head;
+    }
+
+    Node<t>* GetNodeInPlace(int place) {
+        Node<t>* ptr = this->head;
+        if (ptr != nullptr)
+            for (int i = 0; i < place; i++)   ptr = ptr->getnext();
+        return ptr;
+    }
+
+    void insertend(t item) {
+        Node<t>* newNode = new Node<t>(item);
+        Node<t>* ptr = this->head;
+        if (ptr == nullptr)
+        {
+            this->head = newNode;
+        }
+        else
+        {
+            while (ptr->getnext() != nullptr)
+            {
+                ptr = ptr->getnext();
+            }
+
+            ptr->setnext(newNode);
+        }
+
+    }
+    void insertNode(Node<t>* a) {
+        Node<t>* ptr = this->head;
+        if (ptr == nullptr)
+        {
+            this->head = a;
+        }
+        else
+        {
+            while (ptr->getnext() != nullptr)
+            {
+                ptr = ptr->getnext();
+            }
+
+            ptr->setnext(a);
+        }
+    }
+
+    bool Find(t item) {
+        Node<t>* ptr = this->head;
+        bool there;
+        while (ptr != nullptr)
+        {
+            if (ptr->getvalue() == item)  there = true;
+            ptr = ptr->getnext();
+
+        }
+        delete ptr;
+        return there;
+    }
+
+
+    void RecPrint(Node<t>* ptr) {
+        if (ptr == nullptr) return;
+        cout << (ptr->getvalue()) << "\t";
+        RecPrint(ptr->getnext());
+        return;
+    }
+
+    void RecPrint() {
+        RecPrint(this->head);
+    }
+
+
+
+    bool DeleteNode(t item) {
+        bool found = this->Find(item);
+
+        if (!found) return false;
+
+
+        if (item == this->head->getvalue())
+        {
+            this->head = this->head->getnext();
+            return true;
+        }
+        else {
+
+            Node<t>* ptr = this->head;
+            while (ptr->getnext()->getvalue() != item)
+            {
+                ptr = ptr->getnext();
+            }
+
+            Node<t>* temp = ptr->getnext();
+            ptr->setnext(ptr->getnext()->getnext());
+            delete temp;
+            return true;
+        }
+    }
+
+    void DeleteAll() {
+        Node<t>* P = head;
+        while (head)
+        {
+            P = head->getnext();
+            delete head;
+            head = P;
+        }
+    }
+
+};
+
+
+#endif
