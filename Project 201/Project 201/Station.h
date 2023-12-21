@@ -10,24 +10,32 @@
 class Station {
 private:
 	int Station_Number;
-
+	PriorityQueuePassenger Special_Passengers_Forward;
+	PriorityQueuePassenger Normal_Passengers_Forward;
+	PriorityQueuePassenger Wheel_Passengers_Forward;
+	PriorityQueuePassenger Special_Passengers_Backward;
+	PriorityQueuePassenger Normal_Passengers_Backward;
+	PriorityQueuePassenger Wheel_Passengers_Backward;
+	BusQueue Buses_Mixed_Forward;
+	BusQueue Buses_Wheel_Forward;
+	BusQueue Buses_Mixed_Backward;
+	BusQueue Buses_Wheel_Backward;
 public:
-	PriorityQueuePassenger Special_Passengers;
-	PriorityQueuePassenger Normal_Passengers;
-	BusQueue Queue_Buses;
-	PriorityQueuePassenger Wheel_Passengers;
+	
 	Station(int number) : Station_Number(number) {}
-	void Add_to_Station(Passenger* obj, string type) {
-		if (type == "SP") {
+	//--------------------------------------Modify the code-----------------------------------------------
+
+	/*void Add_to_Station(Passenger* obj) {
+		if (obj->getPassengertype() == "SP") {
 			if (obj->getPassengerspecial() == 'A') { Special_Passengers.enQueue(obj, 3); }
 			else if (obj->getPassengerspecial() == 'P') { Special_Passengers.enQueue(obj, 2); }
 			else if (obj->getPassengerspecial() == 'O') { Special_Passengers.enQueue(obj, 1); }
 			else { std::cout << "Incorrect Special Type. " << "\n"; }
 		}
-		else if (type == "NP") {
+		else if (obj->getPassengertype() == "NP") {
 			Normal_Passengers.enQueue(obj, 0);
 		}
-		else if (type == "WP") { Wheel_Passengers.enQueue(obj, 0); }
+		else if (obj->getPassengertype() == "WP") { Wheel_Passengers.enQueue(obj, 0); }
 		else { std::cout << "Incorrect Type." << "\n"; }
 	}
 	void Leave_Station(Passenger* obj) {
@@ -40,25 +48,6 @@ public:
 		Normal_Passengers.Print_Queue();
 		std::cout << "\nWheel Passengers: " << "\n";
 		Wheel_Passengers.Print_Queue();
-		//int count_f_s = count_forward(Special_Passengers.get_array_passengers(), Special_Passengers.Count());
-		//int count_f_n = count_forward(Normal_Passengers.get_array_passengers(), Normal_Passengers.Count());
-		//int count_f_w = count_forward(Wheel_Passengers.get_array_passengers(), Wheel_Passengers.Count());
-		//int count_b_w = count_backward(Wheel_Passengers.get_array_passengers(), Wheel_Passengers.Count());
-		//int count_b_s = count_backward(Special_Passengers.get_array_passengers(), Special_Passengers.Count());
-		//int count_b_n = count_backward(Normal_Passengers.get_array_passengers(), Normal_Passengers.Count());
-		//Passenger** array_f_s = passenger_forward(Special_Passengers.get_array_passengers(), Special_Passengers.Count());
-		//Passenger** array_f_n = passenger_forward(Normal_Passengers.get_array_passengers(), Normal_Passengers.Count());
-		//Passenger** array_f_w = passenger_forward(Wheel_Passengers.get_array_passengers(), Wheel_Passengers.Count());
-		//Passenger** array_b_s = passenger_backward(Special_Passengers.get_array_passengers(), Special_Passengers.Count());
-		//Passenger** array_b_n = passenger_backward(Normal_Passengers.get_array_passengers(), Normal_Passengers.Count());
-		//Passenger** array_b_w = passenger_backward(Wheel_Passengers.get_array_passengers(), Wheel_Passengers.Count());
-		//std::cout << "\n===============  Station #" << Station_Number << "  ===================" << std::endl;
-		//std::cout << Special_Passengers.Count() << " Waiting SP: FWD[";
-		//for (int i = 0; i < count_f_s; i++) { std::cout << array_f_s[i]->getId() << ", "; }
-		//std::cout << "]" << std::endl;
-		//std::cout << Normal_Passengers.Count() << " Waiting NP: FWD--> " << count_f_n << " BCK--> " << count_b_n << std::endl;
-		//std::cout << Wheel_Passengers.Count() << " Waiting WP: FWD--> " << count_f_w << " BCK--> " << count_b_w << std::endl;
-
 	}
 	int Count_Station() {
 		int total_count{}, count1{}, count2{}, count3{};
@@ -120,7 +109,7 @@ public:
 			}
 		}
 		return backwardarray;
-	}
+	}*/
 };
 
 #endif // !STATION
