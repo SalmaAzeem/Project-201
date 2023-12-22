@@ -28,6 +28,7 @@ Passenger* ArrivalEvent::execute() {
         << "Minute is: " << minute << std::endl
         << "type is: " << type_of_passenger << endl
         << "Special Type is " << type_passenger_special << std::endl
+        << "direction: " << one->getDirection() << std::endl
         << '\n';
     return one;
 }
