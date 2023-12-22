@@ -24,9 +24,9 @@ private:
 
 
 public:
-	LinkedQueue tot_events;
+	LinkedQueue<Event*> tot_events;
 	Company();
-	LinkedQueue queue_of_events;
+	LinkedQueue<Event*> queue_of_events;
 	void read_input();
 	void read_events();
 	void initialize_buses(Station** array);
