@@ -183,7 +183,7 @@ void Company::Pass_Passenger(Station** array) {
     Passenger* P = new Passenger;
     Event* one = tot_events.dequeue();
     P = one->execute();
-    array[P->getArrivalStationId()]->Add_to_Station(P, P->getPassengertype());
+    array[P->getArrivalStationId()]->Add_to_Station(P);
 }
 
 Station** Company::Array_Of_Stations() {
