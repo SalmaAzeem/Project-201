@@ -15,6 +15,7 @@ using namespace std;
 void Company::set_number_of_stations(int n)
 {
     Number_of_stations = n + 1;
+    std::cout << Number_of_stations;
 }
 
 Company::Company() {}
