@@ -39,6 +39,6 @@ public:
     int getWaitingTime() const;
     std::string getPassengertype()const;
     char getPassengerspecial() const;
-
+    char getDirection() const;
 };
 #endif

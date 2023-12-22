@@ -10,6 +10,7 @@
 class Station {
 private:
 	int Station_Number;
+public:
 	PriorityQueuePassenger Special_Passengers_Forward;
 	PriorityQueuePassenger Normal_Passengers_Forward;
 	PriorityQueuePassenger Wheel_Passengers_Forward;
@@ -20,8 +21,6 @@ private:
 	BusQueue Buses_Wheel_Forward;
 	BusQueue Buses_Mixed_Backward;
 	BusQueue Buses_Wheel_Backward;
-public:
-	
 	Station(int number) : Station_Number(number) {}
 	//--------------------------------------Modify the code-----------------------------------------------
 
