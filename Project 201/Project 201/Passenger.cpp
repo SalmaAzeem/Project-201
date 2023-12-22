@@ -20,11 +20,11 @@ Passenger::Passenger(int newId, int newArrivalHour, int newArrivalMinutes,
     type_of_passenger = type;
     special_type = special;
     waiting_time = 0;
-    if (arrival_station_id > leave_station_id)
+    if (newArrivalStationId > newLeaveStationId)
     {
         direction = 'B';
     }
-    else if (arrival_station_id < leave_station_id)
+    else if (newArrivalStationId < newLeaveStationId)
     {
         direction = 'F';
     }

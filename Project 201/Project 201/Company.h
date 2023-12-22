@@ -34,8 +34,7 @@ public:
 	void Place_in_Station_Zero(Station** array, Bus** arrayb);
 	Station** Array_Of_Stations();
 	void Move_Bus_to_Stations(Station** station, int Station_number, char bus_type, bool bus_direction);
-	int get_station() const { return Number_of_stations; }
-	void interface(Station** array, int station_number);
+	int get_station() const { return Number_of_stations; }	
 	void add_me(int Hour, int Minute, Station** array);
 	void set_number_of_stations(int n);
 	void Simulate();

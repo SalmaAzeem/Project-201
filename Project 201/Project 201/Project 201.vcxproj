@@ -132,7 +132,9 @@
     <ClCompile Include="Company.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="LeaveEvent.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Passenger.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrivalEvent.h" />
@@ -146,6 +148,10 @@
     <ClInclude Include="Passenger.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Station.h" />
+    <ClInclude Include="UI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="random.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
