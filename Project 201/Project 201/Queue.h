@@ -71,85 +71,6 @@ public:
 	virtual bool Find(x obj) = 0;
 };
 
-//
-//class NormalQueue : public Queue {
-//private:
-//	QNode* Front;
-//	QNode* Rear;
-//public:
-//	NormalQueue() { Front = Rear = nullptr; }
-//	bool Is_Empty() const override {
-//		return (this->Front == nullptr);
-//	}
-//	bool Peek(Passenger* obj) const override {
-//		if (Is_Empty()) { return false; }
-//		obj = Front->getPtrObj();
-//		return true;
-//	}
-//	void enQueue(Passenger* obj, int priority) override {
-//		//if the linked list is empty then it will only be one element therefore the front and rare are equal
-//		QNode* Temp = new QNode(obj, priority);
-//		if (Is_Empty()) {
-//			Front = Rear = Temp;
-//		}
-//		Rear->setNext(Temp); //else then add the object after the rare
-//		Rear = Temp; //change the value of the rare to be at the end of the queue
-//	}
-//	Passenger* deQueue() override {
-//		if (Is_Empty()) { std::cout << "Queue is Empty" << std::endl; } //the queue is empty
-//		Passenger* Passenger_Object = Front->getPtrObj();
-//		QNode* DELETED = Front;
-//		if (Front == Rear) { Front = Rear = nullptr; }
-//		else {
-//			Front = Front->getNext();
-//		}
-//		delete DELETED;
-//		return Passenger_Object;
-//	}
-//	void Print_Queue() const override {
-//		std::cout << "\nPrinting Queue contents:\n";
-//		QNode* ptr = Front;
-//		std::cout << "[ ";
-//		while (ptr)
-//		{
-//			std::cout << ptr->getPtrObj()->getId() << ", "; 
-//			ptr = ptr->getNext();
-//		}
-//		std::cout << "]";
-//	}
-//	bool Leave_Passenger(Passenger* obj) {
-//		if (!Front) { return false; } //the queue is empty
-//		QNode* CurPtr = Front;
-//		QNode* DeletePtr = new QNode;
-//		while (CurPtr) {
-//			if (CurPtr->getNext()->getPtrObj() == obj) {
-//				if (CurPtr == Front) { deQueue(); }
-//				else {
-//					DeletePtr = CurPtr->getNext();
-//					CurPtr->setNext(CurPtr->getNext()->getNext());
-//					delete DeletePtr;
-//					DeletePtr = nullptr;
-//					return true;
-//				}
-//			}
-//			CurPtr = CurPtr->getNext();
-//		}
-//		return false;
-//	}
-//	int Count() const override {
-//		int count{};
-//		QNode* CurPtr = Front;
-//		if (Is_Empty()) { return 0; }
-//		while (CurPtr) {
-//			count++;
-//			CurPtr = CurPtr->getNext();
-//		}
-//		return count;
-//	}
-//	~NormalQueue() {
-//		while (!Is_Empty()) { deQueue(); }
-//	}
-//};
 
 class PriorityQueuePassenger : public Queue<Passenger*> {
 private:
@@ -232,7 +153,7 @@ public:
 	}
 	bool Find(Passenger* obj) {
 		QNode<Passenger*>* Ptr = Front;
-		bool available;
+		bool available = false;
 		while (Ptr != nullptr) {
 			if (Ptr->getPtrObj()->getId() == obj->getId()) {
 				available = true;
