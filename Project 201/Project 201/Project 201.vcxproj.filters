@@ -33,6 +33,12 @@
     <ClCompile Include="Passenger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Company.h">
@@ -68,5 +74,11 @@
     <ClInclude Include="Station.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="random.txt" />
   </ItemGroup>
 </Project>
