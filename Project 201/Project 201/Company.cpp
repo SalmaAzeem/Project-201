@@ -305,11 +305,11 @@ void Company::Simulate() {
     //std: cout << "The Count of Passengers is " << c << endl;
         //--------------------------------------------
     for (int i = 0; i < Number_of_stations; i++) {
-      /*  test.interface(array_of_stations, i);
+        test.interface(array_of_stations, i);
         std::cout << "\n-----------------------------------------------" << std::endl;
         std::cout << "Press any key to display the next station..." << std::endl;
-        getchar();*/
-        array_of_stations[i]->Print_Station();
+        getchar();
+        //array_of_stations[i]->Print_Station();
     }
 }
 

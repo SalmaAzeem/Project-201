@@ -45,8 +45,8 @@ public:
 		else { std::cout << "Incorrect Type." << "\n"; }
 	}
 	void Leave_Station(Passenger* obj) {
-		if (obj->getDirection() == 'B') { Normal_Passengers_Backward.Leave_Passenger(obj); }
-		else { Normal_Passengers_Forward.Leave_Passenger(obj); }
+		Normal_Passengers_Backward.Leave_Passenger(obj);
+		Normal_Passengers_Forward.Leave_Passenger(obj);
 	}
 	void Print_Station() {
 		std::cout << "Station #" << get_station_number() << std::endl;
