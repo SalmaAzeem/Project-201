@@ -1,0 +1,10 @@
+﻿  ArrivalEvent.cpp
+  Bus.cpp
+  Company.cpp
+C:\Users\salma\OneDrive\Desktop\CSAI 201 - new\Project-201\Project 201\Project 201\Company.cpp(368,16): warning C4101: 'one_passenger': unreferenced local variable
+  Event.cpp
+  LeaveEvent.cpp
+  Passenger.cpp
+  Generating Code...
+C:\Users\salma\OneDrive\Desktop\CSAI 201 - new\Project-201\Project 201\Project 201\Company.cpp(228): error C4703: potentially uninitialized local pointer variable 'B' used
+C:\Users\salma\OneDrive\Desktop\CSAI 201 - new\Project-201\Project 201\Project 201\Queue.h(261): warning C4715: 'PriorityQueuePassenger::Leave_Passenger': not all control paths return a value
