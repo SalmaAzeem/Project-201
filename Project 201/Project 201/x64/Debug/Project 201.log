@@ -1,2 +1,6 @@
-﻿  UI.cpp
+﻿  Company.cpp
+D:\Project-201\Project-201\Project 201\Project 201\Company.cpp(283,16): warning C4101: 'one_passenger': unreferenced local variable
+  Main.cpp
+  Generating Code...
+D:\Project-201\Project-201\Project 201\Project 201\Queue.h(182): warning C4715: 'PriorityQueuePassenger::Leave_Passenger': not all control paths return a value
   Project 201.vcxproj -> D:\Project-201\Project-201\Project 201\x64\Debug\Project 201.exe

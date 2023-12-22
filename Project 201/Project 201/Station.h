@@ -86,6 +86,13 @@ public:
 		else if (obj->get_reverse() == true && obj->GetType() == 'W') { Buses_Wheel_Backward.enQueue(obj, 0); }
 		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Forward.enQueue(obj, 0); }
 		else { std::cout << "wrong parameters\n"; } //change this message / condition
+	}	
+	void Remove_Bus(Bus* obj) {
+		if (obj->get_reverse() == false && obj->GetType() == 'W') { Buses_Wheel_Forward.deQueue(); }
+		else if (obj->get_reverse() == false && obj->GetType() == 'M') { Buses_Mixed_Forward.deQueue(); }
+		else if (obj->get_reverse() == true && obj->GetType() == 'W') { Buses_Wheel_Backward.deQueue(); }
+		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Forward.deQueue(); }
+		else { std::cout << "wrong parameters\n"; } //change this message / condition
 	}
 	void Print_Bus_At_Station() { 
 		std::cout << "Printing the buses at the station: " << std::endl;

@@ -267,7 +267,6 @@ void Company::Remove_passenger(Station** array)
             array[i]->Leave_Station(Passenger_leave); //mariam te3adel
         }
     }
-
 }
 
 void Company::Simulate() {
@@ -293,6 +292,7 @@ void Company::Simulate() {
                 }
                 else if (one_event->get_event_type() == 'L')
                 {
+                    cout << "Leave id is " << one_event->get_id() << endl;
                     Remove_passenger(array_of_stations);
                 }
 
@@ -305,11 +305,11 @@ void Company::Simulate() {
     //std: cout << "The Count of Passengers is " << c << endl;
         //--------------------------------------------
     for (int i = 0; i < Number_of_stations; i++) {
-        test.interface(array_of_stations, i);
+      /*  test.interface(array_of_stations, i);
         std::cout << "\n-----------------------------------------------" << std::endl;
         std::cout << "Press any key to display the next station..." << std::endl;
-        getchar();
-        //array_of_stations[i]->Print_Station();
+        getchar();*/
+        array_of_stations[i]->Print_Station();
     }
 }
 
