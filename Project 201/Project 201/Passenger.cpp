@@ -65,6 +65,7 @@ int Passenger::getWaitingTime() const
 {
     return waiting_time;
 }
+char Passenger::getDirection() const { return direction; }
 
 std::string Passenger::getPassengertype()const
 {

@@ -10,6 +10,7 @@
 class Station {
 private:
 	int Station_Number;
+public:
 	PriorityQueuePassenger Special_Passengers_Forward;
 	PriorityQueuePassenger Normal_Passengers_Forward;
 	PriorityQueuePassenger Wheel_Passengers_Forward;
@@ -20,33 +21,31 @@ private:
 	BusQueue Buses_Wheel_Forward;
 	BusQueue Buses_Mixed_Backward;
 	BusQueue Buses_Wheel_Backward;
-public:
-	
 	Station(int number) : Station_Number(number) {}
 	//--------------------------------------Modify the code-----------------------------------------------
 
-	void Add_to_Station(Passenger* obj, char type) {
-		if (obj->getPassengertype() == "SP" && type == 'b') {
+	void Add_to_Station(Passenger* obj) {
+		if (obj->getPassengertype() == "SP" && obj->getDirection() == 'B') {
 			if (obj->getPassengerspecial() == 'A') { Special_Passengers_Backward.enQueue(obj, 3); }
 			else if (obj->getPassengerspecial() == 'P') { Special_Passengers_Backward.enQueue(obj, 2); }
 			else if (obj->getPassengerspecial() == 'O') { Special_Passengers_Backward.enQueue(obj, 1); }
 			else { std::cout << "Incorrect Special Type. " << "\n"; }
 		}
-		else if (obj->getPassengertype() == "SP" && type == 'f') {
+		else if (obj->getPassengertype() == "SP" && obj->getDirection() == 'F') {
 			if (obj->getPassengerspecial() == 'A') { Special_Passengers_Backward.enQueue(obj, 3); }
 			else if (obj->getPassengerspecial() == 'P') { Special_Passengers_Backward.enQueue(obj, 2); }
 			else if (obj->getPassengerspecial() == 'O') { Special_Passengers_Backward.enQueue(obj, 1); }
 			else { std::cout << "Incorrect Special Type. " << "\n"; }
 		}
-		else if (obj->getPassengertype() == "NP" && type == 'b') { Normal_Passengers_Backward.enQueue(obj, 0); }
-		else if (obj->getPassengertype() == "NP" && type == 'f') { Normal_Passengers_Forward.enQueue(obj, 0); }
+		else if (obj->getPassengertype() == "NP" && obj->getDirection() == 'B') { Normal_Passengers_Backward.enQueue(obj, 0); }
+		else if (obj->getPassengertype() == "NP" && obj->getDirection() == 'F') { Normal_Passengers_Forward.enQueue(obj, 0); }
 
-		else if (obj->getPassengertype() == "WP" && type == 'b') { Wheel_Passengers_Backward.enQueue(obj, 0); }
-		else if (obj->getPassengertype() == "WP" && type == 'f') { Wheel_Passengers_Forward.enQueue(obj, 0); }
+		else if (obj->getPassengertype() == "WP" && obj->getDirection() == 'B') { Wheel_Passengers_Backward.enQueue(obj, 0); }
+		else if (obj->getPassengertype() == "WP" && obj->getDirection() == 'F') { Wheel_Passengers_Forward.enQueue(obj, 0); }
 		else { std::cout << "Incorrect Type." << "\n"; }
 	}
-	void Leave_Station(Passenger* obj, char type) {
-		if (type == 'b') { Normal_Passengers_Backward.Leave_Passenger(obj); }
+	void Leave_Station(Passenger* obj) {
+		if (obj->getDirection() == 'B') { Normal_Passengers_Backward.Leave_Passenger(obj); }
 		else { Normal_Passengers_Forward.Leave_Passenger(obj); }
 	}
 	void Print_Station() {
@@ -81,11 +80,11 @@ public:
 		total_count = count1 + count2 + count3 + count4 + count5 + count6;
 		return total_count;
 	}
-	void Add_Bus(Bus* obj, char type) {
-		if (obj->get_reverse() == false && type == 'w') { Buses_Wheel_Forward.enQueue(obj, 0); }
-		else if (obj->get_reverse() == false && type == 'm') { Buses_Mixed_Forward.enQueue(obj, 0); }
-		else if (obj->get_reverse() == true && type == 'w') { Buses_Wheel_Backward.enQueue(obj, 0); }
-		else if (obj->get_reverse() == true && type == 'm') { Buses_Mixed_Forward.enQueue(obj, 0); }
+	void Add_Bus(Bus* obj) {
+		if (obj->get_reverse() == false && obj->GetType() == 'W') { Buses_Wheel_Forward.enQueue(obj, 0); }
+		else if (obj->get_reverse() == false && obj->GetType() == 'M') { Buses_Mixed_Forward.enQueue(obj, 0); }
+		else if (obj->get_reverse() == true && obj->GetType() == 'W') { Buses_Wheel_Backward.enQueue(obj, 0); }
+		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Forward.enQueue(obj, 0); }
 		else { std::cout << "wrong parameters\n"; } //change this message / condition
 	}
 	void Print_Bus_At_Station() { 

@@ -14,6 +14,7 @@ using namespace std;
 
 void Company::set_number_of_stations(int n)
 {
+    cout << "ay 7aga";
     Number_of_stations = n + 1;
 }
 
@@ -199,103 +200,120 @@ Station** Company::Array_Of_Stations() {
 void Company::Place_in_Station_Zero(Station** array, Bus** arrayb) {
     Station* Szero = array[0];
     for (int i = 0; i < Wheel_buses + Mixed_buses; i++) {
-        Szero->Add_Bus(arrayb[i]);
+        Szero->Add_Bus(arrayb[i]);   //done lama mariam te3adel
     }
 }
 
-void Company::Move_Bus_to_Stations(Station** array, int Station_number) {
+void Company::Move_Bus_to_Stations(Station** array, int Station_number, char bus_type, bool bus_direction) {
     Station* Station_before = array[Station_number];
     Station* Station_after = array[Station_number + 1];
-    Bus* B = Station_before->Queue_Buses.deQueue();
+    Bus* B;
+
+    if (bus_type == 'W' && bus_direction == false) {
+        B = Station_before->Buses_Wheel_Forward.deQueue();
+    }
+
+    else if (bus_type == 'M' && bus_direction == false) {
+        B = Station_before->Buses_Mixed_Forward.deQueue();
+    }
+
+    else if (bus_type == 'W' && bus_direction == true) {
+        B = Station_before->Buses_Wheel_Backward.deQueue();
+    }
+
+    else if (bus_type == 'M' && bus_direction == true) {
+        B = Station_before->Buses_Mixed_Backward.deQueue();
+    }
+
     bool reverse = B->get_reverse();
-    Station_after->Add_Bus(B);
+    Station_after->Add_Bus(B); //lama mariam te3adel
     std::cout << B->Move_Bus(reverse);
 }
 
-void Company::interface(Station** array, int station_number) {
-    //for (int i = 0; i < get_station(); i++) {
-    //    array[i]->Print_Station();
-    //}
-    Passenger** array_special = array[station_number]->Array_Special_Passengers();
-    Passenger** array_normal = array[station_number]->Array_Normal_Passengers();
-    Passenger** array_wheel = array[station_number]->Array_Wheel_Passengers();
-    Passenger** array_f = array[station_number]->passenger_forward(array_special, array[station_number]->Special_Passengers.Count());
-    Passenger** array_b = array[station_number]->passenger_backward(array_special, array[station_number]->Special_Passengers.Count());
-    Passenger** array_f_n = array[station_number]->passenger_forward(array_normal, array[station_number]->Normal_Passengers.Count());
-    Passenger** array_b_n = array[station_number]->passenger_backward(array_normal, array[station_number]->Normal_Passengers.Count());
-    Passenger** array_f_w = array[station_number]->passenger_forward(array_wheel, array[station_number]->Wheel_Passengers.Count());
-    Passenger** array_b_w = array[station_number]->passenger_backward(array_wheel, array[station_number]->Wheel_Passengers.Count());
-    int count_forward = array[station_number]->count_forward(array_special, array[station_number]->Special_Passengers.Count());
-    int count_backward = array[station_number]->count_backward(array_special, array[station_number]->Special_Passengers.Count());
-    int count_forward_n = array[station_number]->count_forward(array_normal, array[station_number]->Normal_Passengers.Count());
-    int count_backward_n = array[station_number]->count_backward(array_normal, array[station_number]->Normal_Passengers.Count());
-    int count_forward_w = array[station_number]->count_forward(array_wheel, array[station_number]->Wheel_Passengers.Count());
-    int count_backward_w = array[station_number]->count_backward(array_wheel, array[station_number]->Wheel_Passengers.Count());
-    std::cout << std::endl;
-    std::cout << "=============    STATION #" << array[station_number]->get_station_number() << "       =============" << std::endl;
-    //-----------------------------------special------------------------------------------
-    std::cout << array[station_number]->Special_Passengers.Count() << " Waiting SP: ";
-    if (count_forward > 0) {
-        std::cout << "FWD[";
-        for (int k = 0; k < count_forward; k++) {
-            if (array_f[k]->getPassengerspecial() == 'A') { std::cout << array_f[k]->getId() << "(Aged), "; }
-            else if (array_f[k]->getPassengerspecial() == 'P') { std::cout << array_f[k]->getId() << "(Pregnant), "; }
-            else { std::cout << array_f[k]->getId() << "(POD), "; }
-        }
-        std::cout << "] ";
-    }
-    else { std::cout << "FWD[ ] "; }
-    if (count_backward > 0) {
-        std::cout << "BCK[";
-        for (int j = 0; j < count_backward; j++) {
-            if (array_b[j]->getPassengerspecial() == 'A') { std::cout << array_b[j]->getId() << "(Aged), "; }
-            else if (array_b[j]->getPassengerspecial() == 'P') { std::cout << array_b[j]->getId() << "(Pregnant), "; }
-            else { std::cout << array_b[j]->getId() << "(POD), "; }
-        }
-        std::cout << "] ";
-    }
-    else { std::cout << "BCK[ ] "; }
-    std::cout << std::endl;
-    //----------------------------------normal---------------------------------------------------
-    std::cout << array[station_number]->Normal_Passengers.Count() << " Waiting NP: ";
-    if (count_forward_n > 0) {
-        std::cout << "FWD[";
-        for (int k = 0; k < count_forward_n; k++) {
-            std::cout << array_f_n[k]->getId() << ", ";
-        }
-        std::cout << "] ";
-    }
-    else { std::cout << "FWD[ ] "; }
-    if (count_backward_n > 0) {
-        std::cout << "BCK[";
-        for (int j = 0; j < count_backward_n; j++) {
-            std::cout << array_b_n[j]->getId() << ", ";
-        }
-        std::cout << "] ";
-    }
-    else { std::cout << "BCK[ ] "; }
-    std::cout << std::endl;
-    //----------------------------------wheel---------------------------------------------------
-    std::cout << array[station_number]->Wheel_Passengers.Count() << " Waiting WP: ";
-    if (count_forward_w > 0) {
-        std::cout << "FWD[";
-        for (int k = 0; k < count_forward_w; k++) {
-            std::cout << array_f_w[k]->getId() << ", ";
-        }
-        std::cout << "] ";
-    }
-    else { std::cout << "FWD[ ] "; }
-    if (count_backward_w > 0) {
-        std::cout << "BCK[";
-        for (int j = 0; j < count_backward_w; j++) {
-            std::cout << array_b_w[j]->getId() << ", ";
-        }
-        std::cout << "] ";
-    }
-    else { std::cout << "BCK[ ] "; }
-    std::cout << std::endl;
-
-}
+//void Company::interface(Station** array, int station_number) {
+//    //for (int i = 0; i < get_station(); i++) {
+//    //    array[i]->Print_Station();
+//    //}
+//    Passenger** array_special = array[station_number]->Array_Special_Passengers();
+//    Passenger** array_normal = array[station_number]->Array_Normal_Passengers();
+//    Passenger** array_wheel = array[station_number]->Array_Wheel_Passengers();
+//    Passenger** array_f = array[station_number]->passenger_forward(array_special, array[station_number]->Special_Passengers.Count());
+//    Passenger** array_b = array[station_number]->passenger_backward(array_special, array[station_number]->Special_Passengers.Count());
+//    Passenger** array_f_n = array[station_number]->passenger_forward(array_normal, array[station_number]->Normal_Passengers.Count());
+//    Passenger** array_b_n = array[station_number]->passenger_backward(array_normal, array[station_number]->Normal_Passengers.Count());
+//    Passenger** array_f_w = array[station_number]->passenger_forward(array_wheel, array[station_number]->Wheel_Passengers.Count());
+//    Passenger** array_b_w = array[station_number]->passenger_backward(array_wheel, array[station_number]->Wheel_Passengers.Count());
+//    int count_forward = array[station_number]->count_forward(array_special, array[station_number]->Special_Passengers.Count());
+//    int count_backward = array[station_number]->count_backward(array_special, array[station_number]->Special_Passengers.Count());
+//    int count_forward_n = array[station_number]->count_forward(array_normal, array[station_number]->Normal_Passengers.Count());
+//    int count_backward_n = array[station_number]->count_backward(array_normal, array[station_number]->Normal_Passengers.Count());
+//    int count_forward_w = array[station_number]->count_forward(array_wheel, array[station_number]->Wheel_Passengers.Count());
+//    int count_backward_w = array[station_number]->count_backward(array_wheel, array[station_number]->Wheel_Passengers.Count());
+//    std::cout << std::endl;
+//    std::cout << "=============    STATION #" << array[station_number]->get_station_number() << "       =============" << std::endl;
+//    //-----------------------------------special------------------------------------------
+//    std::cout << array[station_number]->Special_Passengers.Count() << " Waiting SP: ";
+//    if (count_forward > 0) {
+//        std::cout << "FWD[";
+//        for (int k = 0; k < count_forward; k++) {
+//            if (array_f[k]->getPassengerspecial() == 'A') { std::cout << array_f[k]->getId() << "(Aged), "; }
+//            else if (array_f[k]->getPassengerspecial() == 'P') { std::cout << array_f[k]->getId() << "(Pregnant), "; }
+//            else { std::cout << array_f[k]->getId() << "(POD), "; }
+//        }
+//        std::cout << "] ";
+//    }
+//    else { std::cout << "FWD[ ] "; }
+//    if (count_backward > 0) {
+//        std::cout << "BCK[";
+//        for (int j = 0; j < count_backward; j++) {
+//            if (array_b[j]->getPassengerspecial() == 'A') { std::cout << array_b[j]->getId() << "(Aged), "; }
+//            else if (array_b[j]->getPassengerspecial() == 'P') { std::cout << array_b[j]->getId() << "(Pregnant), "; }
+//            else { std::cout << array_b[j]->getId() << "(POD), "; }
+//        }
+//        std::cout << "] ";
+//    }
+//    else { std::cout << "BCK[ ] "; }
+//    std::cout << std::endl;
+//    //----------------------------------normal---------------------------------------------------
+//    std::cout << array[station_number]->Normal_Passengers.Count() << " Waiting NP: ";
+//    if (count_forward_n > 0) {
+//        std::cout << "FWD[";
+//        for (int k = 0; k < count_forward_n; k++) {
+//            std::cout << array_f_n[k]->getId() << ", ";
+//        }
+//        std::cout << "] ";
+//    }
+//    else { std::cout << "FWD[ ] "; }
+//    if (count_backward_n > 0) {
+//        std::cout << "BCK[";
+//        for (int j = 0; j < count_backward_n; j++) {
+//            std::cout << array_b_n[j]->getId() << ", ";
+//        }
+//        std::cout << "] ";
+//    }
+//    else { std::cout << "BCK[ ] "; }
+//    std::cout << std::endl;
+//    //----------------------------------wheel---------------------------------------------------
+//    std::cout << array[station_number]->Wheel_Passengers.Count() << " Waiting WP: ";
+//    if (count_forward_w > 0) {
+//        std::cout << "FWD[";
+//        for (int k = 0; k < count_forward_w; k++) {
+//            std::cout << array_f_w[k]->getId() << ", ";
+//        }
+//        std::cout << "] ";
+//    }
+//    else { std::cout << "FWD[ ] "; }
+//    if (count_backward_w > 0) {
+//        std::cout << "BCK[";
+//        for (int j = 0; j < count_backward_w; j++) {
+//            std::cout << array_b_w[j]->getId() << ", ";
+//        }
+//        std::cout << "] ";
+//    }
+//    else { std::cout << "BCK[ ] "; }
+//    std::cout << std::endl;
+//
+//}
 
 
 void Company::add_me(int Hour, int Minute, Station** array) {
@@ -331,7 +349,7 @@ void Company::Remove_passenger(Station** array)
     Passenger_leave = tot_events.dequeue()->execute();
     for (int i = 1; i < Number_of_stations; i++) {
         if (array[i]->get_station_number() == Passenger_leave->getArrivalStationId()) {
-            array[i]->Leave_Station(Passenger_leave);
+            array[i]->Leave_Station(Passenger_leave); //mariam te3adel
         }
     }
 
