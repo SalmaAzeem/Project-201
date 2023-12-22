@@ -1,4 +1,3 @@
-#pragma once
 #ifndef BUS_H
 #define BUS_H
 
@@ -19,8 +18,8 @@ class Bus
 	char status;
 	int time_mentainance;
 	LinkedList<Passenger*> Bus_passengers;
-
 public:
+	char GetType();
 	void set_bus_id(int new_id);
 	int getId() const;
 	Bus(int new_capacity, char new_type, int new_bus_number);
@@ -33,8 +32,8 @@ public:
 	bool Reverse_Bus(int station, int num_of_journies, int time);
 	bool Mentain(int num_of_journies, int time);
 	bool Get_out_of_Mentainance(int time);
-	bool Bus_Busy();
 	bool get_reverse() const;
+
 };
 
 #endif
