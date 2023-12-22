@@ -25,28 +25,28 @@ public:
 	Station(int number) : Station_Number(number) {}
 	//--------------------------------------Modify the code-----------------------------------------------
 
-	void Add_to_Station(Passenger* obj, char type) {
-		if (obj->getPassengertype() == "SP" && type == 'b') {
+	void Add_to_Station(Passenger* obj) {
+		if (obj->getPassengertype() == "SP" && obj->getDirection() == 'B') {
 			if (obj->getPassengerspecial() == 'A') { Special_Passengers_Backward.enQueue(obj, 3); }
 			else if (obj->getPassengerspecial() == 'P') { Special_Passengers_Backward.enQueue(obj, 2); }
 			else if (obj->getPassengerspecial() == 'O') { Special_Passengers_Backward.enQueue(obj, 1); }
 			else { std::cout << "Incorrect Special Type. " << "\n"; }
 		}
-		else if (obj->getPassengertype() == "SP" && type == 'f') {
+		else if (obj->getPassengertype() == "SP" && obj->getDirection() == 'F') {
 			if (obj->getPassengerspecial() == 'A') { Special_Passengers_Backward.enQueue(obj, 3); }
 			else if (obj->getPassengerspecial() == 'P') { Special_Passengers_Backward.enQueue(obj, 2); }
 			else if (obj->getPassengerspecial() == 'O') { Special_Passengers_Backward.enQueue(obj, 1); }
 			else { std::cout << "Incorrect Special Type. " << "\n"; }
 		}
-		else if (obj->getPassengertype() == "NP" && type == 'b') { Normal_Passengers_Backward.enQueue(obj, 0); }
-		else if (obj->getPassengertype() == "NP" && type == 'f') { Normal_Passengers_Forward.enQueue(obj, 0); }
+		else if (obj->getPassengertype() == "NP" && obj->getDirection() == 'B') { Normal_Passengers_Backward.enQueue(obj, 0); }
+		else if (obj->getPassengertype() == "NP" && obj->getDirection() == 'F') { Normal_Passengers_Forward.enQueue(obj, 0); }
 
-		else if (obj->getPassengertype() == "WP" && type == 'b') { Wheel_Passengers_Backward.enQueue(obj, 0); }
-		else if (obj->getPassengertype() == "WP" && type == 'f') { Wheel_Passengers_Forward.enQueue(obj, 0); }
+		else if (obj->getPassengertype() == "WP" && obj->getDirection() == 'B') { Wheel_Passengers_Backward.enQueue(obj, 0); }
+		else if (obj->getPassengertype() == "WP" && obj->getDirection() == 'F') { Wheel_Passengers_Forward.enQueue(obj, 0); }
 		else { std::cout << "Incorrect Type." << "\n"; }
 	}
-	void Leave_Station(Passenger* obj, char type) {
-		if (type == 'b') { Normal_Passengers_Backward.Leave_Passenger(obj); }
+	void Leave_Station(Passenger* obj) {
+		if (obj->getDirection() == 'B') { Normal_Passengers_Backward.Leave_Passenger(obj); }
 		else { Normal_Passengers_Forward.Leave_Passenger(obj); }
 	}
 	void Print_Station() {
