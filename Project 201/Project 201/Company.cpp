@@ -268,7 +268,6 @@ void Company::Remove_passenger(Station** array)
             array[i]->Leave_Station(Passenger_leave); //mariam te3adel
         }
     }
-
 }
 
 void Company::Simulate() {
@@ -294,6 +293,7 @@ void Company::Simulate() {
                 }
                 else if (one_event->get_event_type() == 'L')
                 {
+                    cout << "Leave id is " << one_event->get_id() << endl;
                     Remove_passenger(array_of_stations);
                 }
 

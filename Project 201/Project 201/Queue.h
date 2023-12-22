@@ -166,6 +166,7 @@ public:
 
 	bool Leave_Passenger(Passenger* obj) {
 		bool available = Find(obj);
+		if (!available) { return false; }
 		if (obj->getId() == Front->getPtrObj()->getId()) {
 			Front = Front->getNext();
 		}
