@@ -10,9 +10,26 @@ Passenger::Passenger()
 Passenger::Passenger(int newId, int newArrivalHour, int newArrivalMinutes,
     int newArrivalSeconds, int newArrivalStationId,
     int newLeaveStationId, std::string type, char special)
-    : id(newId), arrival_hour(newArrivalHour), arrival_minutes(newArrivalMinutes),
-    arrival_seconds(newArrivalSeconds), arrival_station_id(newArrivalStationId),
-    leave_station_id(newLeaveStationId), type_of_passenger(type), special_type(special), waiting_time(0) {}
+{
+    id = newId;
+    arrival_hour = newArrivalHour;
+    arrival_minutes = newArrivalMinutes;
+    arrival_seconds = newArrivalSeconds;
+    arrival_station_id = newLeaveStationId;
+    leave_station_id = newLeaveStationId;
+    type_of_passenger = type;
+    special_type = special;
+    waiting_time = 0;
+    if (arrival_station_id > leave_station_id)
+    {
+        direction = 'B';
+    }
+    else if (arrival_station_id < leave_station_id)
+    {
+        direction = 'F';
+    }
+}
+    
 
 
 void Passenger::setWaitingTime(int newWaitingTime) {

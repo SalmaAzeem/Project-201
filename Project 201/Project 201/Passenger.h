@@ -14,6 +14,7 @@ private:
     int arrival_station_id;
     int leave_station_id;
     int waiting_time;
+    char direction;
 
 public:
 
