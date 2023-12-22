@@ -43,7 +43,7 @@ bool Bus::Add_Passenger(Passenger* passenger)
 {
 	if (current_station == next_station)
 	{
-		Bus_passengers.insertend(passenger);
+		Bus_passengers.insertsorted(passenger);
 		count_inside++;
 		return true;
 	}
