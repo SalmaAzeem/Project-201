@@ -185,8 +185,8 @@ Bus** Company::insalize_buses() {
 void Company::Pass_Passenger(Station** array) {
     Passenger* P = new Passenger;
     Event* one = tot_events.dequeue();
-    P = one->execute();
-    array[P->getArrivalStationId()]->Add_to_Station(P);
+    one->execute(array);
+   
 }
 
 Station** Company::Array_Of_Stations() {
@@ -261,13 +261,9 @@ void Company::add_me(int Hour, int Minute, Station** array) {
 
 void Company::Remove_passenger(Station** array)
 {
-    Passenger* Passenger_leave = new Passenger();
-    Passenger_leave = tot_events.dequeue()->execute();
-    for (int i = 1; i < Number_of_stations; i++) {
-        if (array[i]->get_station_number() == Passenger_leave->getArrivalStationId()) {
-            array[i]->Leave_Station(Passenger_leave); //mariam te3adel
-        }
-    }
+  
+     tot_events.dequeue()->execute(array);
+
 }
 
 void Company::Simulate() {

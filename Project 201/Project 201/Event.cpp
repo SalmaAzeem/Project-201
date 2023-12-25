@@ -2,8 +2,8 @@
 #include <iostream>
 using namespace std;
 
-Passenger* Event::execute() {
-	return nullptr;
+void Event::execute(Station** array) {
+	return;
 }
 void Event::set_event_type(char newEventType) {
 	event_type = newEventType;

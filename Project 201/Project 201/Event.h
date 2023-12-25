@@ -3,6 +3,7 @@
 #define EVENT_H
 #include "Passenger.h"
 #include <iostream>
+#include "Station.h"
 
 using namespace std;
 class Event {
@@ -20,7 +21,7 @@ protected:
 
 
 public:
-	virtual Passenger* execute() = 0;
+	virtual void execute(Station**array) = 0;
 	char get_type();
 	int get_l_station();
 
