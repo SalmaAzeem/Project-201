@@ -19,6 +19,9 @@ private:
 	int max_waiting_time;        // salma 9
 	int get_on_off_time_seconds; // mariam, app
 	int number_of_events;
+	int average_waiting_time;
+	int average_trip_time_hour;
+	int average_trip_time_minute;
 
 
 
@@ -39,5 +42,7 @@ public:
 	void set_number_of_stations(int n);
 	void Simulate();
 	void Remove_passenger(Station** array);
+	void calculate_average_waiting_time();
+	void calculate_average_trip_time();
 };
 #endif

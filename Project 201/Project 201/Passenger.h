@@ -12,8 +12,16 @@ private:
     int arrival_minutes;
     int arrival_seconds;
     int arrival_station_id;
+    int max_waiting_time;
     int leave_station_id;
-    int waiting_time;
+    int waiting_time_hour;
+    int waiting_time_minutes;
+    int move_time_hour;
+    int move_time_minutes;
+    int finish_time_hour;
+    int finish_time_minutes;
+    int trip_time_hour;
+    int trip_time_minutes;
     char direction;
 
 public:
@@ -22,7 +30,7 @@ public:
 
     Passenger(int newId, int newArrivalHour, int newArrivalMinutes,
         int newArrivalSeconds, int newArrivalStationId,
-        int newLeaveStationId, std::string type, char special);
+        int newLeaveStationId, std::string type, char special, int mwt);
 
     Passenger(int newid, int start_station);
     bool waiting_time_increase(int max_waiting_time);
@@ -40,5 +48,7 @@ public:
     std::string getPassengertype()const;
     char getPassengerspecial() const;
     char getDirection() const;
+    void calculate_Passenger_waiting_time();
+    void calculate_Passenger_trip_time();
 };
 #endif
