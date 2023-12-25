@@ -275,6 +275,10 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                     Remove_passenger(array_of_stations);
                 }
 
+                if (Minute % 15 == 0)
+                {
+
+                }
                 Minute++;
             }
         }
