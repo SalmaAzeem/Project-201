@@ -17,6 +17,7 @@ void Company::set_number_of_stations(int n)
 {
     cout << "ay 7aga";
     Number_of_stations = n + 1;
+    std::cout << Number_of_stations;
 }
 
 Company::Company() {}
@@ -142,50 +143,36 @@ void Company::read_events() {
     return;
 }
 
-Bus** Company::insalize_buses() {
-    Bus** Wheel_buses_Array = new Bus * [Wheel_buses];
-    Bus** Mixed_buses_Array = new Bus * [Mixed_buses];
-    for (int i = 0; i < Wheel_buses; i++) {
-        Bus* bus = new Bus(capacity_wheel_buses, 'w', i);
-        Wheel_buses_Array[i] = bus;
-    }
-
-    for (int i = 0; i < Mixed_buses; i++) {
-        Bus* bus = new Bus(capacity_mixed_buses, 'm', i);
-        Mixed_buses_Array[i] = bus;
-    }
-    Bus** Buses_Array = new Bus * [Wheel_buses];
-    int i = 0, j = 0, k = 0;
+void Company::initialize_buses(Station** array) {
+    int i = 0;
+    int j = 0;
 
     while (i < Mixed_buses && j < Wheel_buses) {
-        Buses_Array[k++] = Mixed_buses_Array[i++];
-        Buses_Array[k - 1]->set_bus_id(k - 1);
+        Bus* mixed_bus = new Bus(capacity_mixed_buses, 'M', i++);
+        array[0]->Buses_Mixed_Forward.enQueue(mixed_bus, 0);
 
-        Buses_Array[k++] = Wheel_buses_Array[j++];
-        Buses_Array[k - 1]->set_bus_id(k - 1);
+        Bus* wheel_bus = new Bus(capacity_wheel_buses, 'W', j++);
+        array[0]->Buses_Wheel_Forward.enQueue(wheel_bus, 0);
     }
+
+    // Add any remaining mixed buses
     while (i < Mixed_buses) {
-        Buses_Array[k++] = Mixed_buses_Array[i++];
-        Buses_Array[k - 1]->set_bus_id(k - 1);
+        Bus* mixed_bus = new Bus(capacity_mixed_buses, 'M', i++);
+        array[0]->Buses_Mixed_Forward.enQueue(mixed_bus, 0);
     }
-    while (j < Wheel_buses) {
-        Buses_Array[k++] = Wheel_buses_Array[j++];
-        Buses_Array[k - 1]->set_bus_id(k - 1);
-    }
-    std::cout << "The stored buses in the station are: " << endl;
-    for (int i = 0; i < Wheel_buses + Mixed_buses; ++i) {
-        //std::cout << "Bus ID: " << Buses_Array[i]->get_bus_id() << std::endl;
-    }
-    std::cout << "-----------------------------------------------" << endl;
 
-    return Buses_Array;
+    // Add any remaining wheel buses
+    while (j < Wheel_buses) {
+        Bus* wheel_bus = new Bus(capacity_wheel_buses, 'W', j++);
+        array[0]->Buses_Wheel_Forward.enQueue(wheel_bus, 0);
+    }
 }
 
 void Company::Pass_Passenger(Station** array) {
     Passenger* P = new Passenger;
     Event* one = tot_events.dequeue();
-    P = one->execute();
-    array[P->getArrivalStationId()]->Add_to_Station(P);
+    one->execute(array);
+   
 }
 
 Station** Company::Array_Of_Stations() {
@@ -260,20 +247,12 @@ void Company::add_me(int Hour, int Minute, Station** array) {
 
 void Company::Remove_passenger(Station** array)
 {
-    Passenger* Passenger_leave = new Passenger();
-    Passenger_leave = tot_events.dequeue()->execute();
-    for (int i = 1; i < Number_of_stations; i++) {
-        if (array[i]->get_station_number() == Passenger_leave->getArrivalStationId()) {
-            array[i]->Leave_Station(Passenger_leave); //mariam te3adel
-        }
-    }
+  
+     tot_events.dequeue()->execute(array);
+
 }
 
-void Company::Simulate() {
-    read_input();
-    read_events();
-    //insalize_buses();
-    Station** array_of_stations = Array_Of_Stations();
+void Company::Simulate_Branch(Station** array_of_stations) {
     Event* one_event;
     UI test;
     int Hour = 0;
@@ -296,6 +275,10 @@ void Company::Simulate() {
                     Remove_passenger(array_of_stations);
                 }
 
+                if (Minute % 15 == 0)
+                {
+
+                }
                 Minute++;
             }
         }
@@ -313,3 +296,10 @@ void Company::Simulate() {
     }
 }
 
+void Company::Simulate() {
+    read_input();
+    read_events();
+    Station** array_of_stations = Array_Of_Stations();
+    initialize_buses(array_of_stations);
+    Simulate_Branch(array_of_stations);
+}
