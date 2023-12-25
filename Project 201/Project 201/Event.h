@@ -11,6 +11,7 @@ protected:
 	char event_type; //'l' , 'a'
 	std::string type_of_passenger;
 	char type_passenger_special;
+	int max_waiting_time;
 	int hour;
 	int minute;
 	int second;
