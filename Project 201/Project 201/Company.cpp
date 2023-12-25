@@ -15,9 +15,7 @@ using namespace std;
 
 void Company::set_number_of_stations(int n)
 {
-    cout << "ay 7aga";
     Number_of_stations = n + 1;
-    std::cout << Number_of_stations;
 }
 
 void Company::calculate_average_waiting_time()
@@ -285,7 +283,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                 }
                 else if (one_event->get_event_type() == 'L')
                 {
-                    cout << "Leave id is " << one_event->get_id() << endl;
+                    //cout << "Leave id is " << one_event->get_id() << endl;
                     Remove_passenger(array_of_stations);
                 }
 

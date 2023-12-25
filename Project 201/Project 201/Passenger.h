@@ -45,6 +45,7 @@ public:
     int getArrivalStationId() const;
     int getLeaveStationId() const;
     int getWaitingTime() const;
+    int get_Maximum_Waiting_Time() const;
     std::string getPassengertype()const;
     char getPassengerspecial() const;
     char getDirection() const;

@@ -38,7 +38,7 @@ Passenger::Passenger(int newId, int newArrivalHour, int newArrivalMinutes,
     }
 }
     
-
+int Passenger::get_Maximum_Waiting_Time() const { return max_waiting_time; }
 
 void Passenger::setWaitingTime(int Time_minutes) {
     waiting_time_minutes = Time_minutes;

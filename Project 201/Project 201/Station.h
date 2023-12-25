@@ -22,8 +22,22 @@ public:
 	BusQueue Buses_Mixed_Backward;
 	BusQueue Buses_Wheel_Backward;
 	Station(int number) : Station_Number(number) {}
-	//--------------------------------------Modify the code-----------------------------------------------
 
+	bool Promote(Passenger* obj) {
+		bool promotion = obj->waiting_time_increase(obj->get_Maximum_Waiting_Time());
+		if (promotion) {
+			if (obj->getDirection() == 'F') {
+				Normal_Passengers_Forward.Leave_Passenger(obj); //same complexity as the deque
+				Special_Passengers_Forward.enQueue(obj, 3);
+			}
+			else {
+				Normal_Passengers_Backward.Leave_Passenger(obj);
+				Special_Passengers_Backward.enQueue(obj, 3);
+			}
+			return true;
+		}
+		return false;
+	}
 	void Add_to_Station(Passenger* obj) {
 		if (obj->getPassengertype() == "SP" && obj->getDirection() == 'B') {
 			if (obj->getPassengerspecial() == 'A') { Special_Passengers_Backward.enQueue(obj, 3); }
