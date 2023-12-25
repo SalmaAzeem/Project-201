@@ -11,7 +11,7 @@ class ArrivalEvent : public Event
 public:
 	ArrivalEvent(char et, string type_of_pass, char special, int h, int m, int s, int i, int ss, int ls);
 
-	Passenger* execute() override;
+	void execute(Station** array) override;
 
 	char get_type();
 	int get_l_station();

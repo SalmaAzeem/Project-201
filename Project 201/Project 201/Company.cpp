@@ -171,8 +171,8 @@ void Company::initialize_buses(Station** array) {
 void Company::Pass_Passenger(Station** array) {
     Passenger* P = new Passenger;
     Event* one = tot_events.dequeue();
-    P = one->execute();
-    array[P->getArrivalStationId()]->Add_to_Station(P);
+    one->execute(array);
+   
 }
 
 Station** Company::Array_Of_Stations() {
@@ -182,6 +182,7 @@ Station** Company::Array_Of_Stations() {
         Array_stations[i] = new Station(i);
     }
     return Array_stations;
+
 }
 
 
@@ -247,13 +248,8 @@ void Company::add_me(int Hour, int Minute, Station** array) {
 
 void Company::Remove_passenger(Station** array)
 {
-    Passenger* Passenger_leave = new Passenger();
-    Passenger_leave = tot_events.dequeue()->execute();
-    for (int i = 1; i < Number_of_stations; i++) {
-        if (array[i]->get_station_number() == Passenger_leave->getArrivalStationId()) {
-            array[i]->Leave_Station(Passenger_leave); //mariam te3adel
-        }
-    }
+  
+     tot_events.dequeue()->execute(array);
 
 }
 
@@ -276,6 +272,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                 }
                 else if (one_event->get_event_type() == 'L')
                 {
+                    cout << "Leave id is " << one_event->get_id() << endl;
                     Remove_passenger(array_of_stations);
                 }
 
@@ -302,40 +299,4 @@ void Company::Simulate() {
     Station** array_of_stations = Array_Of_Stations();
     initialize_buses(array_of_stations);
     Simulate_Branch(array_of_stations);
-    //Event* one_event;
-    //UI test;
-    //int Hour = 0;
-    //int Minute = 0;
-    //int Second = 0;
-    //int c = 0;
-    //Passenger* one_passenger;
-    //for (int h = 0; h < 24; h++) {
-    //    for (int m = 0; m < 60; m++) {
-    //        if (tot_events.peek_Event() != nullptr) {
-    //            one_event = tot_events.peek_Event();
-
-    //            if (one_event->get_event_type() == 'A')
-    //            {
-    //                add_me(Hour, Minute, array_of_stations);
-    //            }
-    //            else if (one_event->get_event_type() == 'L')
-    //            {
-    //                Remove_passenger(array_of_stations);
-    //            }
-
-    //            Minute++;
-    //        }
-    //    }
-    //    Minute = 0;
-    //    Hour++;
-    //}
-    ////std: cout << "The Count of Passengers is " << c << endl;
-    //    //--------------------------------------------
-    //for (int i = 0; i < Number_of_stations; i++) {
-    //    test.interface(array_of_stations, i);
-    //    std::cout << "\n-----------------------------------------------" << std::endl;
-    //    std::cout << "Press any key to display the next station..." << std::endl;
-    //    getchar();
-    //    //array_of_stations[i]->Print_Station();
-    //}
 }
