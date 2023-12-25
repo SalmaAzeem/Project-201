@@ -282,6 +282,13 @@ public:
 		delete Ptr;
 		return available;
 	}
+	Bus* Peek_Bus() const
+	{
+		Bus* Bus;
+		if (Is_Empty()) { return nullptr; }
+		Bus = Front->getPtrObj();
+		return Bus;
+	}
 };
 
 #endif // !QUEUE
