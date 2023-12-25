@@ -1,58 +1,18 @@
 #include <iostream>
 #include "Event.h"
+#include "Node.h"
 
 #ifndef LINKEDQUEUE_H
 #define LINKEDQUEUE_H
 using namespace std;
 
 
-class Node_Queue
-{
-private:
-    Event* value;
-    Node_Queue* next;
 
-public:
-    Node_Queue()
-    {
-        next = nullptr;
-    }
-    Node_Queue(Event* newvalue)
-    {
-        value = newvalue;
-        next = nullptr;
-    }
-    void setvalue(Event* newvalue)
-    {
-        value = newvalue;
-
-    }
-    void setnext(Node_Queue* newptr)
-    {
-        next = newptr;
-    }
-    Event* getvalue()
-    {
-        return value;
-    }
-
-    void getit()
-    {
-        cout << value;
-    }
-
-    Node_Queue* getnext() const
-    {
-        return next;
-    }
-};
-
-
-
+template<typename t>
 class LinkedQueue
 {
-    Node_Queue* backptr;
-    Node_Queue* frontptr;
+    Node<t>* backptr;
+    Node<t>* frontptr;
 public:
     LinkedQueue()
     {
@@ -61,7 +21,7 @@ public:
     }
     void Print_Queue_events() {
         std::cout << "\nPrinting Queue contents:\n";
-        Node_Queue* ptr = frontptr;
+        Node<t>* ptr = frontptr;
 
         while (ptr)
         {
@@ -78,11 +38,11 @@ public:
             ptr = ptr->getnext();
         }
     }
-    Node_Queue* getfront()
+    Node<t>* getfront()
     {
         return frontptr;
     }
-    Node_Queue* getback()
+    Node<t>* getback()
     {
         return backptr;
     }
@@ -96,44 +56,44 @@ public:
         return frontptr->getnext() == nullptr;
     }
 
-    bool enqueue(Event* item)
+    bool enqueue(t item)
     {
-        Node_Queue* newnode = new Node_Queue(item);
+        Node<t>* newnode = new Node<t>(item);
         if (isEmpty()) frontptr = backptr = newnode;
         else backptr->setnext(newnode);
 
         backptr = newnode;
         return true;
     }
-    Event* dequeue()
+    t dequeue()
     {
-        Node_Queue* ptr = frontptr;
+        Node<t>* ptr = frontptr;
         if (isEmpty()) return ptr->getvalue();
         frontptr = frontptr->getnext();
         if (frontptr == nullptr) backptr = nullptr;
-        Event* temp = ptr->getvalue();
+        t temp = ptr->getvalue();
 
         delete ptr;
         return temp;
     }
 
-    Event* peek_Event() const
+    t peek_Event() const
     {
-        Event* item;
+        t item;
         if (isEmpty()) return nullptr;
         item = frontptr->getvalue();
 
         return item;
     }
-    Event* peek_Next_Event() const
+    t peek_Next_Event() const
     {
-        Event* item;
+        t item;
         if (isEmptyNext()) return nullptr;
         item = frontptr->getnext()->getvalue();
         return item;
     }
 
-    bool peek(Event* item) const
+    bool peek(t item) const
     {
         if (isEmpty()) return false;
         item = frontptr->getvalue();
