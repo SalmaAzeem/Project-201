@@ -6,7 +6,7 @@
 using namespace std;
 
 ArrivalEvent::ArrivalEvent(char et, string type_of_pass, char special, int h,
-    int m, int s, int i, int ss, int ls) {
+    int m, int s, int i, int ss, int ls, int max_waiting_time) {
     event_type = et;
     hour = h;
     minute = m;
@@ -16,22 +16,13 @@ ArrivalEvent::ArrivalEvent(char et, string type_of_pass, char special, int h,
     l_station = ls;
     type_of_passenger = type_of_pass;
     type_passenger_special = special;
+    this->max_waiting_time = max_waiting_time;
 }
 void ArrivalEvent::execute(Station** array) {
 
     Passenger* one =
-        new Passenger(id, hour, minute, second, sstation, l_station, type_of_passenger, type_passenger_special);
+        new Passenger(id, hour, minute, second, sstation, l_station, type_of_passenger, type_passenger_special, max_waiting_time);
     ///object from the station and call addpassenger
-    std::cout
-        << "id is " << id << endl
-        << "start station is " << sstation << endl
-        << "last station is " << l_station << endl
-        << "Hour is: " << hour << std::endl
-        << "Minute is: " << minute << std::endl
-        << "type is: " << type_of_passenger << endl
-        << "Special Type is " << type_passenger_special << std::endl
-        << "direction: " << one->getDirection() << std::endl
-        << '\n';
     array[one->getArrivalStationId()]->Add_to_Station(one);
     return;
 }

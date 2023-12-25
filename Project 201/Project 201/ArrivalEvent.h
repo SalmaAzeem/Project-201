@@ -9,7 +9,7 @@ using namespace std;
 class ArrivalEvent : public Event
 {
 public:
-	ArrivalEvent(char et, string type_of_pass, char special, int h, int m, int s, int i, int ss, int ls);
+	ArrivalEvent(char et, string type_of_pass, char special, int h, int m, int s, int i, int ss, int ls, int mwt);
 
 	void execute(Station** array) override;
 
@@ -44,6 +44,7 @@ public:
 	void set_sstation(int ss);
 
 	int get_sstation();
+
 
 	std::string get_type_of_passenger();
 	char get_special_type();
