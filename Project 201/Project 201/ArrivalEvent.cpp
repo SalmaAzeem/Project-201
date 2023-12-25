@@ -1,5 +1,6 @@
 #include "ArrivalEvent.h"
 #include "Passenger.h"
+#include "Station.h"
 
 #include <iostream>
 using namespace std;
@@ -16,7 +17,8 @@ ArrivalEvent::ArrivalEvent(char et, string type_of_pass, char special, int h,
     type_of_passenger = type_of_pass;
     type_passenger_special = special;
 }
-Passenger* ArrivalEvent::execute() {
+void ArrivalEvent::execute(Station** array) {
+
     Passenger* one =
         new Passenger(id, hour, minute, second, sstation, l_station, type_of_passenger, type_passenger_special);
     ///object from the station and call addpassenger
@@ -30,7 +32,8 @@ Passenger* ArrivalEvent::execute() {
         << "Special Type is " << type_passenger_special << std::endl
         << "direction: " << one->getDirection() << std::endl
         << '\n';
-    return one;
+    array[one->getArrivalStationId()]->Add_to_Station(one);
+    return;
 }
 void ArrivalEvent::set_event_type(char newEventType) {
     event_type = newEventType;

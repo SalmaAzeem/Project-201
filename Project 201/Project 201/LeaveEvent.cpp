@@ -1,5 +1,6 @@
 #include "LeaveEvent.h"
 #include "Passenger.h"
+#include "Station.h"
 #include <iostream>
 using namespace std;
 
@@ -12,7 +13,7 @@ LeaveEvent::LeaveEvent(char et, int h, int m, int s, int i, int ss) {
 	sstation = ss;
 }
 
-Passenger* LeaveEvent::execute() {
+void LeaveEvent::execute(Station** array) {
 	Passenger* one = new Passenger(id, sstation);
 	cout << "id is " << id << endl
 		<< "start station is " << sstation << endl
@@ -21,6 +22,7 @@ Passenger* LeaveEvent::execute() {
 		<< "Minute is: " << minute << std::endl
 
 		<< '\n';
-
-	return one;
+	array[one->getArrivalStationId()]->Leave_Station(one);
+	
+	return;
 }
