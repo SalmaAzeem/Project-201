@@ -20,6 +20,19 @@ void Company::set_number_of_stations(int n)
     std::cout << Number_of_stations;
 }
 
+void Company::calculate_average_waiting_time()
+{
+    average_waiting_time = average_waiting_time / number_of_events;
+    //eftekry te3mely el average_waiting_time_hour b zero
+}
+
+void Company::calculate_average_trip_time()
+{
+    average_trip_time_hour = average_trip_time_hour / number_of_events;
+    average_trip_time_minute = average_trip_time_minute / number_of_events;
+}
+
+
 Company::Company() {}
 void Company::read_input() {
     std::ifstream file("random.txt");
@@ -103,7 +116,7 @@ void Company::read_events() {
                 }
                 ArrivalEvent* event_arrival =
                     new ArrivalEvent(type_of_events, type, special_char, hours, minutes,
-                        sec, id, sstation_id, lstation_id);
+                        sec, id, sstation_id, lstation_id, max_waiting_time);
 
                 // enqueue in the queue of events
 
@@ -282,7 +295,8 @@ void Company::Simulate_Branch(Station** array_of_stations) {
         Minute = 0;
         Hour++;
     }
-    //std: cout << "The Count of Passengers is " << c << endl;
+    //std: cout << "The Count of 
+    // s is " << c << endl;
         //--------------------------------------------
     for (int i = 0; i < Number_of_stations; i++) {
         test.interface(array_of_stations, i);

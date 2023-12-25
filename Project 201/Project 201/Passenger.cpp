@@ -5,11 +5,11 @@ using namespace std;
 
 Passenger::Passenger()
     : id(0), arrival_hour(0), arrival_minutes(0), arrival_seconds(0),
-    arrival_station_id(0), leave_station_id(0), type_of_passenger(" "), waiting_time(0) {}
+    arrival_station_id(0), leave_station_id(0), type_of_passenger(" "), waiting_time_minutes(0) {}
 
 Passenger::Passenger(int newId, int newArrivalHour, int newArrivalMinutes,
     int newArrivalSeconds, int newArrivalStationId,
-    int newLeaveStationId, std::string type, char special)
+    int newLeaveStationId, std::string type, char special, int Max_Waiting_Time)
 {
     id = newId;
     arrival_hour = newArrivalHour;
@@ -19,7 +19,15 @@ Passenger::Passenger(int newId, int newArrivalHour, int newArrivalMinutes,
     leave_station_id = newLeaveStationId;
     type_of_passenger = type;
     special_type = special;
-    waiting_time = 0;
+    waiting_time_hour = 0;
+    waiting_time_minutes = 0;
+    finish_time_minutes = 0;
+    finish_time_hour = 0;
+    move_time_hour = 0;
+    move_time_minutes = 0;
+    trip_time_hour = 0;
+    trip_time_minutes = 0;
+    max_waiting_time = Max_Waiting_Time;
     if (newArrivalStationId > newLeaveStationId)
     {
         direction = 'B';
@@ -32,8 +40,8 @@ Passenger::Passenger(int newId, int newArrivalHour, int newArrivalMinutes,
     
 
 
-void Passenger::setWaitingTime(int newWaitingTime) {
-    waiting_time = newWaitingTime;
+void Passenger::setWaitingTime(int Time_minutes) {
+    waiting_time_minutes = Time_minutes;
 }
 
 // Getters
@@ -63,7 +71,7 @@ int Passenger::getLeaveStationId() const
 }
 int Passenger::getWaitingTime() const
 {
-    return waiting_time;
+    return waiting_time_minutes;
 }
 char Passenger::getDirection() const { return direction; }
 
@@ -84,14 +92,24 @@ Passenger::Passenger(int newid, int start_station)
 
 bool Passenger::waiting_time_increase(int max_waiting_time)
 {
-    if (waiting_time == max_waiting_time)
+    if (waiting_time_minutes == max_waiting_time)
     {
-        waiting_time = 0;
+        waiting_time_minutes = 0;
         type_of_passenger = "SP";
         special_type = 'A'; //a3la priority
         return true;
     }
-    waiting_time++;
+    waiting_time_minutes++;
     return false;
 
+}
+void Passenger::calculate_Passenger_waiting_time()
+{
+    waiting_time_hour = move_time_hour - arrival_hour;
+    waiting_time_minutes = move_time_minutes - arrival_minutes;
+}
+void Passenger::calculate_Passenger_trip_time()
+{
+    trip_time_hour = finish_time_hour - move_time_hour;
+    trip_time_minutes = finish_time_minutes - move_time_minutes;
 }
