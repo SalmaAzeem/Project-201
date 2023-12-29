@@ -108,6 +108,14 @@ public:
 		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Forward.deQueue(); }
 		else { std::cout << "wrong parameters\n"; } //change this message / condition
 	}
+
+	Bus* Remove_Bus(char type,char direction)
+	{
+		if (type == 'M' && direction == 'F') return Buses_Mixed_Forward.deQueue();
+		if (type == 'M' && direction == 'B') return Buses_Mixed_Backward.deQueue();
+		if (type == 'W' && direction == 'F') return Buses_Wheel_Forward.deQueue();
+		else return Buses_Wheel_Backward.deQueue();
+	}
 	void Print_Bus_At_Station() { 
 		std::cout << "Printing the buses at the station: " << std::endl;
 		std::cout << "Forward Mixed Bus: ";
@@ -132,6 +140,17 @@ public:
 		total_count = count1 + count2 + count3 + count4;
 		return total_count;
 	}
+
+
+	int Count_Bus_Of_Type(char type,char direction)
+	{
+		if(type == 'M' && direction == 'F') return Buses_Mixed_Forward.Count();
+		if (type == 'M' && direction == 'B') return Buses_Mixed_Backward.Count();
+		if(type == 'W' && direction == 'F') return Buses_Wheel_Forward.Count();
+		else return Buses_Wheel_Backward.Count();
+	}
+
+	
 	int get_station_number() const { return Station_Number; }
 	Passenger** Array_Special_Passengers_Forward() {
 		return Special_Passengers_Forward.get_array_passengers();
