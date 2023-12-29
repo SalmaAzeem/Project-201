@@ -455,11 +455,11 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                                             if (CurruntStation->Special_Passengers_Backward.Count() > 0 && sc % 6 == 0 && !(CurrentBus->Is_Full())) //gets on the bus in 3 sec + 3 sec of getting on 
                                             {
-                                                CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Backward.deQueue(), 'F');
+                                                CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Backward.deQueue(), 'B');
                                             }
                                             else if (CurruntStation->Normal_Passengers_Backward.Count() > 0 && sc % 6 == 0 && !(CurrentBus->Is_Full()))
                                             {
-                                                CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Backward.deQueue(), 'F');
+                                                CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Backward.deQueue(), 'B');
                                             }
                                             else if (CurrentBus->Is_Full())////////the bus moves if its full 
                                             {
