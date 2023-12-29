@@ -75,7 +75,7 @@ public:
         Node<t>* newNode = new Node<t>(obj);
         Node<t>* ptr = this->head;
 
-        if (this->head == nullptr || obj->getLeaveStationId() < ptr->getvalue()->getLeaveStationId())
+        if (this->head == nullptr || obj->getLeaveStationId() > ptr->getvalue()->getLeaveStationId())
         {
             newNode->setnext(this->head);
             this->head = newNode;
