@@ -35,7 +35,7 @@ public:
 	bool Get_out_of_Mentainance(int time);
 	bool get_reverse() const;
 	bool Is_Busy();
-
+	int get_capacity() const;
 };
 
 #endif

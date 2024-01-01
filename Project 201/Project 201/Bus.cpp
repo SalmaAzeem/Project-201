@@ -149,3 +149,5 @@ bool Bus::Is_Busy()
 {
 	return status == 'B';
 }
+
+int Bus::get_capacity() const { return capacity; }

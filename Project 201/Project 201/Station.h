@@ -174,6 +174,18 @@ public:
 	Passenger** Array_Wheel_Passengers_Backward() {
 		return Wheel_Passengers_Backward.get_array_passengers();
 	}
+	Bus** Array_Mixed_Backward() {
+		return Buses_Mixed_Backward.get_array_buses();
+	}
+	Bus** Array_Wheel_Backward() {
+		return Buses_Wheel_Backward.get_array_buses();
+	}
+	Bus** Array_Mixed_Forward() {
+		return Buses_Mixed_Forward.get_array_buses();
+	}
+	Bus** Array_Wheel_Forward() {
+		return Buses_Wheel_Forward.get_array_buses();
+	}
 	int count_forward(Passenger** array, int num) {
 		int count{};
 		for (int i = 0; i < num; i++) {
