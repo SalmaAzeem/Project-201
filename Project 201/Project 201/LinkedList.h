@@ -27,7 +27,10 @@ public:
     Node<t>* gethead() {
         return head;
     }
-
+    void sethead(t value)
+    {
+        head->setvalue(value);
+    }
     Node<t>* GetNodeInPlace(int place) {
         Node<t>* ptr = this->head;
         if (ptr != nullptr)
@@ -138,6 +141,7 @@ public:
 
 
     void RecPrint(Node<t>* ptr) {
+        cout << "I am in RecPrint" << endl;
         if (ptr == nullptr) return;
         cout << (ptr->getvalue()) << "\t";
         RecPrint(ptr->getnext());

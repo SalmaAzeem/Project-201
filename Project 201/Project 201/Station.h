@@ -21,7 +21,9 @@ public:
 	BusQueue Buses_Wheel_Forward;
 	BusQueue Buses_Mixed_Backward;
 	BusQueue Buses_Wheel_Backward;
+	int count_promoted = 0;
 	Station(int number) : Station_Number(number) {}
+	Station(){}
 
 	bool Promote(Passenger* obj) {
 		bool promotion = obj->waiting_time_increase(obj->get_Maximum_Waiting_Time());
@@ -29,10 +31,13 @@ public:
 			if (obj->getDirection() == 'F') {
 				Normal_Passengers_Forward.Leave_Passenger(obj); //same complexity as the deque
 				Special_Passengers_Forward.enQueue(obj, 3);
+				count_promoted++;
+				cout <<"count_promoted is ================" << count_promoted;
 			}
 			else {
 				Normal_Passengers_Backward.Leave_Passenger(obj);
 				Special_Passengers_Backward.enQueue(obj, 3);
+				count_promoted++;
 			}
 			return true;
 		}
@@ -169,6 +174,18 @@ public:
 	}
 	Passenger** Array_Wheel_Passengers_Backward() {
 		return Wheel_Passengers_Backward.get_array_passengers();
+	}
+	Bus** Array_Mixed_Backward() {
+		return Buses_Mixed_Backward.get_array_buses();
+	}
+	Bus** Array_Wheel_Backward() {
+		return Buses_Wheel_Backward.get_array_buses();
+	}
+	Bus** Array_Mixed_Forward() {
+		return Buses_Mixed_Forward.get_array_buses();
+	}
+	Bus** Array_Wheel_Forward() {
+		return Buses_Wheel_Forward.get_array_buses();
 	}
 	int count_forward(Passenger** array, int num) {
 		int count{};

@@ -289,6 +289,18 @@ public:
 		Bus = Front->getPtrObj();
 		return Bus;
 	}
+	Bus** get_array_buses() const {
+		int number_buses = Count();
+		Bus** array = new Bus * [number_buses];
+		QNode<Bus*>* Ptr = Front;
+		int count = 0;
+		while (Ptr) {
+			array[count] = Ptr->getPtrObj();
+			count++;
+			Ptr = Ptr->getNext();
+		}
+		return array;
+	}
 };
 
 #endif // !QUEUE

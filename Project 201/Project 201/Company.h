@@ -22,8 +22,11 @@ private:
 	int average_waiting_time;
 	int average_trip_time_hour;
 	int average_trip_time_minute;
-
-
+	int num_of_promoted_passengers; //add num_of_promoted_passengers++ when promoting a passenger
+	int number_of_normal_passengers;
+	int number_of_wheel_passengers;
+	int number_of_special_passengers;
+	LinkedList<Passenger*> Finished_Passengers;  //to be removed
 
 
 public:
@@ -45,5 +48,7 @@ public:
 	void Remove_passenger(Station** array);
 	void calculate_average_waiting_time();
 	void calculate_average_trip_time();
+	void output_file(Station** array_of_stations);
+	int calculate_total_count_promoted(Station** array_of_stations);
 };
 #endif
