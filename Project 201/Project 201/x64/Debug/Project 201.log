@@ -1,12 +1,4 @@
-﻿  ArrivalEvent.cpp
-  Bus.cpp
-  Company.cpp
-C:\Dahdouha\Third Semester - Year 2\Project Data Structure\Project-201\Project 201\Project 201\Company.cpp(299,16): warning C4101: 'one_passenger': unreferenced local variable
-  Event.cpp
-  LeaveEvent.cpp
-  Main.cpp
-  Passenger.cpp
-  UI.cpp
-  Generating Code...
-C:\Dahdouha\Third Semester - Year 2\Project Data Structure\Project-201\Project 201\Project 201\Queue.h(183): warning C4715: 'PriorityQueuePassenger::Leave_Passenger': not all control paths return a value
-  Project 201.vcxproj -> C:\Dahdouha\Third Semester - Year 2\Project Data Structure\Project-201\Project 201\x64\Debug\Project 201.exe
+﻿Company.obj : error LNK2019: unresolved external symbol "public: bool __cdecl Bus::Add_Passenger(class Passenger *,char)" (?Add_Passenger@Bus@@QEAA_NPEAVPassenger@@D@Z) referenced in function "public: void __cdecl Company::Simulate_Branch(class Station * *)" (?Simulate_Branch@Company@@QEAAXPEAPEAVStation@@@Z)
+Company.obj : error LNK2019: unresolved external symbol "public: class Passenger * __cdecl Bus::Remove_Passenger(int)" (?Remove_Passenger@Bus@@QEAAPEAVPassenger@@H@Z) referenced in function "public: void __cdecl Company::Simulate_Branch(class Station * *)" (?Simulate_Branch@Company@@QEAAXPEAPEAVStation@@@Z)
+Company.obj : error LNK2019: unresolved external symbol "public: bool __cdecl Bus::Is_Busy(void)" (?Is_Busy@Bus@@QEAA_NXZ) referenced in function "public: void __cdecl Company::Simulate_Branch(class Station * *)" (?Simulate_Branch@Company@@QEAAXPEAPEAVStation@@@Z)
+C:\Dahdouha\Third Semester - Year 2\Project Data Structure\Project-201\Project 201\x64\Debug\Project 201.exe : fatal error LNK1120: 3 unresolved externals
