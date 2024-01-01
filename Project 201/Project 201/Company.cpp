@@ -322,6 +322,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                 if (one_event->get_event_type() == 'A')
                 {
                     add_me(Hour, Minute, array_of_stations);
+
                 }
                 else if (one_event->get_event_type() == 'L')
                 {
@@ -330,11 +331,15 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                 }
                 if (Hour >= 4)
                 {
-                    for (int st = 0; st > Number_of_stations+1; st++)
+                    //ELsign el mafrod btkon s7 wala 8alat???
+
+                    for (int st = 0; st < Number_of_stations+1; st++)
                     {
+                        cout << "Trying" << endl;
                         CurruntStation = array_of_stations[st];
                         if (st == Number_of_stations)
                         {
+
                             NextStation = array_of_stations[1];
                         }
                         else
@@ -345,6 +350,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                         {
                             if (Minute % 15 == 0)
                             {
+
                  /////////see if there is any thing inside the queue to be able to dequeue a bus of each type////////////
                                 if (CurruntStation->Count_Bus_Of_Type('W', 'F') > 0 && !(CurruntStation->Buses_Wheel_Forward.Peek_Bus()->Is_Busy())) //wheel forwad  //check if in mentainance
                                 {
@@ -379,7 +385,10 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                     CurrentBus = CurruntStation->Buses_Wheel_Forward.Peek_Bus();
                                     if (sc % 3 == 0 && sc != 0)
                                     {
+                                        cout << "ab";
                                         removed_person = CurrentBus->Remove_Passenger(st);
+                                        cout << "as";
+                                 
                                         if (removed_person != nullptr)
                                         {
                                             ///store people done with the journy to display in interface
@@ -387,10 +396,12 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         }
                                         if (removed_person == nullptr)
                                         {
+                                        
                                  /////add passenger alg/////
                                             ///check if there are people///
                                             if (CurruntStation->Wheel_Passengers_Forward.Count() > 0 && sc%6 ==0 &&!(CurrentBus->Is_Full())) //gets on the bus in 3 sec + 3 sec of getting on 
                                             {
+                                                cout << "Trying2" << endl;
                                                 CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Forward.deQueue(),'F');
                                           
                                             }
@@ -437,9 +448,10 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                             else if (CurruntStation->Wheel_Passengers_Backward.Count() == 0)//////move bus if no people left to add
                                             {
                                                 CurrentBus = CurruntStation->Remove_Bus('W', 'B');
-                                                NextStation->Add_Bus(CurrentBus);
+                                                NextStation->Add_Bus(CurrentBus); 
+                                                continue;
                                             }
-
+                                            CurrentBus = CurruntStation->Buses_Wheel_Backward.Peek_Bus();
 
                                         }
                                     }

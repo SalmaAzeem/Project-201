@@ -27,7 +27,10 @@ public:
     Node<t>* gethead() {
         return head;
     }
-
+    void sethead(t value)
+    {
+        head->setvalue(value);
+    }
     Node<t>* GetNodeInPlace(int place) {
         Node<t>* ptr = this->head;
         if (ptr != nullptr)

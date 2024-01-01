@@ -75,6 +75,7 @@ bool Bus::Add_Time(int time)
 
 Passenger* Bus::Remove_Passenger(int station_num)
 {
+	cout << station_num;
 	Node<Passenger*>* ptr = Bus_passengers.gethead();
 	if(ptr != nullptr && (current_station == next_station))
 	{
@@ -83,11 +84,14 @@ Passenger* Bus::Remove_Passenger(int station_num)
 			Bus_passengers.DeleteNode(ptr->getvalue());
 			count_inside--;
 			status = 'E';
+			cout << ptr->getvalue()->getId();
 		//// to remove only one person
 		}
 	}
 	if (ptr == nullptr) return nullptr; /// handle null ptr as it errors with get value when nothing to remove
 	return ptr->getvalue();
+
+
 }
 
 bool Bus::Reverse_Bus(int station, int num_of_journies, int time)

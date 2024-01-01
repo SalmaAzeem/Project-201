@@ -17,9 +17,9 @@ class Bus
 	int timer;
 	char status;
 	int time_mentainance;
-
 public:
 	LinkedList<Passenger*> Bus_passengers;
+
 	char GetType();
 	void set_bus_id(int new_id);
 	int getId() const;
