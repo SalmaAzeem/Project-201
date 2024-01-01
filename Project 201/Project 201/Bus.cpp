@@ -22,8 +22,17 @@ void Bus::set_bus_id(int new_id)
 
 bool Bus::Move_Bus(bool reverse)
 {
-	if (!reverse) next_station++;
-	else next_station--;
+	if (!reverse&&status == 'E')
+	{
+		next_station++;
+		status = 'B';
+	}
+	else
+	{
+		next_station--;
+		status = 'B';
+
+	}
 	return true;
 }
 
@@ -41,13 +50,13 @@ bool Bus::Is_Full()
 
 bool Bus::Add_Passenger(Passenger* passenger,char direction)
 {
-	if (current_station == next_station && direction == 'F')
+	if ( direction == 'F')
 	{
 		Bus_passengers.InsertSorted(passenger);  //forward sort asc
 		count_inside++;
 		return true;
 	}
-	else if (current_station == next_station && direction == 'B')
+	else if ( direction == 'B')
 	{
 		Bus_passengers.InsertSortedDesc(passenger);  //backward sort desc
 		count_inside++;
@@ -60,24 +69,24 @@ int Bus::getId() const {
 	return bus_number;
 }
 
-
-bool Bus::Add_Time(int time)
-{
-	if (timer == time)
-	{
-		current_station = next_station;
-		timer = 0;
-		return true;
-	}
-	timer++;
-	return false;
-}
+//
+//bool Bus::Add_Time(int time)
+//{
+//	if (timer == time)
+//	{
+//		current_station = next_station;
+//		timer = 0;
+//		return true;
+//	}
+//	timer++;
+//	return false;
+//}
 
 Passenger* Bus::Remove_Passenger(int station_num)
 {
 	cout << station_num;
 	Node<Passenger*>* ptr = Bus_passengers.gethead();
-	if(ptr != nullptr && (current_station == next_station))
+	if(ptr != nullptr )
 	{
 		if (station_num == ptr->getvalue()->getLeaveStationId())
 		{

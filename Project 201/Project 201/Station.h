@@ -115,10 +115,12 @@ public:
 
 	Bus* Remove_Bus(char type,char direction)
 	{
+		cout << "I am in remove bus " << endl;
 		if (type == 'M' && direction == 'F') return Buses_Mixed_Forward.deQueue();
 		if (type == 'M' && direction == 'B') return Buses_Mixed_Backward.deQueue();
 		if (type == 'W' && direction == 'F') return Buses_Wheel_Forward.deQueue();
-		else return Buses_Wheel_Backward.deQueue();
+		if (type == 'W' && direction == 'B') return Buses_Wheel_Backward.deQueue();
+		return nullptr;
 	}
 	void Print_Bus_At_Station() { 
 		std::cout << "Printing the buses at the station: " << std::endl;
