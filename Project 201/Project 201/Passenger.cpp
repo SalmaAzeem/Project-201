@@ -38,18 +38,7 @@ Passenger::Passenger(int newId, int newArrivalHour, int newArrivalMinutes,
     }
 }
     
-int Passenger::get_finish_time_hour() { return finish_time_hour; }
-
-int Passenger::get_finish_time_minutes() { return finish_time_minutes; }
-
-int Passenger::get_arrival_time_hour() { return arrival_hour; }
-int Passenger::get_arrival_time_minutes() { return arrival_minutes; }
-
-int Passenger::get_waiting_time_hour() { return waiting_time_hour; }
-int Passenger::get_waiting_time_minutes() { return waiting_time_minutes; }
-
-int Passenger::get_trip_time_hour() { return trip_time_hour; }
-int Passenger::get_trip_time_minutes() { return trip_time_minutes; }
+int Passenger::get_Maximum_Waiting_Time() const { return max_waiting_time; }
 
 void Passenger::setWaitingTime(int Time_minutes) {
     waiting_time_minutes = Time_minutes;

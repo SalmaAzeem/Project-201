@@ -39,11 +39,17 @@ bool Bus::Is_Full()
 }
 
 
-bool Bus::Add_Passenger(Passenger* passenger)
+bool Bus::Add_Passenger(Passenger* passenger,char direction)
 {
-	if (current_station == next_station)
+	if (current_station == next_station && direction == 'F')
 	{
-		Bus_passengers.insertsorted(passenger);
+		Bus_passengers.InsertSorted(passenger);  //forward sort asc
+		count_inside++;
+		return true;
+	}
+	else if (current_station == next_station && direction == 'B')
+	{
+		Bus_passengers.InsertSortedDesc(passenger);  //backward sort desc
 		count_inside++;
 		return true;
 	}
@@ -67,20 +73,21 @@ bool Bus::Add_Time(int time)
 	return false;
 }
 
-bool Bus::Remove_Passenger(int station_num)
+Passenger* Bus::Remove_Passenger(int station_num)
 {
 	Node<Passenger*>* ptr = Bus_passengers.gethead();
-	while (ptr != nullptr && (current_station == next_station))
+	if(ptr != nullptr && (current_station == next_station))
 	{
 		if (station_num == ptr->getvalue()->getLeaveStationId())
 		{
 			Bus_passengers.DeleteNode(ptr->getvalue());
 			count_inside--;
 			status = 'E';
+		//// to remove only one person
 		}
-		ptr = ptr->getnext();
 	}
-	return true;
+	if (ptr == nullptr) return nullptr; /// handle null ptr as it errors with get value when nothing to remove
+	return ptr->getvalue();
 }
 
 bool Bus::Reverse_Bus(int station, int num_of_journies, int time)
@@ -133,3 +140,8 @@ char Bus::GetType()
 }
 
 bool Bus::get_reverse() const { return reverse; }
+
+bool Bus::Is_Busy()
+{
+	return status == 'B';
+}

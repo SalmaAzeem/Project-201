@@ -25,14 +25,15 @@ public:
 	Bus(int new_capacity, char new_type, int new_bus_number);
 	bool Move_Bus(bool reverse);
 	bool Is_Full();
-	bool Add_Passenger(Passenger* passenger);
+	bool Add_Passenger(Passenger* passenger,char direction);
 	//bool Shift_Bus();
 	bool Add_Time(int time);
-	bool Remove_Passenger(int station_num);
+	Passenger* Remove_Passenger(int station_num);
 	bool Reverse_Bus(int station, int num_of_journies, int time);
 	bool Mentain(int num_of_journies, int time);
 	bool Get_out_of_Mentainance(int time);
 	bool get_reverse() const;
+	bool Is_Busy();
 
 };
 

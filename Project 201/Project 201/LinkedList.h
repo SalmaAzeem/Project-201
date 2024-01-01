@@ -70,7 +70,34 @@ public:
         }
     }
 
-    bool insertsorted(Passenger* obj)
+    bool InsertSortedDesc(Passenger* obj)
+    {
+        Node<t>* newNode = new Node<t>(obj);
+        Node<t>* ptr = this->head;
+
+        if (this->head == nullptr || obj->getLeaveStationId() > ptr->getvalue()->getLeaveStationId())
+        {
+            newNode->setnext(this->head);
+            this->head = newNode;
+            return true;
+        }
+
+        while (ptr != nullptr)
+        {
+            if (ptr->getnext() == nullptr || (ptr->getvalue()->getLeaveStationId() > obj->getLeaveStationId() && (ptr->getnext() == nullptr || obj->getLeaveStationId() > ptr->getnext()->getvalue()->getLeaveStationId())))
+            {
+                newNode->setnext(ptr->getnext());
+                ptr->setnext(newNode);
+                return true;
+            }
+            else {
+                ptr = ptr->getnext();
+            }
+        }
+        return true;
+    }
+
+    bool InsertSorted(Passenger* obj)
     {
         Node<t>* newNode = new Node<t>(obj);
         Node<t>* ptr = this->head;
@@ -96,7 +123,6 @@ public:
         }
         return true;
     }
-
     bool Find(t item) {
         Node<t>* ptr = this->head;
         bool there;

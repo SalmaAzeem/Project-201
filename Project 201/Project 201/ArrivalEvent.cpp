@@ -23,16 +23,6 @@ void ArrivalEvent::execute(Station** array) {
     Passenger* one =
         new Passenger(id, hour, minute, second, sstation, l_station, type_of_passenger, type_passenger_special, max_waiting_time);
     ///object from the station and call addpassenger
-    std::cout
-        << "id is " << id << endl
-        << "start station is " << sstation << endl
-        << "last station is " << l_station << endl
-        << "Hour is: " << hour << std::endl
-        << "Minute is: " << minute << std::endl
-        << "type is: " << type_of_passenger << endl
-        << "Special Type is " << type_passenger_special << std::endl
-        << "direction: " << one->getDirection() << std::endl
-        << '\n';
     array[one->getArrivalStationId()]->Add_to_Station(one);
     return;
 }
