@@ -38,6 +38,14 @@ public:
     void setWaitingTime(int newWaitingTime);
 
     // Getters
+    int get_finish_time_hour();
+    int get_finish_time_minutes();
+    int get_arrival_time_hour();
+    int get_arrival_time_minutes();
+    int get_waiting_time_hour();
+    int get_waiting_time_minutes();
+    int get_trip_time_hour();
+    int get_trip_time_minutes();
     int getId() const;
     int getArrivalHour() const;
     int getArrivalMinutes() const;

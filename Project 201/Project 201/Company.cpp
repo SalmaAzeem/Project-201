@@ -6,6 +6,7 @@
 #include "LinkedQueue.h"
 #include "Station.h"
 #include "UI.h"
+#include "LinkedList.h"
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -87,7 +88,18 @@ void Company::read_events() {
         file >> type_of_events;
         if (type_of_events == 'A') {
             if (file >> type >> time >> id >> sstation_id >> lstation_id) {
-
+                if (type == "NP")
+                {
+                    number_of_normal_passengers++;
+                }
+                else if (type == "SP")
+                {
+                    number_of_special_passengers++;
+                }
+                else 
+                {
+                    number_of_wheel_passengers++;
+                }
                 // if there is sth at the end of the line get it else set type_special
                 // to null
                 getline(file, type_special);
@@ -230,6 +242,28 @@ void Company::Move_Bus_to_Stations(Station** array, int Station_number, char bus
     bool reverse = B->get_reverse();
     Station_after->Add_Bus(B); //lama mariam te3adel
     std::cout << B->Move_Bus(reverse);
+}
+
+void Company::output_file()
+{
+    cout << "FT\t" << "ID\t" << "AT\t" << "WT\t" << "TT"<<endl;
+    
+    for (int i = 0; i < number_of_events; i++)
+    {
+        cout << Finished_Passengers.gethead()->getvalue()->get_finish_time_hour()<<":"<< Finished_Passengers.gethead()->getvalue()->get_finish_time_minutes() << '\t'<< 
+            Finished_Passengers.gethead()->getvalue()->getId()<< '\t'<<
+            Finished_Passengers.gethead()->getvalue()->get_arrival_time_hour()<< ":"<< Finished_Passengers.gethead()->getvalue()->get_arrival_time_minutes()<<'\t'<<
+            Finished_Passengers.gethead()->getvalue()->get_waiting_time_hour()<< ":"<< Finished_Passengers.gethead()->getvalue()->get_waiting_time_minutes()<<'\t'<<
+            Finished_Passengers.gethead()->getvalue()->get_trip_time_hour()<< ":"<< Finished_Passengers.gethead()->getvalue()->get_trip_time_minutes()<<endl;
+            Finished_Passengers.DeleteNode(Finished_Passengers.gethead()->getvalue());
+    }
+    cout << "Passengers: " << number_of_events<< " [NP: "<<number_of_normal_passengers <<", SP: "<< number_of_special_passengers<<", WP: "<<number_of_wheel_passengers <<"]"<<endl;
+    cout << "Passenger avg waiting time= " << "0:" << average_waiting_time<<endl;
+    cout << "Passenger avg trip time= " << average_trip_time_hour << ":" << average_trip_time_minute<<endl;
+    //cout << "Auto-promoted passengers: "<< <<"%"<<endl;
+    cout << "Buses: " << Mixed_buses + Wheel_buses<< '/t'<<"[WBus: "<<Wheel_buses<<", MBus "<< Mixed_buses <<"]" << endl;
+    //
+    //
 }
 
 void Company::add_me(int Hour, int Minute, Station** array) {
