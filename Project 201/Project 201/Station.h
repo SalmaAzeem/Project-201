@@ -32,6 +32,7 @@ public:
 				Normal_Passengers_Forward.Leave_Passenger(obj); //same complexity as the deque
 				Special_Passengers_Forward.enQueue(obj, 3);
 				count_promoted++;
+				cout <<"count_promoted is ================" << count_promoted;
 			}
 			else {
 				Normal_Passengers_Backward.Leave_Passenger(obj);

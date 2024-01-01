@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Project 201/.vs/Project 201/v17/Browse.VC.db
+/.vs/Project-201/v17/.wsuo
+/Project 201/.vs/Project 201/v17/ipch/AutoPCH/5f38d908106bae4/ARRIVALEVENT.ipch
+/Project 201/.vs/Project 201/FileContentIndex/5124238b-855c-4d56-9040-0c93ae675546.vsidx
+/Project 201/.vs/Project 201/v17/Browse.VC.db-wal
+/Project 201/.vs/Project 201/v17/Browse.VC.db-shm
+/Project 201/.vs/Project 201/v17/Browse.VC.opendb
+/Project 201/.vs/Project 201/FileContentIndex/c37a5a70-3389-4e1b-9f8f-b445becaeaad.vsidx
+/Project 201/.vs/Project 201/v17/.suo
