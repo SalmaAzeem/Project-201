@@ -16,6 +16,7 @@ LeaveEvent::LeaveEvent(char et, int h, int m, int s, int i, int ss) {
 void LeaveEvent::execute(Station** array) {
 	Passenger* one = new Passenger(id, sstation);
 	array[one->getArrivalStationId()]->Leave_Station(one);
+	array[one->getArrivalStationId()]->Promote(one);
 	
 	return;
 }

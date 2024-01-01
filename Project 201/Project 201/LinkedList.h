@@ -138,6 +138,7 @@ public:
 
 
     void RecPrint(Node<t>* ptr) {
+        cout << "I am in RecPrint" << endl;
         if (ptr == nullptr) return;
         cout << (ptr->getvalue()) << "\t";
         RecPrint(ptr->getnext());

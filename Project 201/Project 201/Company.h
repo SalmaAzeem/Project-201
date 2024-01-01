@@ -23,6 +23,9 @@ private:
 	int average_trip_time_hour;
 	int average_trip_time_minute;
 	int num_of_promoted_passengers; //add num_of_promoted_passengers++ when promoting a passenger
+	int number_of_normal_passengers;
+	int number_of_wheel_passengers;
+	int number_of_special_passengers;
 	LinkedList<Passenger*> Finished_Passengers;  //to be removed
 
 
