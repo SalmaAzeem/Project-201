@@ -48,7 +48,7 @@ public:
 	void Remove_passenger(Station** array);
 	void calculate_average_waiting_time();
 	void calculate_average_trip_time();
-	void output_file(Station** array_of_stations);
+	void output_file();
 	int calculate_total_count_promoted(Station** array_of_stations);
 };
 #endif

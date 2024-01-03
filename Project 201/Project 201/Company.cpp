@@ -333,7 +333,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                 {
                     //ELsign el mafrod btkon s7 wala 8alat???
 
-                    for (int st = 0; st > Number_of_stations+1; st++)
+                    for (int st = 0; st < Number_of_stations; st++)
                     {
                         cout << "Trying" << endl;
                         CurruntStation = array_of_stations[st];
@@ -543,13 +543,13 @@ void Company::Simulate_Branch(Station** array_of_stations) {
         }
         Minute = 0;
         Hour++;
-        for (int i = 0; i < Number_of_stations; i++) {
-            test.interface(array_of_stations, i);
-            std::cout << "\n-----------------------------------------------" << std::endl;
-            std::cout << "Press any key to display the next station..." << std::endl;
-            getchar();
-            //array_of_stations[i]->Print_Station();
-        }
+        //for (int i = 0; i < Number_of_stations; i++) {
+        //    test.interface(array_of_stations, i);
+        //    std::cout << "\n-----------------------------------------------" << std::endl;
+        //    std::cout << "Press any key to display the next station..." << std::endl;
+        //    getchar();
+        //    //array_of_stations[i]->Print_Station();
+        //}
     }
     //std: cout << "The Count of 
     // s is " << c << endl;

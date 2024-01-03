@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-﻿  ArrivalEvent.cpp
-  Bus.cpp
-  Company.cpp
-C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Company.cpp(279,16): warning C4101: 'one_passenger': unreferenced local variable
-  Event.cpp
-  LeaveEvent.cpp
-  Main.cpp
-  Passenger.cpp
-  UI.cpp
-  Generating Code...
-C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Queue.h(183): warning C4715: 'PriorityQueuePassenger::Leave_Passenger': not all control paths return a value
-  Project 201.vcxproj -> C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\x64\Debug\Project 201.exe
-=======
 ﻿  Company.cpp
-C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\projectt\Project-201\Project 201\Project 201\Company.cpp(555,1): warning C4102: 'std': unreferenced label
-C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\projectt\Project-201\Project 201\Project 201\Company.cpp(321,14): warning C4101: 'NextStation': unreferenced local variable
-C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\projectt\Project-201\Project 201\Project 201\Company.cpp(318,16): warning C4101: 'removed_person': unreferenced local variable
-C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\projectt\Project-201\Project 201\Project 201\Company.cpp(323,16): warning C4101: 'one_passenger': unreferenced local variable
-C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\projectt\Project-201\Project 201\Project 201\Company.cpp(320,14): warning C4101: 'CurruntStation': unreferenced local variable
-C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\projectt\Project-201\Project 201\Project 201\Company.cpp(322,10): warning C4101: 'CurrentBus': unreferenced local variable
-  Project 201.vcxproj -> C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\projectt\Project-201\Project 201\x64\Debug\Project 201.exe
->>>>>>> 4a7bf00c2a22daa3779867e71012ae1ccf5fe130
+C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Company.cpp(315,16): warning C4101: 'one_passenger': unreferenced local variable
+  Project 201.vcxproj -> C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\x64\Debug\Project 201.exe
