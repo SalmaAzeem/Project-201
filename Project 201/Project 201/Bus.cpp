@@ -70,12 +70,21 @@ int Bus::getId() const {
 }
 
 
-bool Bus::Add_Time(int time)
+bool Bus::Add_Time(int time,int number_of_stations)
 {
 	if (timer == time)
 	{
 		current_station = next_station;
 		timer = 0;
+		if (number_of_stations == next_station)
+		{
+			reverse = true;
+			next_station = number_of_stations - 1;
+		}
+		else if (number_of_stations == 1)
+		{
+			reverse = false;
+		}
 		return true;
 	}
 	timer++;

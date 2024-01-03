@@ -341,10 +341,10 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                         
                       
               CurruntStation = array_of_stations[st];
-              /*cout << "Wheel  ";
-              CurruntStation->Buses_Wheel_Forward.Print_Queue();*/
+              
+              CurruntStation->Buses_Wheel_Forward.Print_Queue();
               //cout << "Mixed ";
-              CurruntStation->Buses_Mixed_Forward.Print_Queue();
+              //CurruntStation->Buses_Mixed_Forward.Print_Queue();
 
               cout << st << " ";
               if (st == Number_of_stations)
@@ -614,7 +614,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
            while (ptr->getnext())
            {
 
-               if (ptr->getvalue()->Add_Time(between_stations))
+               if (ptr->getvalue()->Add_Time(between_stations,Number_of_stations))
                {
                    
                    //cout << ptr->getvalue()->get_next_station() << " station number" << endl;
@@ -624,7 +624,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                ptr = ptr->getnext();
            }
-           if (ptr->getvalue()->Add_Time(between_stations))
+           if (ptr->getvalue()->Add_Time(between_stations,Number_of_stations))
            {
                array_of_stations[ptr->getvalue()->get_next_station()]->Add_Bus(ptr->getvalue());
            }
@@ -632,7 +632,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
            }
            Minute++;
-               
+          
             }
             /* for (int st = 0; st < Number_of_stations; st++)
                 {
@@ -643,7 +643,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                     }
                 }*/
-            
+          //  if (Minute == 60) break;
             Minute = 0;
             Hour++;
         }
