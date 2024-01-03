@@ -116,7 +116,7 @@ public:
 
 	Bus* Remove_Bus(char type,char direction)
 	{
-		cout << "I am in remove bus " << endl;
+		//cout << "I am in remove bus " << endl;
 		if (type == 'M' && direction == 'F') return Buses_Mixed_Forward.deQueue();
 		if (type == 'M' && direction == 'B') return Buses_Mixed_Backward.deQueue();
 		if (type == 'W' && direction == 'F') return Buses_Wheel_Forward.deQueue();

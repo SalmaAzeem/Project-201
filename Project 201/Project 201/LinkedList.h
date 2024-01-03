@@ -130,7 +130,7 @@ public:
     }
     bool Find(t item) {
         Node<t>* ptr = this->head;
-        bool there;
+        bool there = false;
         while (ptr != nullptr)
         {
             if (ptr->getvalue() == item)  there = true;
