@@ -29,7 +29,7 @@ public:
 	bool Is_Full();
 	bool Add_Passenger(Passenger* passenger,char direction);
 	//bool Shift_Bus();
-	bool Add_Time(int time, int number_of_stations);
+	bool Add_Time(int time,int num_of_stations);
 	int Remove_Passenger(int station_num);
 	bool Reverse_Bus(int station, int num_of_journies, int time);
 	bool Mentain(int num_of_journies, int time);

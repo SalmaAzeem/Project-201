@@ -26,11 +26,13 @@ bool Bus::Move_Bus(bool reverse)
 	{
 		next_station++;
 		status = 'B';
+		cout << "ana revese false"<< endl;
 	}
 	else
 	{
 		next_station--;
 		status = 'B';
+		cout << "ana revese true" << endl;
 
 	}
 	return true;
@@ -70,20 +72,15 @@ int Bus::getId() const {
 }
 
 
-bool Bus::Add_Time(int time,int number_of_stations)
+bool Bus::Add_Time(int time,int num_of_stations)
 {
 	if (timer == time)
 	{
 		current_station = next_station;
 		timer = 0;
-		if (number_of_stations == next_station)
+		if (num_of_stations == current_station)
 		{
-			reverse = true;
-			next_station = number_of_stations - 1;
-		}
-		else if (number_of_stations == 1)
-		{
-			reverse = false;
+			current_station = next_station = num_of_stations - 1;
 		}
 		return true;
 	}
@@ -111,11 +108,12 @@ int Bus::Remove_Passenger(int station_num)
 	return id;
 }
 
-bool Bus::Reverse_Bus(int station, int num_of_journies, int time)
+bool Bus::Reverse_Bus(int stations, int num_of_journies, int time)
 {
-	if (current_station == station)
+	if (current_station == stations)
 	{
 		reverse = true;
+		current_station = next_station = stations - 1;
 		num_journey++;
 		return Mentain(num_of_journies, time);
 	}
