@@ -27,9 +27,9 @@ public:
     Node<t>* gethead() {
         return head;
     }
-    void sethead(t value)
+    void sethead(Node<t>* value)
     {
-        head->setvalue(value);
+        head = value;
     }
     Node<t>* GetNodeInPlace(int place) {
         Node<t>* ptr = this->head;
@@ -75,6 +75,7 @@ public:
 
     bool InsertSortedDesc(Passenger* obj)
     {
+        if (!Find(obj)) return false;
         Node<t>* newNode = new Node<t>(obj);
         Node<t>* ptr = this->head;
 
@@ -102,6 +103,7 @@ public:
 
     bool InsertSorted(Passenger* obj)
     {
+        if (!Find(obj)) return false;
         Node<t>* newNode = new Node<t>(obj);
         Node<t>* ptr = this->head;
 
@@ -179,6 +181,7 @@ public:
             return true;
         }
     }
+
 
     void DeleteAll() {
         Node<t>* P = head;

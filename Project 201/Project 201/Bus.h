@@ -19,9 +19,10 @@ class Bus
 	int time_mentainance;
 public:
 	LinkedList<Passenger*> Bus_passengers;
-
+	bool IsAvailable();
 	char GetType();
 	void set_bus_id(int new_id);
+	int get_current_station();
 	int getId() const;
 	Bus(int new_capacity, char new_type, int new_bus_number);
 	bool Move_Bus(bool reverse);
@@ -29,13 +30,14 @@ public:
 	bool Add_Passenger(Passenger* passenger,char direction);
 	//bool Shift_Bus();
 	bool Add_Time(int time);
-	Passenger* Remove_Passenger(int station_num);
+	int Remove_Passenger(int station_num);
 	bool Reverse_Bus(int station, int num_of_journies, int time);
 	bool Mentain(int num_of_journies, int time);
 	bool Get_out_of_Mentainance(int time);
 	bool get_reverse() const;
 	bool Is_Busy();
 	int get_capacity() const;
+	int get_next_station();
 };
 
 #endif

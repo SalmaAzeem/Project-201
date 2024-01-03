@@ -22,8 +22,17 @@ void Bus::set_bus_id(int new_id)
 
 bool Bus::Move_Bus(bool reverse)
 {
-	if (!reverse) next_station++;
-	else next_station--;
+	if (!reverse&&status == 'E')
+	{
+		next_station++;
+		status = 'B';
+	}
+	else
+	{
+		next_station--;
+		status = 'B';
+
+	}
 	return true;
 }
 
@@ -41,13 +50,13 @@ bool Bus::Is_Full()
 
 bool Bus::Add_Passenger(Passenger* passenger,char direction)
 {
-	if (current_station == next_station && direction == 'F')
+	if ( direction == 'F')
 	{
 		Bus_passengers.InsertSorted(passenger);  //forward sort asc
 		count_inside++;
 		return true;
 	}
-	else if (current_station == next_station && direction == 'B')
+	else if ( direction == 'B')
 	{
 		Bus_passengers.InsertSortedDesc(passenger);  //backward sort desc
 		count_inside++;
@@ -73,14 +82,15 @@ bool Bus::Add_Time(int time)
 	return false;
 }
 
-Passenger* Bus::Remove_Passenger(int station_num)
+int Bus::Remove_Passenger(int station_num)
 {
-	cout << station_num;
 	Node<Passenger*>* ptr = Bus_passengers.gethead();
-	if(ptr != nullptr && (current_station == next_station))
+	int id;
+	if(ptr != nullptr )
 	{
 		if (station_num == ptr->getvalue()->getLeaveStationId())
 		{
+			id = ptr->getvalue()->getId();
 			Bus_passengers.DeleteNode(ptr->getvalue());
 			count_inside--;
 			status = 'E';
@@ -88,10 +98,8 @@ Passenger* Bus::Remove_Passenger(int station_num)
 		//// to remove only one person
 		}
 	}
-	if (ptr == nullptr) return nullptr; /// handle null ptr as it errors with get value when nothing to remove
-	return ptr->getvalue();
-
-
+	if (ptr == nullptr) return 0; /// handle null ptr as it errors with get value when nothing to remove
+	return id;
 }
 
 bool Bus::Reverse_Bus(int station, int num_of_journies, int time)
@@ -151,3 +159,20 @@ bool Bus::Is_Busy()
 }
 
 int Bus::get_capacity() const { return capacity; }
+
+int Bus::get_next_station()
+{
+	return next_station;
+}
+
+
+bool Bus::IsAvailable()
+{
+	return current_station == next_station;
+}
+
+
+int Bus::get_current_station()
+{
+	return current_station;
+}

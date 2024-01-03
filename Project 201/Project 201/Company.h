@@ -27,7 +27,7 @@ private:
 	int number_of_wheel_passengers;
 	int number_of_special_passengers;
 	LinkedList<Passenger*> Finished_Passengers;  //to be removed
-
+	LinkedList<Bus*> Busy_Bus;
 
 public:
 	LinkedQueue<Event*> tot_events;
