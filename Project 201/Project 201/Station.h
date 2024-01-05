@@ -51,9 +51,9 @@ public:
 			else { std::cout << "Incorrect Special Type. " << "\n"; }
 		}
 		else if (obj->getPassengertype() == "SP" && obj->getDirection() == 'F') {
-			if (obj->getPassengerspecial() == 'A') { Special_Passengers_Backward.enQueue(obj, 3); }
-			else if (obj->getPassengerspecial() == 'P') { Special_Passengers_Backward.enQueue(obj, 2); }
-			else if (obj->getPassengerspecial() == 'O') { Special_Passengers_Backward.enQueue(obj, 1); }
+			if (obj->getPassengerspecial() == 'A') { Special_Passengers_Forward.enQueue(obj, 3); }
+			else if (obj->getPassengerspecial() == 'P') { Special_Passengers_Forward.enQueue(obj, 2); }
+			else if (obj->getPassengerspecial() == 'O') { Special_Passengers_Forward.enQueue(obj, 1); }
 			else { std::cout << "Incorrect Special Type. " << "\n"; }
 		}
 		else if (obj->getPassengertype() == "NP" && obj->getDirection() == 'B') { Normal_Passengers_Backward.enQueue(obj, 0); }
@@ -96,6 +96,7 @@ public:
 		count4 = Normal_Passengers_Backward.Count();
 		count5 = Wheel_Passengers_Forward.Count();
 		count6 = Wheel_Passengers_Backward.Count();
+		cout << count1 << "count \n";
 		total_count = count1 + count2 + count3 + count4 + count5 + count6;
 		return total_count;
 	}
@@ -103,14 +104,14 @@ public:
 		if (obj->get_reverse() == false && obj->GetType() == 'W') { Buses_Wheel_Forward.enQueue(obj, 0); }
 		else if (obj->get_reverse() == false && obj->GetType() == 'M') { Buses_Mixed_Forward.enQueue(obj, 0); }
 		else if (obj->get_reverse() == true && obj->GetType() == 'W') { Buses_Wheel_Backward.enQueue(obj, 0); }
-		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Forward.enQueue(obj, 0); }
+		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Backward.enQueue(obj, 0); }
 		else { std::cout << "wrong parameters\n"; } //change this message / condition
 	}	
 	void Remove_Bus(Bus* obj) {
 		if (obj->get_reverse() == false && obj->GetType() == 'W') { Buses_Wheel_Forward.deQueue(); }
 		else if (obj->get_reverse() == false && obj->GetType() == 'M') { Buses_Mixed_Forward.deQueue(); }
 		else if (obj->get_reverse() == true && obj->GetType() == 'W') { Buses_Wheel_Backward.deQueue(); }
-		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Forward.deQueue(); }
+		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Backward.deQueue(); }
 		else { std::cout << "wrong parameters\n"; } //change this message / condition
 	}
 

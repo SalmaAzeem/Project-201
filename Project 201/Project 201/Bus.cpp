@@ -68,6 +68,8 @@ bool Bus::Is_Full()
 
 bool Bus::Add_Passenger(Passenger* passenger, char direction)
 {
+	//cout << passenger->getId() << "oooooooooooooooooooooooooooooo\n";
+
 	if (direction == 'F')
 	{
 		Bus_passengers.InsertSorted(passenger);  //forward sort asc
@@ -172,7 +174,7 @@ bool Bus::Mentain(int num_of_journies, int time)
 		if (this->bus_number == 0)
 		{
 
-		cout << "---------------------------------------------------------------------d5lt" << this->bus_number << endl;
+		//cout << "---------------------------------------------------------------------d5lt" << this->bus_number << endl;
 		}
 		if (Get_out_of_Mentainance(time))
 		{
@@ -188,7 +190,7 @@ bool Bus::Get_out_of_Mentainance(int time)
 {
 	if (time_mentainance == time)
 	{
-		cout << "-----------------------------------------d5lt2\n";
+		//cout << "-----------------------------------------d5lt2\n";
 		num_journey = 0;
 		//status = 'E';
 		return true;
