@@ -25,7 +25,7 @@ public:
 	int get_current_station();
 	int getId() const;
 	Bus(int new_capacity, char new_type, int new_bus_number);
-	bool Move_Bus(bool reverse);
+	bool Move_Bus();
 	bool Is_Full();
 	bool Add_Passenger(Passenger* passenger,char direction);
 	//bool Shift_Bus();
@@ -38,6 +38,7 @@ public:
 	bool Is_Busy();
 	int get_capacity() const;
 	int get_next_station();
+	void set_reverse(bool direction);
 };
 
 #endif

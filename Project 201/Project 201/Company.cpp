@@ -238,9 +238,9 @@ void Company::Move_Bus_to_Stations(Station** array, int Station_number, char bus
         B = Station_before->Buses_Mixed_Backward.deQueue();
     }
 
-    bool reverse = B->get_reverse();
+    //bool reverse = B->get_reverse();
     Station_after->Add_Bus(B); //lama mariam te3adel
-    std::cout << B->Move_Bus(reverse);
+    std::cout << B->Move_Bus();
 }
 
 void Company::output_file()
@@ -344,9 +344,9 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                     
                     //CurruntStation->Buses_Wheel_Backward.Print_Queue();
                     //cout << "Mixed ";
-                    //CurruntStation->Buses_Mixed_Forward.Print_Queue();
+                    //CurruntStation->Buses_Wheel_Forward.Print_Queue();
 
-                    //cout << st << " ";
+                    cout << st << " ";
                     if (st == Number_of_stations)
                     {
 
@@ -369,7 +369,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                 {
                                     //cout << "  " << CurrentBus->getId() << "Bus number wf" << endl;
                                     Busy_Bus.insertend(CurrentBus);
-                                    CurrentBus->Move_Bus(false);
+                                    CurrentBus->Move_Bus();
                                 }
                                
 
@@ -382,7 +382,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                     //cout << "  " << CurrentBus->getId() << "Bus number wb" << endl;
 
                                     Busy_Bus.insertend(CurrentBus);
-                                    CurrentBus->Move_Bus(true);
+                                    CurrentBus->Move_Bus();
                                 }
 
                             }
@@ -394,7 +394,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                     //cout << "  " << CurrentBus->getId() << "Bus number  mf" << endl;
 
                                     Busy_Bus.insertend(CurrentBus);
-                                    CurrentBus->Move_Bus(false);
+                                    CurrentBus->Move_Bus();
 
                                 }
 
@@ -407,7 +407,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                     //cout << "  " << CurrentBus->getId() << "Bus number mb" << endl;
 
                                     Busy_Bus.insertend(CurrentBus);
-                                    CurrentBus->Move_Bus(true);
+                                    CurrentBus->Move_Bus();
 
                                 }
                             }
@@ -461,7 +461,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                             {
                                                 //cout << " ID " << CurrentBus->getId() << " Bus number  wheel lsa bdry1" << endl;
                                                 Busy_Bus.insertend(CurrentBus);
-                                                CurrentBus->Move_Bus(false);
+                                                CurrentBus->Move_Bus();
 
                                             }
 
@@ -506,7 +506,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                              {
                                                  
                                                  Busy_Bus.insertend(CurrentBus);
-                                                 CurrentBus->Move_Bus(true);
+                                                 CurrentBus->Move_Bus();
 
                                              }
                                          }
@@ -517,7 +517,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                              if (CurrentBus != nullptr)
                                              {
                                                  Busy_Bus.insertend(CurrentBus);
-                                                 CurrentBus->Move_Bus(true);
+                                                 CurrentBus->Move_Bus();
                                              }
                                              
                                          }
@@ -636,20 +636,23 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                          //cout << ptr->getvalue()->get_next_station() << " station number" << endl;
                          array_of_stations[ptr->getvalue()->get_next_station()]->Add_Bus(ptr->getvalue());
+                         cout << ptr->getvalue()->get_next_station() << endl;
+
                          Busy_Bus.sethead(ptr->getnext());
+                         cout << "***************************************************\n";
                          if (ptr->getvalue()->GetType() == 'W')
                          {
                              ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel);
-                             cout << "wt b2a\n";
+                             //cout << "wt b2a\n";
 
                          }
                          else
                          {
                              ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed);
-                             cout << "bsb2a\n";
+                             //cout << "bsb2a\n";
 
                          }
-                         //cout << ptr->getvalue()->get_reverse() << "rev or not" << endl ;
+                         if (!ptr->getvalue()->get_reverse()) cout << ptr->getvalue()->get_current_station() << " " << ptr->getvalue()->get_next_station() << endl;
                      }
                  ptr = ptr->getnext();
              }
@@ -657,25 +660,30 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
              if (ptr->getvalue()->Add_Time(between_stations,Number_of_stations))
              {
+                 cout << ptr->getvalue()->get_next_station() << endl;
+
+                 cout << "***************************************************\n";
 
                  array_of_stations[ptr->getvalue()->get_next_station()]->Add_Bus(ptr->getvalue());
                  Busy_Bus.sethead(ptr->getnext());
                  if (ptr->getvalue()->GetType() == 'W')
                  {
                      ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel);
-                     cout << "wt b2a\n";
+                     //cout << "wt b2a\n";
                  }
                  else
                  {
                      ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed);
-                     cout << "bsb2a\n";
+                     //cout << "bsb2a\n";
                  }
+                 if (!ptr->getvalue()->get_reverse()) cout << ptr->getvalue()->get_current_station() << " " << ptr->getvalue()->get_next_station() << endl;
+
 
              }
 
 
-             //Busy_Bus.RecPrint();
-             //cout << "break" << endl;
+             Busy_Bus.RecPrint();
+             cout << "+++++++++++++++" << endl;
 
              }
              Minute++;

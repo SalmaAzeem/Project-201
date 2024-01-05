@@ -20,19 +20,27 @@ void Bus::set_bus_id(int new_id)
 	bus_number = new_id;
 }
 
-bool Bus::Move_Bus(bool reverse)
+bool Bus::Move_Bus()
 {
-	if (!reverse&&status == 'E')
+	if (!reverse && status == 'E')
 	{
+		/*if ((current_station == 8 || current_station == 1) && timer == 0)
+		{
+			return true;
+		}*/
 		next_station++;
 		status = 'B';
-		cout << "ana revese false"<< endl;
+		//cout << "ana revese false"<< endl;
 	}
 	else
 	{
+		/*if ((current_station == 8|| current_station ==1) && timer == 0)
+		{
+			return true;
+		}*/
 		next_station--;
 		status = 'B';
-		cout << "ana revese true" << endl;
+		//cout << "ana revese true" << endl;
 
 	}
 	return true;
@@ -50,15 +58,15 @@ bool Bus::Is_Full()
 }
 
 
-bool Bus::Add_Passenger(Passenger* passenger,char direction)
+bool Bus::Add_Passenger(Passenger* passenger, char direction)
 {
-	if ( direction == 'F')
+	if (direction == 'F')
 	{
 		Bus_passengers.InsertSorted(passenger);  //forward sort asc
 		count_inside++;
 		return true;
 	}
-	else if ( direction == 'B')
+	else if (direction == 'B')
 	{
 		Bus_passengers.InsertSortedDesc(passenger);  //backward sort desc
 		count_inside++;
@@ -72,7 +80,7 @@ int Bus::getId() const {
 }
 
 
-bool Bus::Add_Time(int time,int num_of_stations)
+bool Bus::Add_Time(int time, int num_of_stations)
 {
 	if (timer == time)
 	{
@@ -91,8 +99,8 @@ bool Bus::Add_Time(int time,int num_of_stations)
 int Bus::Remove_Passenger(int station_num)
 {
 	Node<Passenger*>* ptr = Bus_passengers.gethead();
-	int id;
-	if(ptr != nullptr )
+	int id = 0;
+	if (ptr != nullptr)
 	{
 		if (station_num == ptr->getvalue()->getLeaveStationId())
 		{
@@ -101,7 +109,7 @@ int Bus::Remove_Passenger(int station_num)
 			count_inside--;
 			status = 'E';
 			cout << ptr->getvalue()->getId();
-		//// to remove only one person
+			//// to remove only one person
 		}
 	}
 	if (ptr == nullptr) return 0; /// handle null ptr as it errors with get value when nothing to remove
@@ -110,7 +118,7 @@ int Bus::Remove_Passenger(int station_num)
 
 bool Bus::Reverse_Bus(int stations, int num_of_journies, int time)
 {
-	if (current_station == stations)
+	if (current_station == stations - 1)
 	{
 		reverse = true;
 		current_station = next_station = stations - 1;
@@ -120,6 +128,8 @@ bool Bus::Reverse_Bus(int stations, int num_of_journies, int time)
 	else if (current_station == 1)
 	{
 		reverse = false;
+		current_station = next_station = 1;
+
 		num_journey++;
 		return Mentain(num_of_journies, time);
 	}
@@ -182,4 +192,10 @@ bool Bus::IsAvailable()
 int Bus::get_current_station()
 {
 	return current_station;
+}
+
+
+void Bus::set_reverse(bool direction)
+{
+	reverse = direction;
 }

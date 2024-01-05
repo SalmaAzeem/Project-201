@@ -1,6 +1,3 @@
 ﻿  Company.cpp
 C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Company.cpp(316,16): warning C4101: 'one_passenger': unreferenced local variable
-  Event.cpp
-  UI.cpp
-  Generating Code...
   Project 201.vcxproj -> C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\x64\Debug\Project 201.exe
