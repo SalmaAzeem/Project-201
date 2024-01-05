@@ -14,6 +14,18 @@ Bus::Bus(int new_capacity, char new_type, int new_bus_number)
 	timer = 0;
 	status = 'E';
 }
+Bus::Bus()
+{
+	time_mentainance = 0;
+	num_journey = 0;
+	
+	count_inside = 0;
+	current_station = 0;
+	next_station = 0;
+	reverse = false;
+	timer = 0;
+	status = 'E';
+}
 
 void Bus::set_bus_id(int new_id)
 {
@@ -22,25 +34,21 @@ void Bus::set_bus_id(int new_id)
 
 bool Bus::Move_Bus()
 {
-	if (!reverse && status == 'E')
+	if (!reverse)
 	{
-		/*if ((current_station == 8 || current_station == 1) && timer == 0)
-		{
-			return true;
-		}*/
 		next_station++;
+		//cout << current_station << " " << next_station << "station\n";
 		status = 'B';
-		//cout << "ana revese false"<< endl;
+		//cout << "ana revese false"<< this->bus_number << endl;
 	}
 	else
 	{
-		/*if ((current_station == 8|| current_station ==1) && timer == 0)
-		{
-			return true;
-		}*/
+		
+
 		next_station--;
+		//cout << current_station << " " << next_station << "station\n";
 		status = 'B';
-		//cout << "ana revese true" << endl;
+		//cout << "ana revese true" << this->bus_number << endl;
 
 	}
 	return true;
@@ -86,14 +94,19 @@ bool Bus::Add_Time(int time, int num_of_stations)
 	{
 		current_station = next_station;
 		timer = 0;
-		if (num_of_stations == current_station)
+		/*if (num_of_stations == current_station)
 		{
 			current_station = next_station = num_of_stations - 1;
-		}
+		}*/
 		return true;
 	}
 	timer++;
 	return false;
+}
+Passenger* Bus::peek_Bus()
+{
+	if (Bus_passengers.gethead() == nullptr) return nullptr;
+	return Bus_passengers.gethead()->getvalue();
 }
 
 int Bus::Remove_Passenger(int station_num)
@@ -102,13 +115,15 @@ int Bus::Remove_Passenger(int station_num)
 	int id = 0;
 	if (ptr != nullptr)
 	{
+		//cout << "kkkkkkkkkkkkkkkkkkkkkkkkkk\n";
 		if (station_num == ptr->getvalue()->getLeaveStationId())
 		{
 			id = ptr->getvalue()->getId();
 			Bus_passengers.DeleteNode(ptr->getvalue());
 			count_inside--;
 			status = 'E';
-			cout << ptr->getvalue()->getId();
+			//cout << ptr->getvalue()->getId() <<"fffffffffffffffffffffffffff\n";
+
 			//// to remove only one person
 		}
 	}
@@ -121,17 +136,28 @@ bool Bus::Reverse_Bus(int stations, int num_of_journies, int time)
 	if (current_station == stations - 1)
 	{
 		reverse = true;
-		current_station = next_station = stations - 1;
+		next_station = stations - 1;
 		num_journey++;
+		//cout << this->bus_number << " " << current_station << "--------------" << endl;
+		//cout << "ana revese " << reverse << endl;
+
 		return Mentain(num_of_journies, time);
+		
+
 	}
 	else if (current_station == 1)
 	{
 		reverse = false;
-		current_station = next_station = 1;
+		//cout << this->bus_number << " " << current_station << "++++++++++++++" << endl;
+
+		 next_station = 1;
 
 		num_journey++;
+		//cout << "ana revese "<< reverse << endl;
+
 		return Mentain(num_of_journies, time);
+		
+
 	}
 	return false;
 
@@ -143,6 +169,11 @@ bool Bus::Mentain(int num_of_journies, int time)
 	{
 		current_station = next_station = 0;
 		status = 'B';
+		if (this->bus_number == 0)
+		{
+
+		cout << "---------------------------------------------------------------------d5lt" << this->bus_number << endl;
+		}
 		if (Get_out_of_Mentainance(time))
 		{
 			status = 'E';
@@ -157,7 +188,9 @@ bool Bus::Get_out_of_Mentainance(int time)
 {
 	if (time_mentainance == time)
 	{
+		cout << "-----------------------------------------d5lt2\n";
 		num_journey = 0;
+		//status = 'E';
 		return true;
 	}
 	return false;
@@ -198,4 +231,14 @@ int Bus::get_current_station()
 void Bus::set_reverse(bool direction)
 {
 	reverse = direction;
+}
+
+int Bus::get_number_of_j()
+{
+	return num_journey;
+}
+
+int Bus::get_count_inside()
+{
+	return count_inside;
 }
