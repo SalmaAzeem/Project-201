@@ -341,15 +341,6 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
 
                     CurruntStation = array_of_stations[st];
-                    //CurruntStation->Special_Passengers_Forward.Print_Queue();
-
-
-                    //CurruntStation->Buses_Mixed_Forward.Print_Queue();
-                     //cout << "Mixed " << endl;
-                     //CurruntStation->Buses_Wheel_Backward.Print_Queue();
-                     //CurruntStation->Wheel_Passengers_Backward.Print_Queue();
-
-                     //cout << st << " ";
                     if (st == Number_of_stations)
                     {
 
@@ -364,39 +355,34 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                         if (Minute % 15 == 0)
                         {
 
-                            /////////see if there is any thing inside the queue to be able to dequeue a bus of each type////////////
-                            //if (CurruntStation->Count_Bus_Of_Type('W', 'F') > 0 && !(CurruntStation->Buses_Wheel_Forward.Peek_Bus()->Is_Busy())) //wheel forwad  //check if in mentainance
-                            //{
+                            ///////see if there is any thing inside the queue to be able to dequeue a bus of each type////////////
+                            if (CurruntStation->Count_Bus_Of_Type('W', 'F') > 0 && !(CurruntStation->Buses_Wheel_Forward.Peek_Bus()->Is_Busy())) //wheel forwad  //check if in mentainance
+                            {
 
-                            //    CurrentBus = CurruntStation->Remove_Bus('W', 'F');
-                            //    if (CurrentBus != nullptr)
-                            //    {
-                            //        //cout << "  " << CurrentBus->getId() << "Bus number wf" << endl;
-                            //        Busy_Bus.insertend(CurrentBus);
-                            //        CurrentBus->Move_Bus();
-                            //    }
+                                CurrentBus = CurruntStation->Remove_Bus('W', 'F');
+                                if (CurrentBus != nullptr)
+                                {
+                                    Busy_Bus.insertend(CurrentBus);
+                                    CurrentBus->Move_Bus();
+                                }
 
 
-                            //}
-                            //if (CurruntStation->Count_Bus_Of_Type('W', 'B') > 0 && !(CurruntStation->Buses_Wheel_Backward.Peek_Bus()->Is_Busy()))//wheel backward
-                            //{
-                            //    CurrentBus = CurruntStation->Remove_Bus('W', 'B');
-                            //    if (CurrentBus != nullptr)
-                            //    {
-                            //        //cout << "  " << CurrentBus->getId() << "Bus number wb" << endl;
+                            }
+                            if (CurruntStation->Count_Bus_Of_Type('W', 'B') > 0 && !(CurruntStation->Buses_Wheel_Backward.Peek_Bus()->Is_Busy()))//wheel backward
+                            {
+                                CurrentBus = CurruntStation->Remove_Bus('W', 'B');
+                                if (CurrentBus != nullptr)
+                                {
+                                    Busy_Bus.insertend(CurrentBus);
+                                    CurrentBus->Move_Bus();
+                                }
 
-                            //        Busy_Bus.insertend(CurrentBus);
-                            //        CurrentBus->Move_Bus();
-                            //    }
-
-                            //}
+                            }
                             if (CurruntStation->Count_Bus_Of_Type('M', 'F') > 0 && !(CurruntStation->Buses_Mixed_Forward.Peek_Bus()->Is_Busy()))//mixed forward
                             {
                                 CurrentBus = CurruntStation->Remove_Bus('M', 'F');
                                 if (CurrentBus != nullptr)
                                 {
-                                    //cout << "  " << CurrentBus->getId() << "Bus number  mf" << endl;
-
                                     Busy_Bus.insertend(CurrentBus);
                                     CurrentBus->Move_Bus();
 
@@ -408,7 +394,6 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                 CurrentBus = CurruntStation->Remove_Bus('M', 'B');
                                 if (CurrentBus != nullptr)
                                 {
-                                    //cout << "  " << CurrentBus->getId() << "Bus number mb" << endl;
 
                                     Busy_Bus.insertend(CurrentBus);
                                     CurrentBus->Move_Bus();
@@ -423,158 +408,122 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                         for (int sc = 0; sc < 60; sc++)
                         {
                             /////////removing passengers alg//////////
-                ////////////////////////////////for wheel forward/////
+                ////////////////////////////////for wheel forward/////////////////////////////////////
 
-                            //CurrentBus = CurruntStation->Buses_Wheel_Forward.Peek_Bus();
-                            ////cout << CurruntStation->get_station_number();
+                            CurrentBus = CurruntStation->Buses_Wheel_Forward.Peek_Bus();
+  
+                            if (CurrentBus != nullptr)
+                            {
+                                cout << endl;
+                                int count = 0;
+                                for (int i = 0; i < number_of_events; i++)
+                                {
+                                    if (removed_person[i] < 100 && removed_person[i]>0)
+                                        count++;
+                                }
+                                cout << "is count" << count << endl;
+                                cout << endl;
 
+                                if (sc % 3 == 0 && sc != 0)
+                                {
 
-                            ///* bool check = CurrentBus->Is_Busy();
-                            // cout << "I am checking " << check << endl;*/
-                            //if (CurrentBus != nullptr)
-                            //{
-                            //    cout << endl;
-                            //    int count = 0;
-                            //    for (int i = 0; i < number_of_events; i++)
-                            //    {
-                            //        if (removed_person[i] < 100 && removed_person[i]>0)
-                            //            // cout << removed_person[i] << " ";
-                            //            count++;
-                            //    }
-                            //    cout << "is count" << count << endl;
-                            //    cout << endl;
+                                    removed = CurrentBus->Remove_Passenger(st);
+                                    if (removed != 0)
+                                    {
 
-                            //    if (sc % 3 == 0 && sc != 0)
-                            //    {
+                                        removed_person[counter_of_removed_people] = removed;
+                                        counter_of_removed_people++;
 
-                            //        removed = CurrentBus->Remove_Passenger(st);
-                            //        //cout << removed << "anaana" << endl;
-                            //        if (removed != 0)
-                            //        {
-                            //            //cout << st << "removed\n";
-                            //            //cout << CurrentBus->get_count_inside();
-                            //            //store people done with the journy to display in interface
-                            //            removed_person[counter_of_removed_people] = removed;
-                            //            counter_of_removed_people++;
-                            //            //cout << "ana removed" << removed << endl;
-                            //        }
-                            //        else
-                            //        {
-                            //            ///add passenger alg/////
-                            //            ///check if there are people///
-                            //            if (CurruntStation->Wheel_Passengers_Forward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
-                            //            {
-                            //                //cout << "Trying2" << endl;
-                            //                //cout << st << " station for";
-                            //                //CurruntStation->Wheel_Passengers_Forward.Print_Queue();
+                                    }
+                                    else
+                                    {
 
-                            //                CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Forward.deQueue(), 'F');
-                            //                //cout << CurrentBus->get_count_inside()<< CurrentBus->getId() << "count" << endl;
-
-                            //                //CurruntStation->Wheel_Passengers_Forward.Print_Queue();
-
-                            //            }
-                            //            else if ((CurrentBus->Is_Full() || CurruntStation->Wheel_Passengers_Forward.Count() == 0) && CurrentBus->IsAvailable())////////the bus moves if its full  or no one exists
-                            //            {
-                            //                //cout << CurrentBus->get_current_station() << CurrentBus->getId()<<"for" << endl;
-
-                            //                CurrentBus = CurruntStation->Remove_Bus('W', 'F');
-                            //                if (CurrentBus != nullptr)
-                            //                {
-                            //                    CurrentBus->Move_Bus();
-                            //                    //cout << " ID " << CurrentBus->getId() << " Bus number  wheel lsa bdry1" << endl;
-                            //                    Busy_Bus.insertend(CurrentBus);
+                                        if (CurruntStation->Wheel_Passengers_Forward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
+                                        {
 
 
-                            //                }
+                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Forward.deQueue(), 'F');
 
-                            //            }
+                                        }
+                                        else if ((CurrentBus->Is_Full() || CurruntStation->Wheel_Passengers_Forward.Count() == 0) && CurrentBus->IsAvailable())////////the bus moves if its full  or no one exists
+                                        {
 
-                            //        }
+                                            CurrentBus = CurruntStation->Remove_Bus('W', 'F');
+                                            if (CurrentBus != nullptr)
+                                            {
+                                                CurrentBus->Move_Bus();
 
-                            //    }
-                            //}
-
-
-                            ////////////////////////////////////for wheel backward///
-                            //CurrentBus = CurruntStation->Buses_Wheel_Backward.Peek_Bus();
-                            //if (CurrentBus)
-                            //{
-                            //    if (sc % 3 == 0 && sc != 0)
-                            //    {
-                            //        removed = CurrentBus->Remove_Passenger(st);
-
-                            //        if (removed != 0)
-                            //        {
-                            //            //cout << st << "removed\n";
-                            //            //cout << CurrentBus->get_count_inside();
-                            //            //store people done with the journy to display in interface
-                            //            removed_person[counter_of_removed_people] = removed;
-                            //            counter_of_removed_people++;
-                            //            //cout << "ana removed" << removed << endl;
-                            //        }
-                            //        else
-                            //        {
-                            //            //cout << CurrentBus->IsAvailable() << "  ofb2a\n";
-                            //            /////add passenger alg/////
-                            //            ///check if there are people///
-                            //            if (CurruntStation->Wheel_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
-                            //            {
-                            //                //cout << st << "station back";
-                            //               // CurruntStation->Wheel_Passengers_Backward.Print_Queue();
-
-                            //                CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Backward.deQueue(), 'B');
-                            //                //cout << CurrentBus->get_count_inside() << "count" << endl;
-
-                            //                // CurruntStation->Wheel_Passengers_Backward.Print_Queue();
-                            //            }
-                            //            else if (CurrentBus->Is_Full() && CurrentBus->IsAvailable())////////the bus moves if its full 
-                            //            {
-                            //                //cout << "ana23" << endl;
-
-                            //                CurrentBus = CurruntStation->Remove_Bus('W', 'B');
-                            //                if (CurrentBus != nullptr)
-                            //                {
-                            //                    CurrentBus->Move_Bus();
-                            //                    Busy_Bus.insertend(CurrentBus);
-                            //                }
-                            //            }
-                            //            else if (CurruntStation->Wheel_Passengers_Backward.Count() == 0 && CurrentBus->IsAvailable())//////move bus if no people left to add
-                            //            {
-                            //                //cout << CurrentBus->get_current_station() << CurrentBus->getId()<< "back" << endl;
-                            //                CurrentBus = CurruntStation->Remove_Bus('W', 'B');
-                            //                if (CurrentBus != nullptr)
-                            //                {
-                            //                    CurrentBus->Move_Bus();
-                            //                    Busy_Bus.insertend(CurrentBus);
-
-                            //                }
-
-                            //            }
+                                                Busy_Bus.insertend(CurrentBus);
 
 
-                            //        }
-                            //    }
-                            //}
-                            //      
-                            //                            //////////////////////////////////for Mixed forward///
+                                            }
+
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+
+                            //////////////////////////////////for wheel backward//////////////////////////////////////////////////
+                            CurrentBus = CurruntStation->Buses_Wheel_Backward.Peek_Bus();
+                            if (CurrentBus)
+                            {
+                                if (sc % 3 == 0 && sc != 0)
+                                {
+                                    removed = CurrentBus->Remove_Passenger(st);
+
+                                    if (removed != 0)
+                                    {
+
+                                        removed_person[counter_of_removed_people] = removed;
+                                        counter_of_removed_people++;
+
+                                    }
+                                    else
+                                    {
+
+                                        if (CurruntStation->Wheel_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
+                                        {
+
+
+                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Backward.deQueue(), 'B');
+
+                                        }
+                                        else if (CurrentBus->Is_Full() && CurrentBus->IsAvailable())////////the bus moves if its full 
+                                        {
+
+                                            CurrentBus = CurruntStation->Remove_Bus('W', 'B');
+                                            if (CurrentBus != nullptr)
+                                            {
+                                                CurrentBus->Move_Bus();
+                                                Busy_Bus.insertend(CurrentBus);
+                                            }
+                                        }
+                                        else if (CurruntStation->Wheel_Passengers_Backward.Count() == 0 && CurrentBus->IsAvailable())//////move bus if no people left to add
+                                        {
+                                            CurrentBus = CurruntStation->Remove_Bus('W', 'B');
+                                            if (CurrentBus != nullptr)
+                                            {
+                                                CurrentBus->Move_Bus();
+                                                Busy_Bus.insertend(CurrentBus);
+
+                                            }
+
+                                        }
+
+
+                                    }
+                                }
+                            }
+                                  
+                                                        //////////////////////////////////for Mixed forward//////////////////////////////////////
 
                            
                             CurrentBus = CurruntStation->Buses_Mixed_Forward.Peek_Bus();
                             if (CurrentBus)
                             {
-                                
-
-                                //cout << endl;
-                                ////int count = 0;
-                                //for (int i = 0; i < number_of_events; i++)
-                                //{
-                                //    if (removed_person[i] < 100 && removed_person[i]>0)
-                                //        cout << removed_person[i] << " ";
-                                //    //count++;
-                                //}
-                                ////cout << "is count" << count << endl;
-                                //cout << endl;
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -582,40 +531,25 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                                     if (removed != 0)
                                     {
-                                        //cout << st << "removed\n";
-                                        //cout << CurrentBus->get_count_inside();
-                                        //store people done with the journy to display in interface
+
                                         removed_person[counter_of_removed_people] = removed;
                                         counter_of_removed_people++;
-                                        //cout << "ana removed" << removed << endl;
+
                                     }
                                     else
                                     {
 
-                                        /////add passenger alg/////
-                                        //CurruntStation->Count_Station();
-                                                   ///check if there are people begining with special for piority///
-                                        //cout << CurruntStation->Special_Passengers_Forward.Count() << " " << !(CurrentBus->Is_Full()) << "  " << CurrentBus->IsAvailable() << "ppppp" << endl;
                                         if (CurruntStation->Special_Passengers_Forward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
-                                            //if (st == 7)
-                                            //{
-                                            //    //cout << CurrentBus->peek_Bus()->getId();
-                                            //}
-                                            //cout << st << " ";
-                                            //CurruntStation->Special_Passengers_Forward.Print_Queue();
+
                                             CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Forward.deQueue(), 'F');
-                                            
-                                            //CurruntStation->Special_Passengers_Forward.Print_Queue();
 
                                         }
                                         else if (CurruntStation->Normal_Passengers_Forward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
-                                            //cout << st << " ";
-                                             //CurruntStation->Normal_Passengers_Forward.Print_Queue();
 
                                             CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Forward.deQueue(), 'F');
-                                            //CurruntStation->Normal_Passengers_Forward.Print_Queue();
+
 
                                         }
                                         else if (CurrentBus->Is_Full() && CurrentBus->IsAvailable())////////the bus moves if its full 
@@ -642,46 +576,34 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                 }
                             }
 
-                            //////////////////////////////////for Mixed backward///
+                            //////////////////////////////////for Mixed backward///////////////////////////////////////////////
                             CurrentBus = CurruntStation->Buses_Mixed_Backward.Peek_Bus();
 
                             if (CurrentBus)
                             {
-                                //cout << "llllllllllllllllllllllllllll";
+                              
                                 if (sc % 3 == 0 && sc != 0)
                                 {
                                     removed = CurrentBus->Remove_Passenger(st);
 
                                     if (removed != 0)
                                     {
-                                        //cout << st << "removed\n";
-                                        //cout << CurrentBus->get_count_inside();
-                                        //store people done with the journy to display in interface
+
                                         removed_person[counter_of_removed_people] = removed;
                                         counter_of_removed_people++;
-                                        //cout << "ana removed" << removed << endl;
+
                                     }
                                     else
                                     {
-                                        //cout << CurruntStation->Special_Passengers_Backward.Count() << " " << !(CurrentBus->Is_Full()) << "  " << CurrentBus->IsAvailable() << "ppppp" << endl;
-
-                                        /////add passenger alg/////
-                                                   ///check if there are people begining with special for piority///
                                         if (CurruntStation->Special_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
-                                            //cout << st << " ";
-                                            //CurruntStation->Special_Passengers_Backward.Print_Queue();
+
                                             CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Backward.deQueue(), 'B');
-                                            //CurruntStation->Special_Passengers_Backward.Print_Queue();
 
                                         }
                                         else if (CurruntStation->Normal_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
-                                            //cout << st << " ";
-                                            //CurruntStation->Normal_Passengers_Backward.Print_Queue();
-
                                             CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Backward.deQueue(), 'B');
-                                            //CurruntStation->Normal_Passengers_Backward.Print_Queue();
 
                                         }
                                         else if (CurrentBus->Is_Full() && CurrentBus->IsAvailable())////////the bus moves if its full 
@@ -718,9 +640,6 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                 }
 
-
-                //cout << "///////////////////////" << "Min" << Minute << "/////////////////////////" << endl;
-
                 Node<Bus*>* ptr = Busy_Bus.gethead();
                 if (ptr)
                 {
@@ -729,14 +648,8 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                         if (ptr->getvalue()->Add_Time(between_stations, Number_of_stations))
                         {
-
-                            //cout << "*********************************************************************\n";
                             array_of_stations[ptr->getvalue()->get_next_station()]->Add_Bus(ptr->getvalue());
-                            //cout << ptr->getvalue()->get_next_station() << endl;
-                            /*if (array_of_stations[ptr->getvalue()->get_next_station()]->Buses_Wheel_Backward.Count() == 0 &&ptr->getvalue()->get_reverse())
-                            {
-                                cout << "." << endl;
-                            }*/
+
 
                             Busy_Bus.sethead(ptr->getnext());
 
@@ -744,22 +657,14 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             if (ptr->getvalue()->GetType() == 'W')
                             {
                                 ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel);
-                                //cout << "wt b2a\n";
 
                             }
                             else
                             {
                                 ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed);
-                                //cout << ptr->getvalue()->get_reverse()  << " " << ptr->getvalue()->getId() << "\n";
-                                //cout << ptr->getvalue()->get_current_station() << " " << ptr->getvalue()->get_next_station();
+
 
                             }
-                            //if (ptr->getvalue()->getId() == 0)cout << "pppppppppp\n";
-                            //if (ptr->getvalue()->getId() == 1)cout << "nnnnnnnnnn\n";
-
-
-
-
 
                         }
                         ptr = ptr->getnext();
@@ -768,58 +673,37 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                     if (ptr->getvalue()->Add_Time(between_stations, Number_of_stations))
                     {
-                        //cout << "*********************************************************************\n";
-
-
-
-
 
                         array_of_stations[ptr->getvalue()->get_next_station()]->Add_Bus(ptr->getvalue());
-                        /*if (array_of_stations[ptr->getvalue()->get_next_station()]->Buses_Wheel_Backward.Count() == 0 )
-                        {
-                            cout << "." << endl;
-                        }*/
+
                         Busy_Bus.sethead(ptr->getnext());
                         if (ptr->getvalue()->GetType() == 'W')
                         {
                             ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel);
-                            //cout << "wt b2a\n";
+                            
                         }
                         else
                         {
                             ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed);
-                            //cout << "bsb2a\n";
-                            //cout << ptr->getvalue()->get_reverse() << " " << ptr->getvalue()->getId() << "\n";
+
 
                         }
-                        //if (ptr->getvalue()->getId() == 0)cout << "pppppppppp\n";
-                       // if (ptr->getvalue()->getId() == 1)cout << "nnnnnnnnnn\n";
 
                     }
 
 
-                    //Busy_Bus.RecPrint();
-                    //cout << "+++++++++++++++" << endl;
-
                 }
                 Minute++;
-                // if (Minute == 20) break;
+
 
             }
             
         }
-        //if (Minute == 60) break;
+
         Minute = 0;
         Hour++;
     }
 
-    for (int i = 0; i < Number_of_stations; i++) {
-        //test.interface(array_of_stations, i);
-        //std::cout << "\n-----------------------------------------------" << std::endl;
-        //std::cout << "Press any key to display the next station..." << std::endl;
-        //getchar();
-        array_of_stations[i]->Print_Station();
-    }
 
         //for (int i = 0; i < Number_of_stations; i++) {
         //    test.interface(array_of_stations, i);
@@ -829,11 +713,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
         //    //array_of_stations[i]->Print_Station();
         //}
   }
-    //std: cout << "The Count of 
-    // s is " << c << endl;
-        //--------------------------------------------
 
-//}
 
 void Company::Simulate() {
     read_input();
