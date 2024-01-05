@@ -37,18 +37,17 @@ bool Bus::Move_Bus()
 	if (!reverse)
 	{
 		next_station++;
-		//cout << current_station << " " << next_station << "station\n";
 		status = 'B';
-		//cout << "ana revese false"<< this->bus_number << endl;
+
 	}
 	else
 	{
 		
 
 		next_station--;
-		//cout << current_station << " " << next_station << "station\n";
+
 		status = 'B';
-		//cout << "ana revese true" << this->bus_number << endl;
+
 
 	}
 	return true;
@@ -68,7 +67,7 @@ bool Bus::Is_Full()
 
 bool Bus::Add_Passenger(Passenger* passenger, char direction)
 {
-	//cout << passenger->getId() << "oooooooooooooooooooooooooooooo\n";
+
 
 	if (direction == 'F')
 	{
@@ -96,10 +95,7 @@ bool Bus::Add_Time(int time, int num_of_stations)
 	{
 		current_station = next_station;
 		timer = 0;
-		/*if (num_of_stations == current_station)
-		{
-			current_station = next_station = num_of_stations - 1;
-		}*/
+
 		return true;
 	}
 	timer++;
@@ -117,14 +113,13 @@ int Bus::Remove_Passenger(int station_num)
 	int id = 0;
 	if (ptr != nullptr)
 	{
-		//cout << "kkkkkkkkkkkkkkkkkkkkkkkkkk\n";
+
 		if (station_num == ptr->getvalue()->getLeaveStationId())
 		{
 			id = ptr->getvalue()->getId();
 			Bus_passengers.DeleteNode(ptr->getvalue());
 			count_inside--;
 			status = 'E';
-			//cout << ptr->getvalue()->getId() <<"fffffffffffffffffffffffffff\n";
 
 			//// to remove only one person
 		}
@@ -140,8 +135,7 @@ bool Bus::Reverse_Bus(int stations, int num_of_journies, int time)
 		reverse = true;
 		next_station = stations - 1;
 		num_journey++;
-		//cout << this->bus_number << " " << current_station << "--------------" << endl;
-		//cout << "ana revese " << reverse << endl;
+
 
 		return Mentain(num_of_journies, time);
 		
@@ -150,12 +144,12 @@ bool Bus::Reverse_Bus(int stations, int num_of_journies, int time)
 	else if (current_station == 1)
 	{
 		reverse = false;
-		//cout << this->bus_number << " " << current_station << "++++++++++++++" << endl;
+
 
 		 next_station = 1;
 
 		num_journey++;
-		//cout << "ana revese "<< reverse << endl;
+
 
 		return Mentain(num_of_journies, time);
 		
@@ -171,11 +165,7 @@ bool Bus::Mentain(int num_of_journies, int time)
 	{
 		current_station = next_station = 0;
 		status = 'B';
-		if (this->bus_number == 0)
-		{
 
-		//cout << "---------------------------------------------------------------------d5lt" << this->bus_number << endl;
-		}
 		if (Get_out_of_Mentainance(time))
 		{
 			status = 'E';
@@ -190,9 +180,9 @@ bool Bus::Get_out_of_Mentainance(int time)
 {
 	if (time_mentainance == time)
 	{
-		//cout << "-----------------------------------------d5lt2\n";
+
 		num_journey = 0;
-		//status = 'E';
+
 		return true;
 	}
 	return false;
