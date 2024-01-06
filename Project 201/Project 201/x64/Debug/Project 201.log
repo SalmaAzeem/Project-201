@@ -1,4 +1,14 @@
 ﻿  Company.cpp
+<<<<<<< HEAD
 C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Company.cpp(340,16): warning C4101: 'one_passenger': unreferenced local variable
 C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Queue.h(183): warning C4715: 'PriorityQueuePassenger::Leave_Passenger': not all control paths return a value
   Project 201.vcxproj -> C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\x64\Debug\Project 201.exe
+=======
+C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\PRoject new clone\Project-201\Project 201\Project 201\Company.cpp(36,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\PRoject new clone\Project-201\Project 201\Project 201\Company.cpp(37,40): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\PRoject new clone\Project-201\Project 201\Project 201\Company.cpp(50,34): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\PRoject new clone\Project-201\Project 201\Project 201\Company.cpp(51,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\PRoject new clone\Project-201\Project 201\Project 201\Company.cpp(358,16): warning C4101: 'one_passenger': unreferenced local variable
+C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\PRoject new clone\Project-201\Project 201\Project 201\Queue.h(183): warning C4715: 'PriorityQueuePassenger::Leave_Passenger': not all control paths return a value
+  Project 201.vcxproj -> C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\PRoject new clone\Project-201\Project 201\x64\Debug\Project 201.exe
+>>>>>>> d9d6ca04d3d897325a3e32dc1c0025d426cb758f

@@ -2,7 +2,11 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
+<<<<<<< HEAD
       <FullPath>C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\x64\Debug\Project 201.exe</FullPath>
+=======
+      <FullPath>C:\Users\salma\OneDrive\Desktop\UNI\Fall 2023\CSAI 201\PRoject new clone\Project-201\Project 201\x64\Debug\Project 201.exe</FullPath>
+>>>>>>> d9d6ca04d3d897325a3e32dc1c0025d426cb758f
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

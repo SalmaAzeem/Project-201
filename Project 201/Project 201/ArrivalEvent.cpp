@@ -24,6 +24,7 @@ void ArrivalEvent::execute(Station** array) {
         new Passenger(id, hour, minute, second, sstation, l_station, type_of_passenger, type_passenger_special, max_waiting_time);
     ///object from the station and call addpassenger
     array[one->getArrivalStationId()]->Add_to_Station(one);
+
     return;
 }
 void ArrivalEvent::set_event_type(char newEventType) {
@@ -62,3 +63,4 @@ void ArrivalEvent::set_l_station(int l_st) { l_station = l_st; }
 
 string ArrivalEvent::get_type_of_passenger() { return type_of_passenger; }
 char ArrivalEvent::get_special_type() { return type_passenger_special; }
+

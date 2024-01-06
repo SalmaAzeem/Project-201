@@ -2,6 +2,7 @@
 #include "UI.h"
 
 void UI::interface(Station** array, int num, int hours, int minutes, Passenger** removed, int count_removed) const {
+	//create arrays for each station to include the passengers stored in every queue
 	int waiting_sp = array[num]->Special_Passengers_Backward.Count() + array[num]->Special_Passengers_Forward.Count();
 	int waiting_np = array[num]->Normal_Passengers_Backward.Count() + array[num]->Normal_Passengers_Forward.Count();
 	int waiting_wp = array[num]->Wheel_Passengers_Backward.Count() + array[num]->Wheel_Passengers_Forward.Count();
@@ -115,6 +116,7 @@ void UI::interface(Station** array, int num, int hours, int minutes, Passenger**
 	
 	std::cout << "----------------------------------------------------------------------" << std::endl;
 	std::cout << count_removed << " Finished Passengers: ";
+	//takes the removed array of the finished passengers 
 	for (int i = 0; i < count_removed; i++) {
 		std::cout << removed[i]->getId() << " , ";
 	}
