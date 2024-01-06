@@ -1,7 +1,7 @@
 #include <iostream>
 #include "UI.h"
 
-void UI::interface(Station** array, int num) const {
+void UI::interface(Station** array, int num, int hours, int minutes) const {
 	int waiting_sp = array[num]->Special_Passengers_Backward.Count() + array[num]->Special_Passengers_Forward.Count();
 	int waiting_np = array[num]->Normal_Passengers_Backward.Count() + array[num]->Normal_Passengers_Forward.Count();
 	int waiting_wp = array[num]->Wheel_Passengers_Backward.Count() + array[num]->Wheel_Passengers_Forward.Count();
@@ -17,7 +17,7 @@ void UI::interface(Station** array, int num) const {
 	Bus** array_mix_b = array[num]->Array_Mixed_Backward();
 	Bus** array_wheel_f = array[num]->Array_Wheel_Forward();
 	Bus** array_wheel_b = array[num]->Array_Mixed_Backward();
-
+	std::cout << "Current Time (Hour:Min)==> " << hours << ":" << minutes << std::endl;
 	std::cout << "================ Station#" << num << " =====================\n";
 	std::cout << waiting_sp << " Waiting SP: FWD[ ";
 	for (int i = 0; i < array[num]->Special_Passengers_Forward.Count(); i++) {
