@@ -34,7 +34,7 @@ void Company::calculate_average_trip_time()
 
 Company::Company() {}
 void Company::read_input() {
-    std::ifstream file("random.txt");
+    std::ifstream file("C:/Users/mariam/Downloads/random.txt");
 
     if (!file.is_open()) {
         std::cerr << "Error: Could not open the file." << std::endl;
@@ -62,7 +62,7 @@ void Company::read_input() {
 }
 
 void Company::read_events() {
-    std::ifstream file("random.txt");
+    std::ifstream file("C:/Users/mariam/Downloads/random.txt");
     // Skip the first five lines
     for (int i = 0; i < 6; ++i) {
         std::string dummyLine;
@@ -217,31 +217,45 @@ void Company::Place_in_Station_Zero(Station** array, Bus** arrayb) {
     }
 }
 
-//void Company::Move_Bus_to_Stations(Station** array, int Station_number, char bus_type, bool bus_direction) {
-//    Station* Station_before = array[Station_number];
-//    Station* Station_after = array[Station_number + 1];
-//    Bus* B = new Bus(0, ' ', 0);
-//
-//    if (bus_type == 'W' && bus_direction == false) {
-//        B = Station_before->Buses_Wheel_Forward.deQueue();
-//    }
-//
-//    else if (bus_type == 'M' && bus_direction == false) {
-//        B = Station_before->Buses_Mixed_Forward.deQueue();
-//    }
-//
-//    else if (bus_type == 'W' && bus_direction == true) {
-//        B = Station_before->Buses_Wheel_Backward.deQueue();
-//    }
-//
-//    else if (bus_type == 'M' && bus_direction == true) {
-//        B = Station_before->Buses_Mixed_Backward.deQueue();
-//    }
-//
-//    //bool reverse = B->get_reverse();
-//    Station_after->Add_Bus(B); //lama mariam te3adel
-//    std::cout << B->Move_Bus(); 
-//}
+Bus** Company::buses() {
+    Bus** Wheel_buses_Array = new Bus * [Wheel_buses];
+    Bus** Mixed_buses_Array = new Bus * [Mixed_buses];
+    for (int i = 0; i < Wheel_buses; i++) {
+        Bus* bus = new Bus(capacity_wheel_buses, 'w', i);
+        Wheel_buses_Array[i] = bus;
+    }
+
+    for (int i = 0; i < Mixed_buses; i++) {
+        Bus* bus = new Bus(capacity_mixed_buses, 'm', i);
+        Mixed_buses_Array[i] = bus;
+    }
+    Bus** Buses_Array = new Bus * [Wheel_buses];
+    int i = 0, j = 0, k = 0;
+
+    while (i < Mixed_buses && j < Wheel_buses) {
+        Buses_Array[k++] = Mixed_buses_Array[i++];
+        Buses_Array[k - 1]->set_bus_id(k - 1);
+
+        Buses_Array[k++] = Wheel_buses_Array[j++];
+        Buses_Array[k - 1]->set_bus_id(k - 1);
+    }
+    while (i < Mixed_buses) {
+        Buses_Array[k++] = Mixed_buses_Array[i++];
+        Buses_Array[k - 1]->set_bus_id(k - 1);
+    }
+    while (j < Wheel_buses) {
+        Buses_Array[k++] = Wheel_buses_Array[j++];
+        Buses_Array[k - 1]->set_bus_id(k - 1);
+    }
+    std::cout << "The stored buses in the station are: " << endl;
+    for (int i = 0; i < Wheel_buses + Mixed_buses; ++i) {
+        //std::cout << "Bus ID: " << Buses_Array[i]->get_bus_id() << std::endl;
+    }
+    std::cout << "-----------------------------------------------" << endl;
+
+    return Buses_Array;
+}
+
 
 double Company::calculate_total_count_promoted(Station** array_of_stations, int Number_of_stations)
 {
@@ -324,6 +338,8 @@ void Company::Simulate_Branch(Station** array_of_stations) {
     Station* NextStation;
     Bus* CurrentBus;
     Passenger* one_passenger;
+    Bus** Buses = new Bus * [Mixed_buses + Wheel_buses];
+
     for (int h = 0; h < 24; h++) {
         for (int m = 0; m < 60; m++) {
 
@@ -345,6 +361,13 @@ void Company::Simulate_Branch(Station** array_of_stations) {
             if (Hour >= 4 && Hour < 23)
             {
                 //ELsign el mafrod btkon s7 wala 8alat???
+
+                for (int bus = 0; bus < Mixed_buses + Wheel_buses; bus++)
+                {
+                    cout << Buses[bus]->getId() << endl;
+                   /* if(Buses[bus] !=nullptr)
+                    Buses[bus]->add_uti_time();*/
+                }
 
                 for (int st = 0; st < Number_of_stations; st++)
                 {
@@ -430,7 +453,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
   
                             if (CurrentBus != nullptr)
                             {
-                                CurrentBus->add_uti_time();
+                                
                                 if (sc % 3 == 0 && sc != 0)
                                 {
 
@@ -477,7 +500,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Wheel_Backward.Peek_Bus();
                             if (CurrentBus)
                             {
-                                CurrentBus->add_uti_time();
+                                
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -533,7 +556,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Mixed_Forward.Peek_Bus();
                             if (CurrentBus)
                             {
-                                CurrentBus->add_uti_time();
+                              
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -591,7 +614,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (CurrentBus)
                             {
-                                CurrentBus->add_uti_time();
+                                
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -728,7 +751,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (CurrentBus != nullptr)
                             {
-                                CurrentBus->add_uti_time();
+                                
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -769,7 +792,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Wheel_Backward.Peek_Bus();
                             if (CurrentBus)
                             {
-                                CurrentBus->add_uti_time();
+                                
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -806,7 +829,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Mixed_Forward.Peek_Bus();
                             if (CurrentBus)
                             {
-                                CurrentBus->add_uti_time();
+                                
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -842,7 +865,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (CurrentBus)
                             {
-                                CurrentBus->add_uti_time();
+                                
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -952,6 +975,8 @@ void Company::Simulate_Branch(Station** array_of_stations) {
         //    array_of_stations[i]->Print_Station();
 
         //}
+
+
     double utilization = 0;
     CurruntStation = array_of_stations[0];
     for (int b = 0; b < Mixed_buses; b++)

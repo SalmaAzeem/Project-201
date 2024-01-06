@@ -79,10 +79,7 @@ int Bus::getId() const {
 
 bool Bus::Add_Time(int time, int num_of_stations)
 {
-	if (count_inside != 0)
-	{
-		total_use_time++;
-	}
+
 	if (timer == time)
 	{
 		current_station = next_station;
@@ -220,17 +217,16 @@ int Bus::get_count_inside()
 
 void Bus::add_uti_time()
 {
-	if(count_inside > 0)
-	total_use_time++;
+	if(count_inside > 0) total_use_time++;
 }
 
 double Bus::get_uti(int simuate_time)
 {
-	double calculations = (capacity * total_get_off);
-	cout << calculations<< "ttt"<< calculations * ((total_use_time / 60) / simuate_time) << endl;
+	double calculations = (capacity * total_trips);
+	//cout << calculations<< "ttt"<< calculations * ((total_use_time / 60) / simuate_time) << endl;
 	if (calculations == 0) return 0;
-	cout << total_use_time << "rr" << endl;
-	return total_people / calculations * ((total_use_time / 60)/simuate_time);
+	//cout << total_use_time << "rr" << endl;
+	return (total_people / calculations) * ((total_use_time / 60)/simuate_time);
 }
 
 double Bus::get_busy()

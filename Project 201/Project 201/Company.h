@@ -34,6 +34,7 @@ public:
 	LinkedQueue<Event*> tot_events;
 	Company();
 	LinkedQueue<Event*> queue_of_events;
+	Bus** buses();
 	void read_input();
 	void read_events();
 	void initialize_buses(Station** array);

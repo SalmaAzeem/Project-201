@@ -129,12 +129,12 @@ int Passenger::get_trip_time_minutes() { return trip_time_minutes; }
 
 void Passenger::set_get_on_bus(int hour,int minute)
 {
-    get_on_bus_hour = hour;
-    get_on_bus_minute = minute;
+    move_time_hour = hour;
+    move_time_minutes = minute;
 }
 
 void Passenger::set_get_off_bus(int hour,int minute)
 {
-    get_off_bus_hour = hour;
-    get_off_bus_minute = minute;
+    finish_time_hour = hour;
+    finish_time_minutes = minute;
 }

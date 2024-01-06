@@ -1,20 +1,4 @@
-<<<<<<< HEAD
-﻿  ArrivalEvent.cpp
-  Bus.cpp
-  Company.cpp
-C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Company.cpp(326,16): warning C4101: 'one_passenger': unreferenced local variable
-  Event.cpp
-  LeaveEvent.cpp
-  Main.cpp
-  UI.cpp
-  Generating Code...
-C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Queue.h(183): warning C4715: 'PriorityQueuePassenger::Leave_Passenger': not all control paths return a value
+﻿  Company.cpp
+C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Company.cpp(340,16): warning C4101: 'one_passenger': unreferenced local variable
 C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\Project 201\Queue.h(183): warning C4715: 'PriorityQueuePassenger::Leave_Passenger': not all control paths return a value
   Project 201.vcxproj -> C:\Users\mariam\OneDrive\Desktop\DS project\Project-201\Project 201\x64\Debug\Project 201.exe
-=======
-﻿  Company.cpp
-D:\Project-201\Project-201\Project 201\Project 201\Company.cpp(316,16): warning C4101: 'one_passenger': unreferenced local variable
-  UI.cpp
-  Generating Code...
-  Project 201.vcxproj -> D:\Project-201\Project-201\Project 201\x64\Debug\Project 201.exe
->>>>>>> c0a3f2ade40fd28b15ddb51832499788e077eb91
