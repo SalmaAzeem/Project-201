@@ -11,7 +11,6 @@ public:
 	int Priority;
 	QNode<x>* Next;
 	QNode() { Next = nullptr; }
-	//QNode(const x& obj, QNode<x>* nextptr);
 	QNode(x obj, int priority);
 	void setPtrObj(x pointer_object);
 	x getPtrObj() const;
@@ -26,11 +25,6 @@ void QNode<x>::setPriority(int priority) { this->Priority = priority; }
 template <typename x>
 int QNode<x>::getPriority() const { return Priority; }
 
-//template<typename x>
-//QNode<x>::QNode(const x& obj, QNode<x>* nextptr) {
-//	this->_Pointer_Object_Passenger = obj;
-//	this->Next = nextptr;
-//}
 
 template <typename x>
 void QNode<x>::setPtrObj(x pointer_object) {
@@ -128,6 +122,7 @@ public:
 		}
 		std::cout << "]";
 	}
+	//returns an array with the passenger object pointers in an array
 	Passenger** get_array_passengers() const {
 		int number_passengers = Count();
 		Passenger** array = new Passenger * [number_passengers];
@@ -181,25 +176,7 @@ public:
 			return true;
 		}
 	}
-	//bool Leave_Passenger(Passenger* obj) {
-	//	if (!Front) { return false; } //the queue is empty
-	//	QNode<Passenger*>* CurPtr = Front;
-	//	QNode<Passenger*>* DeletePtr = new QNode<Passenger*>;
-	//	while (CurPtr) {
-	//		if (CurPtr->getNext()->getPtrObj()->getId() == obj->getId()) {
-	//			if (CurPtr == Front) { deQueue(); }
-	//			else {
-	//				DeletePtr = CurPtr->getNext();
-	//				CurPtr->setNext(CurPtr->getNext()->getNext());
-	//				delete DeletePtr;
-	//				//DeletePtr = nullptr;
-	//				return true;
-	//				}
-	//			}
-	//			CurPtr = CurPtr->getNext();
-	//		}
-	//		return false;
-	//}
+
 	~PriorityQueuePassenger() {
 		while (!Is_Empty()) { deQueue(); }
 	}
@@ -219,10 +196,7 @@ public:
 		return true;
 	}
 	void enQueue(Bus* BusObj, int priority) override {
-		//if the linked list is empty then it will only be one element therefore the front and rare are equal
 		QNode<Bus*>* NewNode = new QNode<Bus*>(BusObj, priority);
-		//the queue is empty or the new node has high prioriy than the front
-		//then the new node hayeb2a fel front
 		if (Is_Empty() || priority > this->Front->getPriority()) {
 			NewNode->setNext(this->Front);
 			this->Front = NewNode;
@@ -254,7 +228,7 @@ public:
 		std::cout << "[ ";
 		while (ptr)
 		{
-			std::cout << ptr->getPtrObj()->getId() << ", "; //-------------edit: add the id of the bus so it won't print the address of the pointer----------------
+			std::cout << ptr->getPtrObj()->getId() << ", ";
 			ptr = ptr->getNext();
 		}
 		std::cout << "]";
@@ -289,6 +263,7 @@ public:
 		Bus = Front->getPtrObj();
 		return Bus;
 	}
+	//returns an array with the bus object pointers in the queue
 	Bus** get_array_buses() const {
 		int number_buses = Count();
 		Bus** array = new Bus * [number_buses];

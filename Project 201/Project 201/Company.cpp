@@ -199,6 +199,7 @@ void Company::Pass_Passenger(Station** array) {
    
 }
 
+//this creates an array with the number of stations in the input file
 Station** Company::Array_Of_Stations() {
     Station** Array_stations = new Station * [Number_of_stations];
     for (int i = 0; i < Number_of_stations; i++)
@@ -209,11 +210,11 @@ Station** Company::Array_Of_Stations() {
 
 }
 
-
+//places all the buses in station zero
 void Company::Place_in_Station_Zero(Station** array, Bus** arrayb) {
     Station* Szero = array[0];
     for (int i = 0; i < Wheel_buses + Mixed_buses; i++) {
-        Szero->Add_Bus(arrayb[i]);   //done lama mariam te3adel
+        Szero->Add_Bus(arrayb[i]);
     }
 }
 

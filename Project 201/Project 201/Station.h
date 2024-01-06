@@ -11,6 +11,11 @@ class Station {
 private:
 	int Station_Number;
 public:
+	//queues for the passengers and the buses
+	//-----------------------------------------------------------------
+	//phase 1: had only 3 queues that had all the passengers
+	//edit : make separate queues for each type
+	//-----------------------------------------------------------------
 	PriorityQueuePassenger Special_Passengers_Forward;
 	PriorityQueuePassenger Normal_Passengers_Forward;
 	PriorityQueuePassenger Wheel_Passengers_Forward;
@@ -21,19 +26,23 @@ public:
 	BusQueue Buses_Wheel_Forward;
 	BusQueue Buses_Mixed_Backward;
 	BusQueue Buses_Wheel_Backward;
+	//number of the promoted passengers (when waiting time reaches maximum)
 	int count_promoted = 0;
 	Station(int number) : Station_Number(number), count_promoted(0) {}
 	Station(){}
 
+	//A function that promotes the passenger based on the passenger's waiting time
 	bool Promote(Passenger* obj) {
 		bool promotion = obj->waiting_time_increase(obj->get_Maximum_Waiting_Time());
 		if (promotion) {
+			//if the passenger's direction is forward then dequeue from the normal queue and enqueue in the special queue of type forward
 			if (obj->getDirection() == 'F') {
-				Normal_Passengers_Forward.Leave_Passenger(obj); //same complexity as the deque
+				Normal_Passengers_Forward.Leave_Passenger(obj); //same complexity as the dequeue
 				Special_Passengers_Forward.enQueue(obj, 3);
 				count_promoted++;
 				cout <<"count_promoted is ================" << count_promoted;
 			}
+			//then the passenger direction is backward
 			else {
 				Normal_Passengers_Backward.Leave_Passenger(obj);
 				Special_Passengers_Backward.enQueue(obj, 3);
@@ -43,6 +52,7 @@ public:
 		}
 		return false;
 	}
+	//this function adds the passengers to the station queues based on their type and direction
 	void Add_to_Station(Passenger* obj) {
 		if (obj->getPassengertype() == "SP" && obj->getDirection() == 'B') {
 			if (obj->getPassengerspecial() == 'A') { Special_Passengers_Backward.enQueue(obj, 3); }
@@ -63,6 +73,7 @@ public:
 		else if (obj->getPassengertype() == "WP" && obj->getDirection() == 'F') { Wheel_Passengers_Forward.enQueue(obj, 0); }
 		else { std::cout << "Incorrect Type." << "\n"; }
 	}
+	//removes the passenger from the middle of the queue if a leave event happened (exception, not dequeue)
 	void Leave_Station(Passenger* obj) {
 		Normal_Passengers_Backward.Leave_Passenger(obj);
 		Normal_Passengers_Forward.Leave_Passenger(obj);
@@ -88,6 +99,7 @@ public:
 		Wheel_Passengers_Backward.Print_Queue();
 		std::cout << "\n";
 	}
+	//count the number of passengers in the station by counting the passengers in each queue then returns the total of their summation
 	int Count_Station() {
 		int total_count{}, count1{}, count2{}, count3{}, count4{}, count5{}, count6{};
 		count1 = Special_Passengers_Forward.Count();
@@ -100,6 +112,7 @@ public:
 		total_count = count1 + count2 + count3 + count4 + count5 + count6;
 		return total_count;
 	}
+	//this function adds the bus to the queue of the stations 
 	void Add_Bus(Bus* obj) {
 		if (obj->get_reverse() == false && obj->GetType() == 'W'|| obj->get_reverse() == true && obj->GetType() == 'W' && Station_Number == 0) { Buses_Wheel_Forward.enQueue(obj, 0); }
 		else if (obj->get_reverse() == false && obj->GetType() == 'M' || obj->get_reverse() == true && obj->GetType() == 'M' && Station_Number == 0) { Buses_Mixed_Forward.enQueue(obj, 0); }
@@ -107,6 +120,7 @@ public:
 		else if (obj->get_reverse() == true && obj->GetType() == 'M'&& Station_Number != 0) { Buses_Mixed_Backward.enQueue(obj, 0); }
 		else { std::cout << "wrong parameters\n"; } //change this message / condition
 	}	
+	//removes the bus from the queues of the station by taking the bus object
 	void Remove_Bus(Bus* obj) {
 		if (obj->get_reverse() == false && obj->GetType() == 'W') { Buses_Wheel_Forward.deQueue(); }
 		else if (obj->get_reverse() == false && obj->GetType() == 'M') { Buses_Mixed_Forward.deQueue(); }
@@ -114,7 +128,7 @@ public:
 		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Backward.deQueue(); }
 		else { std::cout << "wrong parameters\n"; } //change this message / condition
 	}
-
+	//this removes the bus by taking its direction and type and returning the bus object pointer that is dequeued
 	Bus* Remove_Bus(char type,char direction)
 	{
 		//cout << "I am in remove bus " << endl;
@@ -160,6 +174,7 @@ public:
 
 	
 	int get_station_number() const { return Station_Number; }
+	//the following arrays functions return the pointers of the bus/passenger objects in arrays
 	Passenger** Array_Special_Passengers_Forward() {
 		return Special_Passengers_Forward.get_array_passengers();
 	}
@@ -190,6 +205,7 @@ public:
 	Bus** Array_Wheel_Forward() {
 		return Buses_Wheel_Forward.get_array_buses();
 	}
+	//counts the number of passengers that are going forwrad (implamented before the extra queues of the passengers)
 	int count_forward(Passenger** array, int num) {
 		int count{};
 		for (int i = 0; i < num; i++) {
@@ -208,6 +224,7 @@ public:
 		}
 		return count;
 	}
+	//returns the array of the passengers going forward and backward
 	Passenger** passenger_forward(Passenger** array, int num) {
 		int count = count_forward(array, num);
 		Passenger** forwardarray = new Passenger * [count];
