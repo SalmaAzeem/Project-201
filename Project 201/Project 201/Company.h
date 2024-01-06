@@ -50,5 +50,6 @@ public:
 	void calculate_average_trip_time();
 	void output_file();
 	int calculate_total_count_promoted(Station** array_of_stations);
+	Passenger** removed_person; 
 };
 #endif

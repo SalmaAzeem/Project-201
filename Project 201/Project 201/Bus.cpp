@@ -107,53 +107,43 @@ Passenger* Bus::peek_Bus()
 	return Bus_passengers.gethead()->getvalue();
 }
 
-int Bus::Remove_Passenger(int station_num)
+Passenger* Bus::Remove_Passenger(int station_num)
 {
 	Node<Passenger*>* ptr = Bus_passengers.gethead();
-	int id = 0;
+	Passenger* passenger_to_remove = nullptr;
 	if (ptr != nullptr)
 	{
 
 		if (station_num == ptr->getvalue()->getLeaveStationId())
 		{
-			id = ptr->getvalue()->getId();
-			Bus_passengers.DeleteNode(ptr->getvalue());
+			passenger_to_remove = ptr->getvalue();
+			Bus_passengers.GetPassenger();
 			count_inside--;
 			status = 'E';
-
 			//// to remove only one person
 		}
 	}
-	if (ptr == nullptr) return 0; /// handle null ptr as it errors with get value when nothing to remove
-	return id;
+	if (ptr == nullptr) return nullptr; /// handle null ptr as it errors with get value when nothing to remove
+	return passenger_to_remove;
 }
 
-bool Bus::Reverse_Bus(int stations, int num_of_journies, int time)
+
+
+bool Bus::Reverse_Bus(int stations, int num_of_journies, int time,bool at_the_end)
 {
 	if (current_station == stations - 1)
 	{
 		reverse = true;
 		next_station = stations - 1;
 		num_journey++;
-
-
 		return Mentain(num_of_journies, time);
-		
-
 	}
-	else if (current_station == 1)
+	else if (current_station == 1 && !at_the_end)
 	{
 		reverse = false;
-
-
-		 next_station = 1;
-
+		next_station = 1;
 		num_journey++;
-
-
 		return Mentain(num_of_journies, time);
-		
-
 	}
 	return false;
 

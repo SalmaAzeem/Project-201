@@ -101,10 +101,10 @@ public:
 		return total_count;
 	}
 	void Add_Bus(Bus* obj) {
-		if (obj->get_reverse() == false && obj->GetType() == 'W') { Buses_Wheel_Forward.enQueue(obj, 0); }
-		else if (obj->get_reverse() == false && obj->GetType() == 'M') { Buses_Mixed_Forward.enQueue(obj, 0); }
-		else if (obj->get_reverse() == true && obj->GetType() == 'W') { Buses_Wheel_Backward.enQueue(obj, 0); }
-		else if (obj->get_reverse() == true && obj->GetType() == 'M') { Buses_Mixed_Backward.enQueue(obj, 0); }
+		if (obj->get_reverse() == false && obj->GetType() == 'W'|| obj->get_reverse() == true && obj->GetType() == 'W' && Station_Number == 0) { Buses_Wheel_Forward.enQueue(obj, 0); }
+		else if (obj->get_reverse() == false && obj->GetType() == 'M' || obj->get_reverse() == true && obj->GetType() == 'M' && Station_Number == 0) { Buses_Mixed_Forward.enQueue(obj, 0); }
+		else if (obj->get_reverse() == true && obj->GetType() == 'W' && Station_Number != 0 ) { Buses_Wheel_Backward.enQueue(obj, 0); }
+		else if (obj->get_reverse() == true && obj->GetType() == 'M'&& Station_Number != 0) { Buses_Mixed_Backward.enQueue(obj, 0); }
 		else { std::cout << "wrong parameters\n"; } //change this message / condition
 	}	
 	void Remove_Bus(Bus* obj) {

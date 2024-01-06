@@ -32,8 +32,8 @@ public:
 	bool Add_Passenger(Passenger* passenger,char direction);
 	//bool Shift_Bus();
 	bool Add_Time(int time,int num_of_stations);
-	int Remove_Passenger(int station_num);
-	bool Reverse_Bus(int station, int num_of_journies, int time);
+	Passenger* Remove_Passenger(int station_num);
+	bool Reverse_Bus(int station, int num_of_journies, int time,bool at_the_end);
 	bool Mentain(int num_of_journies, int time);
 	bool Get_out_of_Mentainance(int time);
 	bool get_reverse() const;
