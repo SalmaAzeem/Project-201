@@ -434,7 +434,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                 if (sc % 3 == 0 && sc != 0)
                                 {
 
-                                    removed = CurrentBus->Remove_Passenger(st);
+                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
                                     if (removed != nullptr)
                                     {
 
@@ -449,7 +449,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         {
 
 
-                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Forward.deQueue(), 'F');
+                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Forward.deQueue(), 'F',Hour,Minute);
 
                                         }
                                         else if ((CurrentBus->Is_Full() || CurruntStation->Wheel_Passengers_Forward.Count() == 0) && CurrentBus->IsAvailable())////////the bus moves if its full  or no one exists
@@ -479,7 +479,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             {
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st);
+                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -495,7 +495,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         {
 
 
-                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Backward.deQueue(), 'B');
+                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Backward.deQueue(), 'B',Hour,Minute);
 
                                         }
                                         else if (CurrentBus->Is_Full() && CurrentBus->IsAvailable())////////the bus moves if its full 
@@ -534,7 +534,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st);
+                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -549,13 +549,13 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         if (CurruntStation->Special_Passengers_Forward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
 
-                                            CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Forward.deQueue(), 'F');
+                                            CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Forward.deQueue(), 'F',Hour,Minute);
 
                                         }
                                         else if (CurruntStation->Normal_Passengers_Forward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
 
-                                            CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Forward.deQueue(), 'F');
+                                            CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Forward.deQueue(), 'F',Hour,Minute);
 
 
                                         }
@@ -591,7 +591,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                               
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st);
+                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -605,12 +605,12 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         if (CurruntStation->Special_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
 
-                                            CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Backward.deQueue(), 'B');
+                                            CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Backward.deQueue(), 'B',Hour,Minute);
 
                                         }
                                         else if (CurruntStation->Normal_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
-                                            CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Backward.deQueue(), 'B');
+                                            CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Backward.deQueue(), 'B',Hour,Minute);
 
                                         }
                                         else if (CurrentBus->Is_Full() && CurrentBus->IsAvailable())////////the bus moves if its full 
@@ -728,7 +728,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                 if (sc % 3 == 0 && sc != 0)
                                 {
 
-                                    removed = CurrentBus->Remove_Passenger(st);
+                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
                                     if (removed != nullptr)
                                     {
 
@@ -766,7 +766,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             {
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st);
+                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -802,7 +802,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st);
+                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -837,7 +837,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st);
+                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
 
                                     if (removed != nullptr)
                                     {

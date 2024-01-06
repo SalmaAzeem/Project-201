@@ -10,6 +10,6 @@
 class UI {
 public:
 	UI() {};
-	void interface(Station** array, int num) const;
+	void interface(Station** array, int num, int hours, int minutes) const;
 };
 #endif
