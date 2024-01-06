@@ -156,6 +156,16 @@ public:
     }
 
 
+    Node<t>* GetPassenger()
+    {
+        if (this->head != nullptr)
+        {
+            Node<t>* ptr = this->head;
+            this->head = this->head->getnext();
+            return ptr;
+        }
+        else return nullptr;
+    }
 
     bool DeleteNode(t item) {
         bool found = this->Find(item);
