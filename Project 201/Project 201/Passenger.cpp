@@ -1,5 +1,4 @@
 #include "Passenger.h"
-
 #include <iostream>
 using namespace std;
 
@@ -100,19 +99,21 @@ bool Passenger::waiting_time_increase(int max_waiting_time)
         return true;
     }
     waiting_time_minutes++;
+    //cout << "Ana waiting time: " << waiting_time_minutes << endl;
     return false;
 
 }
 void Passenger::calculate_Passenger_waiting_time()
 {
     waiting_time_hour = move_time_hour - arrival_hour;
-    waiting_time_minutes = move_time_minutes - arrival_minutes;
+    waiting_time_minutes = arrival_minutes - move_time_minutes;
 }
 void Passenger::calculate_Passenger_trip_time()
 {
     trip_time_hour = finish_time_hour - move_time_hour;
     trip_time_minutes = finish_time_minutes - move_time_minutes;
 }
+
 int Passenger::get_finish_time_hour() { return finish_time_hour; }
 
 int Passenger::get_finish_time_minutes() { return finish_time_minutes; }

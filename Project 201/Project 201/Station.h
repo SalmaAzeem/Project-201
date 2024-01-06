@@ -21,8 +21,8 @@ public:
 	BusQueue Buses_Wheel_Forward;
 	BusQueue Buses_Mixed_Backward;
 	BusQueue Buses_Wheel_Backward;
-	int count_promoted = 0;
-	Station(int number) : Station_Number(number) {}
+	int count_promoted;
+	Station(int number) : Station_Number(number) ,count_promoted(0) {}
 	Station(){}
 
 	bool Promote(Passenger* obj) {
@@ -32,7 +32,7 @@ public:
 				Normal_Passengers_Forward.Leave_Passenger(obj); //same complexity as the deque
 				Special_Passengers_Forward.enQueue(obj, 3);
 				count_promoted++;
-				cout <<"count_promoted is ================" << count_promoted;
+				//cout <<"count_promoted is ================" << count_promoted;
 			}
 			else {
 				Normal_Passengers_Backward.Leave_Passenger(obj);
@@ -228,6 +228,8 @@ public:
 		}
 		return backwardarray;
 	}
+
+
 };
 
 #endif // !STATION

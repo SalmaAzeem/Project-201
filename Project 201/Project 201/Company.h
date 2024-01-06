@@ -15,10 +15,8 @@ private:
 	int Journeys_befor_checkup; // mariam
 	int chekup_duration_wheel;  // mariam
 	int chekup_duration_mixed;  // mariam
-
 	int max_waiting_time;        // salma 9
 	int get_on_off_time_seconds; // mariam, app
-	int number_of_events;
 	int average_waiting_time;
 	int average_trip_time_hour;
 	int average_trip_time_minute;
@@ -30,9 +28,12 @@ private:
 	LinkedList<Bus*> Busy_Bus;
 
 public:
+	int count_removed_person;
+	int number_of_events;
 	LinkedQueue<Event*> tot_events;
 	Company();
 	LinkedQueue<Event*> queue_of_events;
+	void setcount_removed_person(int c);
 	void read_input();
 	void read_events();
 	void initialize_buses(Station** array);
@@ -48,8 +49,8 @@ public:
 	void Remove_passenger(Station** array);
 	void calculate_average_waiting_time();
 	void calculate_average_trip_time();
-	void output_file();
-	int calculate_total_count_promoted(Station** array_of_stations);
-	Passenger** removed_person; 
+	void output_file(Station** array_of_stations, int Number_of_stations);
+	double calculate_total_count_promoted(Station** array_of_stations, int Number_of_stations);
+	Passenger** removed_person;
 };
 #endif
