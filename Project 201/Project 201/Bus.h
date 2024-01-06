@@ -17,10 +17,14 @@ class Bus
 	int timer;
 	char status;
 	int time_mentainance;
+	double total_people;
+	double total_get_off;
+	double total_use_time;
+	double total_trips;
 
 public:
 	LinkedList<Passenger*> Bus_passengers;
-	Bus();
+
 	bool IsAvailable();
 	char GetType();
 	void set_bus_id(int new_id);
@@ -44,6 +48,10 @@ public:
 	int get_number_of_j();
 	int get_count_inside();
 	Passenger* peek_Bus();
+	double get_uti(int simulate_time);
+	void add_uti_time();
+	double get_busy();
+
 };
 
 #endif

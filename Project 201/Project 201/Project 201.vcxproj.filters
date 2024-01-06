@@ -79,6 +79,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="random.txt" />
+    <Text Include="..\..\..\..\..\..\Downloads\random.txt" />
   </ItemGroup>
 </Project>
