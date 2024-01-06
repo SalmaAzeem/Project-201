@@ -155,6 +155,15 @@ public:
         RecPrint(this->head);
     }
 
+    int count_passengers() {
+        int count{};
+        Node<t>* curptr = head;
+        while (curptr) {
+            count++;
+            curptr = curptr->getnext();
+        }
+        return count;
+    }
 
     Node<t>* GetPassenger()
     {

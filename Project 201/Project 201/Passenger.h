@@ -23,7 +23,10 @@ private:
     int trip_time_hour;
     int trip_time_minutes;
     char direction;
-
+    int get_on_bus_hour;
+    int get_on_bus_minute;
+    int get_off_bus_hour;
+    int get_off_bus_minute;
 public:
 
     Passenger();
@@ -35,9 +38,13 @@ public:
     Passenger(int newid, int start_station);
     bool waiting_time_increase(int max_waiting_time);
 
-    void setWaitingTime(int newWaitingTime);
 
+    // etters
+    void setWaitingTime(int newWaitingTime);
+    void set_get_on_bus(int hour,int minute);
+    void set_get_off_bus(int hour,int minute);
     // Getters
+
     int get_finish_time_hour();
     int get_finish_time_minutes();
     int get_arrival_time_hour();

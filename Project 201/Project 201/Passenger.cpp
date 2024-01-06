@@ -126,3 +126,16 @@ int Passenger::get_waiting_time_minutes() { return waiting_time_minutes; }
 
 int Passenger::get_trip_time_hour() { return trip_time_hour; }
 int Passenger::get_trip_time_minutes() { return trip_time_minutes; }
+
+
+void Passenger::set_get_on_bus(int hour,int minute)
+{
+    get_on_bus_hour = hour;
+    get_on_bus_minute = minute;
+}
+
+void Passenger::set_get_off_bus(int hour,int minute)
+{
+    get_off_bus_hour = hour;
+    get_off_bus_minute = minute;
+}
