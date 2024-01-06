@@ -365,8 +365,6 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                     Busy_Bus.insertend(CurrentBus);
                                     CurrentBus->Move_Bus();
                                 }
-
-
                             }
                             if (CurruntStation->Count_Bus_Of_Type('W', 'B') > 0 && !(CurruntStation->Buses_Wheel_Backward.Peek_Bus()->Is_Busy()))//wheel backward
                             {
@@ -477,8 +475,6 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                                         if (CurruntStation->Wheel_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
-
-
                                             CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Backward.deQueue(), 'B');
 
                                         }
@@ -649,7 +645,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             {
                                 ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed,false);
                             }
-
+                            
                         }
                         ptr = ptr->getnext();
                     }
@@ -677,10 +673,19 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
 
                 }
-                
+                if (Hour >= 4) {
+                    for (int i = 0; i < Number_of_stations; i++) {
+                        test.interface(array_of_stations, i, Hour, Minute, removed_person, counter_of_removed_people);
+                        std::cout << "\n-----------------------------------------------" << std::endl;
+                        std::cout << "Press any key to display the next station..." << std::endl;
+                        getchar();
+                        //array_of_stations[i]->Print_Bus_At_Station();
+                        //array_of_stations[i]->Print_Station();
 
-
-            }else if( Hour >=23 ) /////////////////////////////////////////////end of the day///////////////////////////////////////////////
+                    }
+                }
+            }
+            else if( Hour >=23 ) /////////////////////////////////////////////end of the day///////////////////////////////////////////////
             {
                 for (int st = 0; st < Number_of_stations; st++)
                 {
@@ -908,25 +913,15 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                 }
             }
-
-           
             Minute++;
         }
-
+        
         Minute = 0;
         Hour++;
     }
 
 
-        //for (int i = 0; i < Number_of_stations; i++) {
-        //    /*test.interface(array_of_stations, i);
-        //    std::cout << "\n-----------------------------------------------" << std::endl;
-        //    std::cout << "Press any key to display the next station..." << std::endl;
-        //    getchar();*/
-        //    //array_of_stations[i]->Print_Bus_At_Station();
-        //    array_of_stations[i]->Print_Station();
-
-        //}
+        
   }
 
 
