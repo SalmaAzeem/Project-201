@@ -65,9 +65,9 @@ bool Bus::Is_Full()
 }
 
 
-bool Bus::Add_Passenger(Passenger* passenger, char direction)
+bool Bus::Add_Passenger(Passenger* passenger, char direction,int hour,int minute)
 {
-
+	passenger->set_get_on_bus(hour, minute);
 
 	if (direction == 'F')
 	{
@@ -107,7 +107,7 @@ Passenger* Bus::peek_Bus()
 	return Bus_passengers.gethead()->getvalue();
 }
 
-Passenger* Bus::Remove_Passenger(int station_num)
+Passenger* Bus::Remove_Passenger(int station_num, int hour,int minute)
 {
 	Node<Passenger*>* ptr = Bus_passengers.gethead();
 	Passenger* passenger_to_remove = nullptr;
@@ -116,6 +116,7 @@ Passenger* Bus::Remove_Passenger(int station_num)
 
 		if (station_num == ptr->getvalue()->getLeaveStationId())
 		{
+			ptr->getvalue()->set_get_off_bus(hour, minute);
 			passenger_to_remove = ptr->getvalue();
 			Bus_passengers.GetPassenger();
 			count_inside--;

@@ -22,7 +22,7 @@ public:
 	BusQueue Buses_Mixed_Backward;
 	BusQueue Buses_Wheel_Backward;
 	int count_promoted = 0;
-	Station(int number) : Station_Number(number) {}
+	Station(int number) : Station_Number(number), count_promoted(0) {}
 	Station(){}
 
 	bool Promote(Passenger* obj) {
