@@ -19,16 +19,37 @@ void Company::set_number_of_stations(int n)
     Number_of_stations = n + 1;
 }
 
+void Company::setcount_removed_person(int c)
+{
+    count_removed_person = c;
+}
+
 void Company::calculate_average_waiting_time()
 {
-    average_waiting_time = average_waiting_time / number_of_events;
-    //eftekry te3mely el average_waiting_time_hour b zero
+    double min = 0;
+    double hour = 0;
+    for (int i = 0; i < count_removed_person; i++)
+    {
+        min += removed_person[i]->get_waiting_time_minutes();
+        min += removed_person[i]->get_waiting_time_hour() *60;
+    }
+    average_waiting_time_hour = min / (count_removed_person *60);
+    average_waiting_time_minute = (min / count_removed_person);
+    average_waiting_time_minute = average_waiting_time_minute % 60;
 }
 
 void Company::calculate_average_trip_time()
 {
-    average_trip_time_hour = average_trip_time_hour / number_of_events;
-    average_trip_time_minute = average_trip_time_minute / number_of_events;
+    double min = 0;
+    double hour = 0;
+    for (int i = 0; i < count_removed_person; i++)
+    {
+        min += removed_person[i]->get_trip_time_minutes();
+        min += removed_person[i]->get_trip_time_hour() * 60;
+    }
+    average_trip_time_hour = min / (count_removed_person * 60);
+    average_trip_time_minute = (min / count_removed_person);
+    average_trip_time_minute = average_trip_time_minute % 60;
 }
 
 
@@ -174,21 +195,26 @@ void Company::initialize_buses(Station** array) {
     while (i < Mixed_buses && j < Wheel_buses) {
         Bus* mixed_bus = new Bus(capacity_mixed_buses, 'M', i++);
         array[0]->Buses_Mixed_Forward.enQueue(mixed_bus, 0);
+        Bus_List.insertend(mixed_bus);
 
         Bus* wheel_bus = new Bus(capacity_wheel_buses, 'W', j++);
         array[0]->Buses_Wheel_Forward.enQueue(wheel_bus, 0);
+        Bus_List.insertend(wheel_bus);
     }
 
     // Add any remaining mixed buses
     while (i < Mixed_buses) {
         Bus* mixed_bus = new Bus(capacity_mixed_buses, 'M', i++);
         array[0]->Buses_Mixed_Forward.enQueue(mixed_bus, 0);
+        Bus_List.insertend(mixed_bus);
+
     }
 
     // Add any remaining wheel buses
     while (j < Wheel_buses) {
         Bus* wheel_bus = new Bus(capacity_wheel_buses, 'W', j++);
         array[0]->Buses_Wheel_Forward.enQueue(wheel_bus, 0);
+        Bus_List.insertend(wheel_bus);
     }
 }
 
@@ -218,32 +244,6 @@ void Company::Place_in_Station_Zero(Station** array, Bus** arrayb) {
     }
 }
 
-//void Company::Move_Bus_to_Stations(Station** array, int Station_number, char bus_type, bool bus_direction) {
-//    Station* Station_before = array[Station_number];
-//    Station* Station_after = array[Station_number + 1];
-//    Bus* B = new Bus(0, ' ', 0);
-//
-//    if (bus_type == 'W' && bus_direction == false) {
-//        B = Station_before->Buses_Wheel_Forward.deQueue();
-//    }
-//
-//    else if (bus_type == 'M' && bus_direction == false) {
-//        B = Station_before->Buses_Mixed_Forward.deQueue();
-//    }
-//
-//    else if (bus_type == 'W' && bus_direction == true) {
-//        B = Station_before->Buses_Wheel_Backward.deQueue();
-//    }
-//
-//    else if (bus_type == 'M' && bus_direction == true) {
-//        B = Station_before->Buses_Mixed_Backward.deQueue();
-//    }
-//
-//    //bool reverse = B->get_reverse();
-//    Station_after->Add_Bus(B); //lama mariam te3adel
-//    std::cout << B->Move_Bus();
-//}
-
 double Company::calculate_total_count_promoted(Station** array_of_stations, int Number_of_stations)
 {
     double total = 0;
@@ -254,28 +254,60 @@ double Company::calculate_total_count_promoted(Station** array_of_stations, int 
     return total;
 }
 
-
 void Company::output_file(Station** array_of_stations, int Number_of_stations)
 {
-    cout << "FT\t" << "ID\t" << "AT\t" << "WT\t" << "TT" << endl;
-
-    /*for (int i = 0; i < number_of_events; i++)
+    
+    std::cout << "FT\t" << "ID\t" << "AT\t" << "WT\t" << "TT" << endl;
+    for (int i = 0; i < count_removed_person; i++)
     {
-        cout << Finished_Passengers.gethead()->getvalue()->get_finish_time_hour() << ":" << Finished_Passengers.gethead()->getvalue()->get_finish_time_minutes() << '\t' <<
-            Finished_Passengers.gethead()->getvalue()->getId() << '\t' <<
-            Finished_Passengers.gethead()->getvalue()->get_arrival_time_hour() << ":" << Finished_Passengers.gethead()->getvalue()->get_arrival_time_minutes() << '\t' <<
-            Finished_Passengers.gethead()->getvalue()->get_waiting_time_hour() << ":" << Finished_Passengers.gethead()->getvalue()->get_waiting_time_minutes() << '\t' <<
-            Finished_Passengers.gethead()->getvalue()->get_trip_time_hour() << ":" << Finished_Passengers.gethead()->getvalue()->get_trip_time_minutes() << endl;
-            Finished_Passengers.DeleteNode(Finished_Passengers.gethead()->getvalue());
-    }*/
-    cout << "Passengers: " << number_of_events << " [NP: " << number_of_normal_passengers << ", SP: " << number_of_special_passengers << ", WP: " << number_of_wheel_passengers << "]" << endl;
-    cout << "Passenger avg waiting time= " << "0:" << average_waiting_time << endl;
-    cout << "Passenger avg trip time= " << average_trip_time_hour << ":" << average_trip_time_minute << endl;
-    cout << "Auto-promoted passengers: " << calculate_total_count_promoted(array_of_stations, Number_of_stations) / number_of_events << "%" << endl;
-    cout << "Buses: " << Wheel_buses + Mixed_buses << " " << "[WBus: " << Wheel_buses << ", MBus " << Mixed_buses << "]" << endl;
-    //
-    //
+        removed_person[i]->calculate_Passenger_waiting_time();
+        removed_person[i]->calculate_Passenger_trip_time();
+        std::cout << removed_person[i]->get_finish_time_hour() << ":" << removed_person[i]->get_finish_time_minutes() << '\t' <<
+            removed_person[i]->getId() << '\t' <<
+            removed_person[i]->get_arrival_time_hour() << ":" << removed_person[i]->get_arrival_time_minutes() << '\t' <<
+            removed_person[i]->get_waiting_time_hour() << ":" << removed_person[i]->get_waiting_time_minutes() << '\t' <<
+            removed_person[i]->get_trip_time_hour() << ":" << removed_person[i]->get_trip_time_minutes() << endl;
+    }
+    calculate_average_trip_time();
+    calculate_average_waiting_time();
+    std::cout << "Passengers: " << number_of_events << " [NP: " << number_of_normal_passengers << ", SP: " << number_of_special_passengers << ", WP: " << number_of_wheel_passengers << "]" << endl;
+    std::cout << "Passenger avg waiting time= " << average_waiting_time_hour << ":" << average_waiting_time_minute << endl;
+    std::cout << "Passenger avg trip time= " << average_trip_time_hour << ":" << average_trip_time_minute << endl;
+    std::cout << "Auto-promoted passengers: " << calculate_total_count_promoted(array_of_stations, Number_of_stations) / number_of_events << "%" << endl;
+    std::cout << "Buses: " << Wheel_buses + Mixed_buses << " " << "[WBus: " << Wheel_buses << ", MBus " << Mixed_buses << "]" << endl;
+    std::cout << "Avg Busy Time = "<< Busy_Time / (Wheel_buses + Mixed_buses) << "%" << endl;
+    std::cout << "Avg Utilization Time = "<< Utilization_Time << "%" << endl;
 }
+
+
+
+
+void Company::output_file2(Station** array_of_stations, int Number_of_stations)
+{
+    ofstream MyFile("C:\\Users\\salma\\OneDrive\\Desktop\\outputfile.txt");
+    MyFile << "FT\t" << "ID\t" << "AT\t" << "WT\t" << "TT" << endl;
+    for (int i = 0; i < count_removed_person; i++)
+    {
+        removed_person[i]->calculate_Passenger_waiting_time();
+        removed_person[i]->calculate_Passenger_trip_time();
+        MyFile << removed_person[i]->get_finish_time_hour() << ":" << removed_person[i]->get_finish_time_minutes() << '\t' <<
+            removed_person[i]->getId() << '\t' <<
+            removed_person[i]->get_arrival_time_hour() << ":" << removed_person[i]->get_arrival_time_minutes() << '\t' <<
+            removed_person[i]->get_waiting_time_hour() << ":" << removed_person[i]->get_waiting_time_minutes() << '\t' <<
+            removed_person[i]->get_trip_time_hour() << ":" << removed_person[i]->get_trip_time_minutes() << endl;
+    }
+    calculate_average_trip_time();
+    calculate_average_waiting_time();
+    MyFile << "Passengers: " << number_of_events << " [NP: " << number_of_normal_passengers << ", SP: " << number_of_special_passengers << ", WP: " << number_of_wheel_passengers << "]" << endl;
+    MyFile << "Passenger avg waiting time= " << average_waiting_time_hour << ":" << average_waiting_time_minute << endl;
+    MyFile << "Passenger avg trip time= " << average_trip_time_hour << ":" << average_trip_time_minute << endl;
+    MyFile << "Auto-promoted passengers: " << calculate_total_count_promoted(array_of_stations, Number_of_stations) / number_of_events << "%" << endl;
+    MyFile << "Buses: " << Wheel_buses + Mixed_buses << " " << "[WBus: " << Wheel_buses << ", MBus " << Mixed_buses << "]" << endl;
+    MyFile << "Avg Busy Time = " << Busy_Time / (Wheel_buses + Mixed_buses) << "%" << endl;
+    MyFile << "Avg Utilization Time = " << Utilization_Time << "%" << endl;
+    MyFile.close();
+}
+
 
 void Company::add_me(int Hour, int Minute, Station** array) {
     Event* one_event;
@@ -429,7 +461,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
   
                             if (CurrentBus != nullptr)
                             {
-
+                                //CurrentBus->add_uti_time();
                                 if (sc % 3 == 0 && sc != 0)
                                 {
 
@@ -476,6 +508,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Wheel_Backward.Peek_Bus();
                             if (CurrentBus)
                             {
+                                //CurrentBus->add_uti_time();
                                 if (sc % 3 == 0 && sc != 0)
                                 {
                                     removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
@@ -493,7 +526,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         if (CurruntStation->Wheel_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
 
-
+                                            
                                             CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Backward.deQueue(), 'B',Hour,Minute);
 
                                         }
@@ -530,6 +563,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Mixed_Forward.Peek_Bus();
                             if (CurrentBus)
                             {
+                                //CurrentBus->add_uti_time();
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -587,6 +621,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (CurrentBus)
                             {
+                                //CurrentBus->add_uti_time();
                               
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -694,10 +729,10 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                 }
                 if (Hour >= 4) {
                     for (int i = 0; i < Number_of_stations; i++) {
-                        test.interface(array_of_stations, i, Hour, Minute, removed_person, counter_of_removed_people);
-                        std::cout << "\n-----------------------------------------------" << std::endl;
-                        std::cout << "Press any key to display the next station..." << std::endl;
-                        getchar();
+                        //test.interface(array_of_stations, i, Hour, Minute, removed_person, counter_of_removed_people);
+                        //std::cout << "\n-----------------------------------------------" << std::endl;
+                        //std::cout << "Press any key to display the next station..." << std::endl;
+                        //getchar();
                         //array_of_stations[i]->Print_Bus_At_Station();
                         //array_of_stations[i]->Print_Station();
 
@@ -732,6 +767,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (CurrentBus != nullptr)
                             {
+                                //CurrentBus->add_uti_time();
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -772,6 +808,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Wheel_Backward.Peek_Bus();
                             if (CurrentBus)
                             {
+                                //CurrentBus->add_uti_time();
                                 if (sc % 3 == 0 && sc != 0)
                                 {
                                     removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
@@ -807,6 +844,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Mixed_Forward.Peek_Bus();
                             if (CurrentBus)
                             {
+                                CurrentBus->add_uti_time();
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
@@ -842,7 +880,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (CurrentBus)
                             {
-
+                                //CurrentBus->add_uti_time();
                                 if (sc % 3 == 0 && sc != 0)
                                 {
                                     removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
@@ -932,15 +970,50 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                 }
             }
+            Node<Bus*>* ptr = Bus_List.gethead();
+            while (ptr)
+            {
+                ptr->getvalue()->add_uti_time();
+                Busy_Time2 += ptr->getvalue()->get_busy();
+                ptr = ptr->getnext();
+            }
             Minute++;
+
+
         }
         
         Minute = 0;
         Hour++;
+        setcount_removed_person(counter_of_removed_people);
     }
 
 
-        
+
+    
+
+    
+    double utilization = 0;
+    double busy = 0;
+    CurruntStation = array_of_stations[0];
+    for (int b = 0; b < Mixed_buses; b++)
+    {
+        CurrentBus = CurruntStation->Buses_Mixed_Forward.deQueue();
+        utilization += CurrentBus->get_uti(24 - 5);
+        busy += CurrentBus->get_busy();
+        CurruntStation->Buses_Mixed_Forward.enQueue(CurrentBus, 0);
+
+    }
+    for (int b = 0; b < Wheel_buses; b++)
+    {
+        CurrentBus = CurruntStation->Buses_Wheel_Forward.deQueue();
+        utilization += CurrentBus->get_uti(24 - 5);
+        busy += CurrentBus->get_busy();
+        CurruntStation->Buses_Wheel_Forward.enQueue(CurrentBus, 0);
+    }
+    Utilization_Time = utilization / (Mixed_buses + Wheel_buses);
+    Busy_Time = busy / (Mixed_buses + Wheel_buses);
+
+
   }
 
 

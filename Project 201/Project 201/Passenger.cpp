@@ -1,5 +1,4 @@
 #include "Passenger.h"
-
 #include <iostream>
 using namespace std;
 
@@ -15,7 +14,7 @@ Passenger::Passenger(int newId, int newArrivalHour, int newArrivalMinutes,
     arrival_hour = newArrivalHour;
     arrival_minutes = newArrivalMinutes;
     arrival_seconds = newArrivalSeconds;
-    arrival_station_id = newLeaveStationId;
+    arrival_station_id = newArrivalStationId;
     leave_station_id = newLeaveStationId;
     type_of_passenger = type;
     special_type = special;
@@ -105,14 +104,20 @@ bool Passenger::waiting_time_increase(int max_waiting_time)
 }
 void Passenger::calculate_Passenger_waiting_time()
 {
-    waiting_time_hour = move_time_hour - arrival_hour;
-    waiting_time_minutes = move_time_minutes - arrival_minutes;
+    waiting_time_minutes = (move_time_hour* 60 + move_time_minutes) - (arrival_hour * 60 + arrival_minutes);
+
+    waiting_time_hour = waiting_time_minutes / 60;
+    waiting_time_minutes = waiting_time_minutes % 60;
 }
 void Passenger::calculate_Passenger_trip_time()
 {
-    trip_time_hour = finish_time_hour - move_time_hour;
-    trip_time_minutes = finish_time_minutes - move_time_minutes;
+
+    trip_time_minutes = (finish_time_hour * 60 + finish_time_minutes) - (move_time_hour * 60 + move_time_minutes);
+
+    trip_time_hour = trip_time_minutes / 60;
+    trip_time_minutes = trip_time_minutes % 60;
 }
+
 int Passenger::get_finish_time_hour() { return finish_time_hour; }
 
 int Passenger::get_finish_time_minutes() { return finish_time_minutes; }
@@ -126,15 +131,19 @@ int Passenger::get_waiting_time_minutes() { return waiting_time_minutes; }
 int Passenger::get_trip_time_hour() { return trip_time_hour; }
 int Passenger::get_trip_time_minutes() { return trip_time_minutes; }
 
+int Passenger::get_move_time_hour() { return trip_time_hour; }
+int Passenger::get_move_time_minutes() { return trip_time_minutes; }
 
-void Passenger::set_get_on_bus(int hour,int minute)
+
+void Passenger::set_get_on_bus(int hour, int minute)
 {
-    get_on_bus_hour = hour;
-    get_on_bus_minute = minute;
+    move_time_hour = hour;
+    move_time_minutes = minute;
+
 }
 
-void Passenger::set_get_off_bus(int hour,int minute)
+void Passenger::set_get_off_bus(int hour, int minute)
 {
-    get_off_bus_hour = hour;
-    get_off_bus_minute = minute;
+    finish_time_hour = hour;
+    finish_time_minutes = minute;
 }
