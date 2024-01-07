@@ -50,8 +50,7 @@ public:
 	Passenger* peek_Bus();
 	double get_uti(int simulate_time);
 	void add_uti_time();
-	double get_busy();
-
+	double get_busy(int simulate_time);
 };
 
 #endif

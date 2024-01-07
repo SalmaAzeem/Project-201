@@ -31,9 +31,9 @@ void Company::calculate_average_waiting_time()
     for (int i = 0; i < count_removed_person; i++)
     {
         min += removed_person[i]->get_waiting_time_minutes();
-        min += removed_person[i]->get_waiting_time_hour() *60;
+        min += removed_person[i]->get_waiting_time_hour() * 60;
     }
-    average_waiting_time_hour = min / (count_removed_person *60);
+    average_waiting_time_hour = min / (count_removed_person * 60);
     average_waiting_time_minute = (min / count_removed_person);
     average_waiting_time_minute = average_waiting_time_minute % 60;
 }
@@ -116,7 +116,7 @@ void Company::read_events() {
                 {
                     number_of_special_passengers++;
                 }
-                else 
+                else
                 {
                     number_of_wheel_passengers++;
                 }
@@ -207,7 +207,6 @@ void Company::initialize_buses(Station** array) {
         Bus* mixed_bus = new Bus(capacity_mixed_buses, 'M', i++);
         array[0]->Buses_Mixed_Forward.enQueue(mixed_bus, 0);
         Bus_List.insertend(mixed_bus);
-
     }
 
     // Add any remaining wheel buses
@@ -222,10 +221,9 @@ void Company::Pass_Passenger(Station** array) {
     Passenger* P = new Passenger;
     Event* one = tot_events.dequeue();
     one->execute(array);
-   
+
 }
 
-//this creates an array with the number of stations in the input file
 Station** Company::Array_Of_Stations() {
     Station** Array_stations = new Station * [Number_of_stations];
     for (int i = 0; i < Number_of_stations; i++)
@@ -236,13 +234,39 @@ Station** Company::Array_Of_Stations() {
 
 }
 
-//places all the buses in station zero
+
 void Company::Place_in_Station_Zero(Station** array, Bus** arrayb) {
     Station* Szero = array[0];
     for (int i = 0; i < Wheel_buses + Mixed_buses; i++) {
-        Szero->Add_Bus(arrayb[i]);
+        Szero->Add_Bus(arrayb[i]);   //done lama mariam te3adel
     }
 }
+
+//void Company::Move_Bus_to_Stations(Station** array, int Station_number, char bus_type, bool bus_direction) {
+//    Station* Station_before = array[Station_number];
+//    Station* Station_after = array[Station_number + 1];
+//    Bus* B = new Bus(0, ' ', 0);
+//
+//    if (bus_type == 'W' && bus_direction == false) {
+//        B = Station_before->Buses_Wheel_Forward.deQueue();
+//    }
+//
+//    else if (bus_type == 'M' && bus_direction == false) {
+//        B = Station_before->Buses_Mixed_Forward.deQueue();
+//    }
+//
+//    else if (bus_type == 'W' && bus_direction == true) {
+//        B = Station_before->Buses_Wheel_Backward.deQueue();
+//    }
+//
+//    else if (bus_type == 'M' && bus_direction == true) {
+//        B = Station_before->Buses_Mixed_Backward.deQueue();
+//    }
+//
+//    //bool reverse = B->get_reverse();
+//    Station_after->Add_Bus(B); //lama mariam te3adel
+//    std::cout << B->Move_Bus();
+//}
 
 double Company::calculate_total_count_promoted(Station** array_of_stations, int Number_of_stations)
 {
@@ -253,6 +277,8 @@ double Company::calculate_total_count_promoted(Station** array_of_stations, int 
     }
     return total;
 }
+
+
 
 void Company::output_file(Station** array_of_stations, int Number_of_stations)
 {
@@ -275,16 +301,14 @@ void Company::output_file(Station** array_of_stations, int Number_of_stations)
     std::cout << "Passenger avg trip time= " << average_trip_time_hour << ":" << average_trip_time_minute << endl;
     std::cout << "Auto-promoted passengers: " << calculate_total_count_promoted(array_of_stations, Number_of_stations) / number_of_events << "%" << endl;
     std::cout << "Buses: " << Wheel_buses + Mixed_buses << " " << "[WBus: " << Wheel_buses << ", MBus " << Mixed_buses << "]" << endl;
-    std::cout << "Avg Busy Time = "<< Busy_Time / (Wheel_buses + Mixed_buses) << "%" << endl;
-    std::cout << "Avg Utilization Time = "<< Utilization_Time << "%" << endl;
+    std::cout << "Avg Busy Time = "<<( Busy_Time / (Wheel_buses + Mixed_buses)) * 100 << "%" << endl;
+    std::cout << "Avg Utilization Time = "<< Utilization_Time*100 << "%" << endl;
 }
-
-
-
 
 void Company::output_file2(Station** array_of_stations, int Number_of_stations)
 {
-    ofstream MyFile("C:\\Users\\salma\\OneDrive\\Desktop\\outputfile.txt");
+    cout << "Output File Generated..." << endl;
+    ofstream MyFile("C:\\Users\\Doha\\Downloads\\outputfile.txt");
     MyFile << "FT\t" << "ID\t" << "AT\t" << "WT\t" << "TT" << endl;
     for (int i = 0; i < count_removed_person; i++)
     {
@@ -303,11 +327,10 @@ void Company::output_file2(Station** array_of_stations, int Number_of_stations)
     MyFile << "Passenger avg trip time= " << average_trip_time_hour << ":" << average_trip_time_minute << endl;
     MyFile << "Auto-promoted passengers: " << calculate_total_count_promoted(array_of_stations, Number_of_stations) / number_of_events << "%" << endl;
     MyFile << "Buses: " << Wheel_buses + Mixed_buses << " " << "[WBus: " << Wheel_buses << ", MBus " << Mixed_buses << "]" << endl;
-    MyFile << "Avg Busy Time = " << Busy_Time / (Wheel_buses + Mixed_buses) << "%" << endl;
-    MyFile << "Avg Utilization Time = " << Utilization_Time << "%" << endl;
+    MyFile << "Avg Busy Time = " << (Busy_Time / (Wheel_buses + Mixed_buses)) * 100 << "%" << endl;
+    MyFile << "Avg Utilization Time = " << Utilization_Time * 100 << "%" << endl;
     MyFile.close();
 }
-
 
 void Company::add_me(int Hour, int Minute, Station** array) {
     Event* one_event;
@@ -338,8 +361,8 @@ void Company::add_me(int Hour, int Minute, Station** array) {
 
 void Company::Remove_passenger(Station** array)
 {
-  
-     tot_events.dequeue()->execute(array);
+
+    tot_events.dequeue()->execute(array);
 
 }
 
@@ -375,7 +398,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                 }
 
             }
-            if (Hour >= 4 && Hour < 23)
+            if (Hour >= 4)
             {
                 //ELsign el mafrod btkon s7 wala 8alat???
 
@@ -414,6 +437,8 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                     Busy_Bus.insertend(CurrentBus);
                                     CurrentBus->Move_Bus();
                                 }
+
+
                             }
                             if (CurruntStation->Count_Bus_Of_Type('W', 'B') > 0 && !(CurruntStation->Buses_Wheel_Backward.Peek_Bus()->Is_Busy()))//wheel backward
                             {
@@ -451,21 +476,21 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                     }
                     else if (st != 0)
                     {
-                        
+
                         for (int sc = 0; sc < 60; sc++)
                         {
                             /////////removing passengers alg//////////
                 ////////////////////////////////for wheel forward/////////////////////////////////////
 
                             CurrentBus = CurruntStation->Buses_Wheel_Forward.Peek_Bus();
-  
+
                             if (CurrentBus != nullptr)
                             {
-                                //CurrentBus->add_uti_time();
+
                                 if (sc % 3 == 0 && sc != 0)
                                 {
 
-                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
+                                    removed = CurrentBus->Remove_Passenger(st, Hour, Minute);
                                     if (removed != nullptr)
                                     {
 
@@ -480,7 +505,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         {
 
 
-                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Forward.deQueue(), 'F',Hour,Minute);
+                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Forward.deQueue(), 'F', Hour, Minute);
 
                                         }
                                         else if ((CurrentBus->Is_Full() || CurruntStation->Wheel_Passengers_Forward.Count() == 0) && CurrentBus->IsAvailable())////////the bus moves if its full  or no one exists
@@ -508,10 +533,9 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Wheel_Backward.Peek_Bus();
                             if (CurrentBus)
                             {
-                                //CurrentBus->add_uti_time();
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
+                                    removed = CurrentBus->Remove_Passenger(st, Hour, Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -526,8 +550,8 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         if (CurruntStation->Wheel_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
 
-                                            
-                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Backward.deQueue(), 'B',Hour,Minute);
+
+                                            CurrentBus->Add_Passenger(CurruntStation->Wheel_Passengers_Backward.deQueue(), 'B', Hour, Minute);
 
                                         }
                                         else if (CurrentBus->Is_Full() && CurrentBus->IsAvailable())////////the bus moves if its full 
@@ -556,18 +580,17 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                     }
                                 }
                             }
-                                  
-                                                        //////////////////////////////////for Mixed forward//////////////////////////////////////
 
-                           
+                            //////////////////////////////////for Mixed forward//////////////////////////////////////
+
+
                             CurrentBus = CurruntStation->Buses_Mixed_Forward.Peek_Bus();
                             if (CurrentBus)
                             {
-                                //CurrentBus->add_uti_time();
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
+                                    removed = CurrentBus->Remove_Passenger(st, Hour, Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -582,13 +605,13 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         if (CurruntStation->Special_Passengers_Forward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
 
-                                            CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Forward.deQueue(), 'F',Hour,Minute);
+                                            CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Forward.deQueue(), 'F', Hour, Minute);
 
                                         }
                                         else if (CurruntStation->Normal_Passengers_Forward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
 
-                                            CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Forward.deQueue(), 'F',Hour,Minute);
+                                            CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Forward.deQueue(), 'F', Hour, Minute);
 
 
                                         }
@@ -621,11 +644,10 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (CurrentBus)
                             {
-                                //CurrentBus->add_uti_time();
-                              
+
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
+                                    removed = CurrentBus->Remove_Passenger(st, Hour, Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -639,12 +661,12 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                         if (CurruntStation->Special_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
 
-                                            CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Backward.deQueue(), 'B',Hour,Minute);
+                                            CurrentBus->Add_Passenger(CurruntStation->Special_Passengers_Backward.deQueue(), 'B', Hour, Minute);
 
                                         }
                                         else if (CurruntStation->Normal_Passengers_Backward.Count() > 0 && !(CurrentBus->Is_Full()) && CurrentBus->IsAvailable())
                                         {
-                                            CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Backward.deQueue(), 'B',Hour,Minute);
+                                            CurrentBus->Add_Passenger(CurruntStation->Normal_Passengers_Backward.deQueue(), 'B', Hour, Minute);
 
                                         }
                                         else if (CurrentBus->Is_Full() && CurrentBus->IsAvailable())////////the bus moves if its full 
@@ -693,13 +715,13 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (ptr->getvalue()->GetType() == 'W')
                             {
-                                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel,false);
+                                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel, false);
                             }
                             else
                             {
-                                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed,false);
+                                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed, false);
                             }
-                            
+
                         }
                         ptr = ptr->getnext();
                     }
@@ -713,12 +735,12 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                         Busy_Bus.sethead(ptr->getnext());
                         if (ptr->getvalue()->GetType() == 'W')
                         {
-                            ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel,false);
-                            
+                            ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel, false);
+
                         }
                         else
                         {
-                            ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed,false);
+                            ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed, false);
 
 
                         }
@@ -727,19 +749,22 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
 
                 }
-                if (Hour >= 4) {
-                    for (int i = 0; i < Number_of_stations; i++) {
-                        test.interface(array_of_stations, i, Hour, Minute, removed_person, counter_of_removed_people);
-                        std::cout << "\n-----------------------------------------------" << std::endl;
-                        std::cout << "Press any key to display the next station..." << std::endl;
-                        getchar();
-                        //array_of_stations[i]->Print_Bus_At_Station();
-                        //array_of_stations[i]->Print_Station();
 
-                    }
+
+
+            }
+            if (Hour >= 4 && Minute % 15 == 0) {
+                for (int i = 0; i < Number_of_stations; i++) {
+                    test.interface(array_of_stations, i, Hour, Minute, removed_person, counter_of_removed_people);
+                    std::cout << "\n-----------------------------------------------" << std::endl;
+                    std::cout << "Press any key to display the next station..." << std::endl;
+                    //getchar();
+                    //array_of_stations[i]->Print_Bus_At_Station();
+                    //array_of_stations[i]->Print_Station();
+
                 }
             }
-            else if( Hour >=23 ) /////////////////////////////////////////////end of the day///////////////////////////////////////////////
+            else if (Hour >= 23) /////////////////////////////////////////////end of the day///////////////////////////////////////////////
             {
                 for (int st = 0; st < Number_of_stations; st++)
                 {
@@ -755,7 +780,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                     {
                         NextStation = array_of_stations[st + 1];
                     }
-                   if (st != 0)
+                    if (st != 0)
                     {
 
                         for (int sc = 0; sc < 60; sc++)
@@ -767,12 +792,11 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (CurrentBus != nullptr)
                             {
-                                //CurrentBus->add_uti_time();
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
 
-                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
+                                    removed = CurrentBus->Remove_Passenger(st, Hour, Minute);
                                     if (removed != nullptr)
                                     {
 
@@ -808,10 +832,9 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Wheel_Backward.Peek_Bus();
                             if (CurrentBus)
                             {
-                                //CurrentBus->add_uti_time();
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
+                                    removed = CurrentBus->Remove_Passenger(st, Hour, Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -823,7 +846,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                     else
                                     {
 
-                                       if (CurrentBus->IsAvailable()) /////if the bus is there but not removing move it
+                                        if (CurrentBus->IsAvailable()) /////if the bus is there but not removing move it
                                         {
 
                                             CurrentBus = CurruntStation->Remove_Bus('W', 'B');
@@ -844,11 +867,10 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                             CurrentBus = CurruntStation->Buses_Mixed_Forward.Peek_Bus();
                             if (CurrentBus)
                             {
-                                CurrentBus->add_uti_time();
 
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
+                                    removed = CurrentBus->Remove_Passenger(st, Hour, Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -880,10 +902,10 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (CurrentBus)
                             {
-                                //CurrentBus->add_uti_time();
+
                                 if (sc % 3 == 0 && sc != 0)
                                 {
-                                    removed = CurrentBus->Remove_Passenger(st,Hour,Minute);
+                                    removed = CurrentBus->Remove_Passenger(st, Hour, Minute);
 
                                     if (removed != nullptr)
                                     {
@@ -894,7 +916,7 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                                     }
                                     else
                                     {
-                                       if (CurrentBus->IsAvailable())////////the bus moves if its full 
+                                        if (CurrentBus->IsAvailable())////////the bus moves if its full 
                                         {
                                             CurrentBus = CurruntStation->Remove_Bus('M', 'B');
                                             if (CurrentBus != nullptr)
@@ -936,12 +958,12 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                             if (ptr->getvalue()->GetType() == 'W' && ptr->getvalue()->get_reverse())///dont reverse if you are backward 
                             {
-                                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel,true);
+                                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel, true);
 
                             }
-                            else if(ptr->getvalue()->get_reverse())
+                            else if (ptr->getvalue()->get_reverse())
                             {
-                                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed,true);
+                                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed, true);
                             }
 
                         }
@@ -957,12 +979,12 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                         Busy_Bus.sethead(ptr->getnext());
                         if (ptr->getvalue()->GetType() == 'W' && ptr->getvalue()->get_reverse())///dont reverse if you are backward 
                         {
-                            ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel,true);
+                            ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel, true);
 
                         }
                         else if (ptr->getvalue()->get_reverse())
                         {
-                            ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed,true);
+                            ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed, true);
                         }
 
                     }
@@ -970,48 +992,135 @@ void Company::Simulate_Branch(Station** array_of_stations) {
 
                 }
             }
+
             Node<Bus*>* ptr = Bus_List.gethead();
             while (ptr)
             {
                 ptr->getvalue()->add_uti_time();
-                Busy_Time2 += ptr->getvalue()->get_busy();
+                Busy_Time2 += ptr->getvalue()->get_busy(24 - 5);
+
                 ptr = ptr->getnext();
             }
             Minute++;
-
-
         }
-        
+
         Minute = 0;
         Hour++;
         setcount_removed_person(counter_of_removed_people);
     }
 
 
+    Node<Bus*>* ptr = Busy_Bus.gethead();
 
-    
+    while (ptr)
+    {
+        while (ptr->getnext())
+        {
 
+            if (ptr->getvalue()->Add_Time(between_stations, Number_of_stations))
+            {
+                array_of_stations[ptr->getvalue()->get_next_station()]->Add_Bus(ptr->getvalue());
+
+
+                Busy_Bus.sethead(ptr->getnext());
+
+
+                if (ptr->getvalue()->GetType() == 'W' && ptr->getvalue()->get_reverse())///dont reverse if you are backward 
+                {
+                    ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel, true);
+
+                }
+                else if (ptr->getvalue()->get_reverse())
+                {
+                    ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed, true);
+                }
+
+            }
+            ptr = ptr->getnext();
+        }
+
+
+        if (ptr->getvalue()->Add_Time(between_stations, Number_of_stations))
+        {
+
+            array_of_stations[ptr->getvalue()->get_next_station()]->Add_Bus(ptr->getvalue());
+
+            Busy_Bus.sethead(ptr->getnext());
+            if (ptr->getvalue()->GetType() == 'W' && ptr->getvalue()->get_reverse())///dont reverse if you are backward 
+            {
+                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_wheel, true);
+
+            }
+            else if (ptr->getvalue()->get_reverse())
+            {
+                ptr->getvalue()->Reverse_Bus(Number_of_stations, Journeys_befor_checkup, chekup_duration_mixed, true);
+            }
+
+        }
+
+        ptr = Busy_Bus.gethead();
+
+    }
     
     double utilization = 0;
     double busy = 0;
+ 
+ 
     CurruntStation = array_of_stations[0];
-    for (int b = 0; b < Mixed_buses; b++)
-    {
-        CurrentBus = CurruntStation->Buses_Mixed_Forward.deQueue();
-        utilization += CurrentBus->get_uti(24 - 5);
-        busy += CurrentBus->get_busy();
-        CurruntStation->Buses_Mixed_Forward.enQueue(CurrentBus, 0);
+  
 
-    }
-    for (int b = 0; b < Wheel_buses; b++)
+    for (int i = 0; i < Number_of_stations; i++)
     {
-        CurrentBus = CurruntStation->Buses_Wheel_Forward.deQueue();
-        utilization += CurrentBus->get_uti(24 - 5);
-        busy += CurrentBus->get_busy();
-        CurruntStation->Buses_Wheel_Forward.enQueue(CurrentBus, 0);
+
+        CurruntStation = array_of_stations[i];
+        if (CurruntStation)
+        {
+           
+            for (int b = 0; b < Mixed_buses; b++)
+            {
+                
+                CurrentBus = CurruntStation->Buses_Mixed_Forward.deQueue();
+
+                if (CurrentBus)
+                {
+
+                    utilization += CurrentBus->get_uti(24 - 5);
+               
+
+                    busy += CurrentBus->get_busy(24 - 5);
+                   
+                    CurruntStation->Buses_Mixed_Forward.enQueue(CurrentBus, 0);
+
+                }
+
+            }
+            for (int b = 0; b < Wheel_buses; b++)
+            {
+              
+                CurrentBus = CurruntStation->Buses_Wheel_Forward.deQueue();
+
+                if (CurrentBus)
+                {
+                    utilization += CurrentBus->get_uti(24 - 5);
+                    
+
+                    busy += CurrentBus->get_busy(24 - 5);
+                 
+                    
+                    CurruntStation->Buses_Wheel_Forward.enQueue(CurrentBus, 0);
+
+                }
+            }
+
+           
+        }
     }
     Utilization_Time = utilization / (Mixed_buses + Wheel_buses);
+
+
     Busy_Time = busy / (Mixed_buses + Wheel_buses);
+   
+    
 
 
   }
@@ -1024,5 +1133,6 @@ void Company::Simulate() {
     Station** array_of_stations = Array_Of_Stations();
     initialize_buses(array_of_stations);
     Simulate_Branch(array_of_stations);
-    output_file(array_of_stations, Number_of_stations);
+    output_file2(array_of_stations, Number_of_stations);
+    
 }

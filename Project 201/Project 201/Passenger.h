@@ -23,10 +23,7 @@ private:
     int trip_time_hour;
     int trip_time_minutes;
     char direction;
-    int get_on_bus_hour;
-    int get_on_bus_minute;
-    int get_off_bus_hour;
-    int get_off_bus_minute;
+ 
 public:
 
     Passenger();

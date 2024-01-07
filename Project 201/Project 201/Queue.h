@@ -212,7 +212,7 @@ public:
 		}
 	}
 	Bus* deQueue() override {
-		if (Is_Empty()) { std::cout << "The Queue is empty." << "\n"; } //the queue is empty
+		if (Is_Empty()) { return nullptr; } //the queue is empty
 		Bus* Bus_Object = Front->getPtrObj();
 		QNode<Bus*>* DELETED = Front;
 		if (Front == Rear) { Front = Rear = nullptr; }

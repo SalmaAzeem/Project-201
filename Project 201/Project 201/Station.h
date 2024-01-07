@@ -172,6 +172,7 @@ public:
 		else return Buses_Wheel_Backward.Count();
 	}
 
+
 	
 	int get_station_number() const { return Station_Number; }
 	//the following arrays functions return the pointers of the bus/passenger objects in arrays
