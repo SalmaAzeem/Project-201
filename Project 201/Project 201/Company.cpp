@@ -729,10 +729,10 @@ void Company::Simulate_Branch(Station** array_of_stations) {
                 }
                 if (Hour >= 4) {
                     for (int i = 0; i < Number_of_stations; i++) {
-                        //test.interface(array_of_stations, i, Hour, Minute, removed_person, counter_of_removed_people);
-                        //std::cout << "\n-----------------------------------------------" << std::endl;
-                        //std::cout << "Press any key to display the next station..." << std::endl;
-                        //getchar();
+                        test.interface(array_of_stations, i, Hour, Minute, removed_person, counter_of_removed_people);
+                        std::cout << "\n-----------------------------------------------" << std::endl;
+                        std::cout << "Press any key to display the next station..." << std::endl;
+                        getchar();
                         //array_of_stations[i]->Print_Bus_At_Station();
                         //array_of_stations[i]->Print_Station();
 
