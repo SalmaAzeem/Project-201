@@ -18,7 +18,18 @@ Bus::Bus(int new_capacity, char new_type, int new_bus_number)
 	total_use_time = 0;
 	total_trips = 0;
 }
+Bus::Bus()
+{
+	time_mentainance = 0;
+	num_journey = 0;
 
+	count_inside = 0;
+	current_station = 0;
+	next_station = 0;
+	reverse = false;
+	timer = 0;
+	status = 'E';
+}
 
 void Bus::set_bus_id(int new_id)
 {
@@ -32,11 +43,17 @@ bool Bus::Move_Bus()
 	{
 		next_station++;
 		status = 'B';
+
 	}
 	else
 	{
+
+
 		next_station--;
+
 		status = 'B';
+
+
 	}
 	return true;
 }
@@ -53,7 +70,7 @@ bool Bus::Is_Full()
 }
 
 
-bool Bus::Add_Passenger(Passenger* passenger, char direction,int hour,int minute)
+bool Bus::Add_Passenger(Passenger* passenger, char direction, int hour, int minute)
 {
 	passenger->set_get_on_bus(hour, minute);
 	total_people++;
@@ -79,7 +96,6 @@ int Bus::getId() const {
 
 bool Bus::Add_Time(int time, int num_of_stations)
 {
-
 	if (timer == time)
 	{
 		current_station = next_station;
@@ -96,7 +112,7 @@ Passenger* Bus::peek_Bus()
 	return Bus_passengers.gethead()->getvalue();
 }
 
-Passenger* Bus::Remove_Passenger(int station_num, int hour,int minute)
+Passenger* Bus::Remove_Passenger(int station_num, int hour, int minute)
 {
 	Node<Passenger*>* ptr = Bus_passengers.gethead();
 	Passenger* passenger_to_remove = nullptr;
@@ -120,7 +136,7 @@ Passenger* Bus::Remove_Passenger(int station_num, int hour,int minute)
 
 
 
-bool Bus::Reverse_Bus(int stations, int num_of_journies, int time,bool at_the_end)
+bool Bus::Reverse_Bus(int stations, int num_of_journies, int time, bool at_the_end)
 {
 	if (current_station == stations - 1)
 	{
@@ -163,6 +179,7 @@ bool Bus::Get_out_of_Mentainance(int time)
 	{
 
 		num_journey = 0;
+
 		return true;
 	}
 	return false;
@@ -214,22 +231,24 @@ int Bus::get_count_inside()
 {
 	return count_inside;
 }
-
 void Bus::add_uti_time()
 {
-	if(count_inside > 0) total_use_time++;
+	if (count_inside > 0) total_use_time++;
+	
 }
 
 double Bus::get_uti(int simuate_time)
 {
 	double calculations = (capacity * total_trips);
+	
 	//cout << calculations<< "ttt"<< calculations * ((total_use_time / 60) / simuate_time) << endl;
 	if (calculations == 0) return 0;
 	//cout << total_use_time << "rr" << endl;
-	return (total_people / calculations) * ((total_use_time / 60)/simuate_time);
+	
+	return (total_people / calculations) * ((total_use_time ) / (simuate_time * 60));
 }
 
-double Bus::get_busy()
+double Bus::get_busy(int simulate_time)
 {
-	return total_use_time;
+	return total_use_time / (simulate_time * 60 );
 }

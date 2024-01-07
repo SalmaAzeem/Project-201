@@ -151,7 +151,7 @@
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\..\..\Downloads\random.txt" />
+    <Text Include="random.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

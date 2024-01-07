@@ -15,8 +15,10 @@ private:
 	int Journeys_befor_checkup; // mariam
 	int chekup_duration_wheel;  // mariam
 	int chekup_duration_mixed;  // mariam
+
 	int max_waiting_time;        // salma 9
 	int get_on_off_time_seconds; // mariam, app
+
 	int average_waiting_time_hour;
 	int average_waiting_time_minute;
 	int average_trip_time_hour;
@@ -59,7 +61,5 @@ public:
 	void output_file2(Station** array_of_stations, int Number_of_stations);
 	double calculate_total_count_promoted(Station** array_of_stations, int Number_of_stations);
 	Passenger** removed_person;
-	
 };
 #endif
-
