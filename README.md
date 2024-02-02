@@ -1,4 +1,4 @@
-Easy Bus Company   
+EasyTrip Bus Company   
 ===========  
 
 Object-Oriented Programming (OOP) based system that automates bus assignments and simulates passenger transportation through the incorporation of diverse data structures.
